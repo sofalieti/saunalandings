@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-3 col-lg-2 d-none d-md-block s-links-block">
                         <div class="text-right">
-                            <a href="https://www.facebook.com/infraredsaunaparts/"><img width="32" src="/images/{{request()->get('layout')}}/fb_icon.svg"></a>
+                            <a href="https://www.trustpilot.com/review/infraredsaunaparts.com"><img width="32" height="32" src="/images/{{request()->get('layout')}}/trustpilot_icon.svg" alt="Trustpilot"></a>
                             <a href="https://twitter.com/InfraSaunaParts"><img width="32" src="/images/{{request()->get('layout')}}/twitter_icon.svg"></a>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                     </div>
                     <div class="col-12 col-lg-2 s-links-block my-2 my-lg-0">
                         <div class="text-center text-lg-right">
-                            <a href="https://www.facebook.com/infraredsaunaparts/"><img width="32" src="/images/{{request()->get('layout')}}/fb_icon_w.svg"></a>
+                            <a href="https://www.trustpilot.com/review/infraredsaunaparts.com"><img width="32" height="32" src="/images/{{request()->get('layout')}}/trustpilot_icon_w.svg" alt="Trustpilot"></a>
                             <a href="https://twitter.com/InfraSaunaParts"><img width="32" src="/images/{{request()->get('layout')}}/twitter_icon_w.svg"></a>
                         </div>
                     </div>

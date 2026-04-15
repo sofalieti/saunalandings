@@ -56,7 +56,7 @@
 
                         <div class="top-phones-main">
                             <div class="s-links">
-                                <a href="https://www.facebook.com/infraredsaunaparts/"><img src="/images/{{request()->get('layout')}}/facebookicon.jpg"></a>
+                                <a href="https://www.trustpilot.com/review/infraredsaunaparts.com"><img src="/images/trustpilot_icon.svg" alt="Trustpilot"></a>
                                 <a href="https://twitter.com/InfraSaunaParts"><img src="/images/{{request()->get('layout')}}/twittericon.png"></a>
                                 <a href="https://www.yelp.com/biz/infraredsaunaparts-san-diego"><img class="sms-icon" src="/images/{{request()->get('layout')}}/yelpicon.png" ></a>
                             </div>
