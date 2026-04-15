@@ -1,0 +1,15 @@
+.main-description h2, .main-description h4{
+    font-size: 20px;
+    font-weight: bold;
+}
+.geo-states {
+    display: block;
+}
+@media screen and (max-width: 768px){
+    header{
+        padding: 20px 0 !important;
+    }
+    footer{
+        background: #333 !important;
+    }
+}

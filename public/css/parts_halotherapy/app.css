@@ -1,0 +1,273 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+body
+{
+    font-family: Open Sans;
+    font-size: 15px;
+}
+a:focus, button:focus{
+    outline: none;
+}
+header{
+    border-bottom: 3px solid #0e7e7d;
+}
+header .phone-block span{
+    display: block;
+    font-size: 12px;
+    opacity: 0.7;
+}
+header .phone-block a{
+    display: inline-block;
+    font-size: 17px;
+    font-weight: 600;
+    color: #000;
+}
+
+.bg-light-gray{
+    background: #f5f5f5;
+}
+.steps-block .title{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+h2.title{
+    margin: 20px 0;
+    font-weight: bold;
+    font-size: 25px;
+}
+.table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.table td{
+    border: 1px solid #CCC;
+    padding: 10px;
+    font-size: 16px;
+}
+.gallery-block .items{
+    position: relative;
+}
+.gallery-block .items .owl-nav > button{
+    position: absolute;
+    top: 50%;
+    font-size: 24px;
+    color: #000;
+    margin-top: -18px;
+    opacity: 0.5;
+}
+.gallery-block .items .owl-nav .owl-prev{
+    left: -30px;
+}
+.gallery-block .items .owl-nav .owl-next{
+    right: -30px;
+}
+.faq-block .item{
+    background: #e6e6e6;
+    margin-bottom: 5px;
+}
+.faq-block .question{
+    color: #FFF;
+    background: #0e7e7d;
+    padding: 15px;
+    font-size: 16px;
+    position: relative;
+    cursor: pointer;
+    font-weight: 700;
+}
+.faq-block .question:after{
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f078";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    margin-top: -12px;
+}
+.faq-block .item.open .question:after{
+    content: "\f077";
+}
+.faq-block .answer{
+    padding: 15px;
+    font-size: 14px;
+    display: none;
+}
+.faq-block .item.open .answer{
+    display: block;
+}
+footer{
+    background: #0e7e7d;
+}
+footer .phone-block span{
+    display: block;
+    font-size: 12px;
+    opacity: 0.7;
+    color: #FFF;
+}
+footer .phone-block a{
+    display: inline-block;
+    font-size: 17px;
+    font-weight: 600;
+    color: #FFF;
+}
+footer .copyright{
+    font-size: 14px;
+    color: #FFF;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 10px;
+    padding: 10px;
+    text-align: center;
+}
+footer .top-logo-img{
+    filter: brightness(0) invert(1);
+}
+.form-control{
+    padding: 10px;
+    height: auto !important;
+    border-radius: 0;
+}
+.btn-primary{
+    border-color: #0e7e7d !important;
+    background: #0e7e7d !important;
+    outline: none;
+    box-shadow: none;
+}
+.btn{
+    border-radius: 0;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active{
+    border-color: #0e7e7d;
+    background: #0e7e7d;
+    opacity: 0.8;
+    box-shadow: none !important;
+}
+.pay-form{
+    border: 1px solid #CCC;
+    padding: 20px;
+}
+.pay-form .btn-primary{
+    height: 74px;
+    width: 304px;
+}
+.pay-form label{
+    font-size: 13px;
+    font-weight: 600;
+}
+.pay-form label:after{
+    content: "*";
+    color: red;
+}
+.pay-form .error-item{
+    font-size: 12px;
+    color: red
+}
+.form-control.error-field{
+    border-color: red;
+}
+.benefits-block{
+    
+}
+.benefits-block h1{
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+.benefits-block h2{
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+.benefits-block .text{
+    font-size: 16px;
+    line-height: 24px;
+    margin: 20px 0;
+}
+.benefits-block .icons{
+    flex-wrap: wrap;
+}
+.benefits-block .icons .item{
+    width: 140px;
+    margin: 0 10px;
+    background: #FFF;
+    padding: 10px;
+}
+.benefits-block .icons .item img{
+    width: 100px;
+}
+.main-banner{
+    height: calc(100vh - 101px);
+    background: #efefef url(/images/parts_halotherapy/main_banner_bg.jpg) no-repeat center center;
+    background-size: cover;
+    position: relative;
+}
+.main-banner .info{
+    color: #FFF;
+    transform: translateY(-50%);
+    top: 50%;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+.main-banner .info .title{
+    font-size: 39px;
+    font-weight: bold;
+    text-shadow: 2px 3px rgba(0, 0, 0, 0.5);
+    font-weight: 400;
+    position: relative;
+    margin-bottom: 40px;
+}
+.main-banner .info .title:after, .main-banner .promotion-text:after{
+    content: "";
+    width: 60px;
+    height: 5px;
+    font-size: 1px;
+    background: #0e7e7d;
+    position: absolute;
+    left: 0;
+    bottom: -15px;
+}
+.main-banner .promotion-text{
+    font-size: 16px;
+    text-shadow: 2px 3px rgba(0, 0, 0, 0.5);
+    position: relative;
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+}
+.main-banner .promotion-text .percent{
+    background: #0e7e7d;
+    color: #FFF;
+    font-size: 17px;
+    text-shadow: none;
+    font-weight: bold;
+    padding: 4px 7px;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.main-banner .promotion-text .sub-title{
+    font-size: 24px;
+    font-weight: 600;
+    display: inline-block;
+    vertical-align: middle;
+}
+.main-banner .promotion-text .text{
+    margin-top: 10px;
+}
+.main-banner .dates{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 235px;
+}
+.main-banner .dates > label, .main-banner .dates > div{
+    flex: 0 1 50%;
+}
+.main-banner .dates .value{
+    font-weight: 700;
+}

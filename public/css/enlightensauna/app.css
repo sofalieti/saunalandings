@@ -1,0 +1,125 @@
+body{
+    color: #000;
+    font-size: 16px;
+    font-family: "Open Sans";
+    background: #FFF;
+    padding-top: 86px;
+}
+header{
+    background: #FFF;
+    border-bottom: 3px solid #479391;
+    padding: 5px 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 100;
+}
+.btn{
+    outline: none !important;
+    box-shadow: none !important;
+}
+.logo-block img{
+    max-width: 200px;
+}
+a, a:hover{
+    color: #479391;
+}
+.phone-block{
+    line-height: 20px;
+}
+.phone-block a{
+    font-size: 20px;
+    font-weight: 600;
+}
+.phone-block span{
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.5;
+    font-weight: 600;
+}
+.navbar-light .navbar-nav .nav-link{
+    font-size: 16px;
+    color: #000;
+    padding: 10px 20px;
+}
+.navbar-light .navbar-nav .nav-link.active{
+    background: #479391;
+    color: #FFF;
+}
+h1.title{
+    font-size: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 600;
+}
+.products{
+    background: #FFF;
+    margin-bottom: 50px;
+}
+.product{
+    padding: 20px;
+}
+.product .name{
+    font-size: 25px;
+    font-weight: 600;
+    color: #479391;
+}
+.btn{
+    border-radius: 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+.btn-primary{
+    background: #479391;
+    border-color: #479391;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:not(:disabled):not(.disabled):active{
+    background: #326e6d;
+    border-color: #326e6d;
+}
+.tab-content{
+    background: #f5f5f5;
+    padding: 25px;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+.nav-tabs{
+    gap: 3px;
+}
+.nav-tabs .nav-link{
+    border: none;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+    color: #000;
+    padding: 20px;
+    text-transform: uppercase;
+    background: #f0f0f0;
+    border-radius: 0;
+}
+.nav-tabs .nav-link.active{
+    background: #f5f5f5;
+}
+.tab-content .ty-subheader{
+    font-weight: bold;
+    font-size: 18px;
+}
+.tab-content .ty-product-feature{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 5px 0;
+}
+.tab-content .ty-product-feature .ty-product-feature__value{
+    margin-left: auto;
+}
+footer{
+    background: #fafafa;
+    border-top: 8px solid #eaeaea;
+    padding: 20px 0;
+}
+footer .copyright{
+    font-size: 14px;
+}

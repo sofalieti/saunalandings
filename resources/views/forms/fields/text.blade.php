@@ -1,0 +1,2 @@
+<label for="field_{{$field->id}}">{{$field->name}} {!! $field->required ? "<span class='form-required-star'>*</span>" : "" !!}</label>
+<input placeholder="{{$field->placeholder}}" type="text" id="field_{{$field->id}}" name="form[{{$field->custom_form->id}}][{{$field->id}}]" class="form-control" {{ $field->required ? "required" : "" }}/>

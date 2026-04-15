@@ -1,0 +1,55 @@
+@media(min-width: 992px){
+    footer{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+    body{    
+        margin-bottom: 150px;
+    }
+}
+
+@media(max-width: 982px){
+    header .phone-block a{
+        font-size: 14px;
+    }
+    .benefits-block .icons .item{
+        margin-bottom: 20px;
+    }
+    .main-banner{
+        min-height: 500px;
+        position: relative;
+    }
+    .main-banner:before{
+        background: rgba(0, 0, 0, 0.3);
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        content: "";
+    }
+}
+@media(max-width: 768px){
+    .main-banner .info .title{
+        font-size: 28px;
+    }
+}
+@media(max-width: 600px){
+    .gallery-block > .container{
+        margin-left: 40px;
+        margin-right: 40px;
+        width: calc(100% - 80px);
+    }
+    h2.title{
+        font-size: 20px;
+    }
+}
+@media(max-width: 370px){
+    .benefits-block .icons .item img{
+        width: 80px;
+    }
+    .benefits-block .icons .item{
+        width: 120px;
+    }
+}
