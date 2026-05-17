@@ -60,12 +60,16 @@
         @endif
 
         {!! get_favicon() !!}
+        @if(file_exists(public_path('mix-manifest.json')) && request()->get('layout') === 'parts_main')
+        <link href="{!! mix('css/parts_main/bundle.css') !!}" type="text/css" rel="stylesheet" />
+        @else
         <link href="{!! asset('css/bootstrap.min.css') !!}" type="text/css" rel="stylesheet" />
-        <link href="{!! asset('fontawesome-free-5.8.1/css/all.min.css') !!}" type="text/css" rel="stylesheet" /> 
+        <link href="{!! asset('fontawesome-free-5.8.1/css/all.min.css') !!}" type="text/css" rel="stylesheet" />
         <link href="{!! asset('fancybox-3/dist/jquery.fancybox.min.css') !!}" rel="stylesheet" />
         <link href="{!! asset('fonts/opensans/stylesheetfonts.css') !!}" type="text/css" rel="stylesheet" />
         <link href="{!! asset('css/'.request()->get('layout').'/app.css') !!}" type="text/css" rel="stylesheet" />
         <link href="{!! asset('css/'.request()->get('layout').'/app-responsive.css') !!}" type="text/css" rel="stylesheet" />
+        @endif
     </head>
     <body>
         <header>
