@@ -169,14 +169,18 @@
         </footer>
         @show
         @section('js')
+        @if(file_exists(public_path('mix-manifest.json')) && request()->get('layout') === 'parts_main')
+        <script type="text/javascript" src="{!! mix('js/parts_main/bundle.js') !!}"></script>
+        @else
         <script type="text/javascript" src="{!! asset('js/jquery-3.3.1.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/jquery.form.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/bootstrap.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('fancybox-3/dist/jquery.fancybox.min.js') !!}"></script>
-        <script src="https://www.google.com/recaptcha/api.js?onload=ReCaptchaCallback&render=explicit" async defer></script>
         <script type="text/javascript" src="{!! asset('js/jquery.inputmask.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/app.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/'.request()->get('layout').'/app.js') !!}"></script>
+        @endif
+        <script src="https://www.google.com/recaptcha/api.js?onload=ReCaptchaCallback&render=explicit" async defer></script>
         <script type="text/javascript">
             var recaptcha = [];
 
