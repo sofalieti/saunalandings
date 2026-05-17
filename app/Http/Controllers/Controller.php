@@ -134,7 +134,12 @@ class Controller extends BaseController
         $meta['twitter_image']       = $brand->twitter_image;
         $meta['canonical_url']       = $brand->canonical_url;
         $meta['schema_org_json']     = $brand->schema_org_json;
-        $meta['faq_items']           = $brand->faq_items()->where('active', 1)->get();
+
+        try {
+            $meta['faq_items'] = $brand->faq_items()->where('active', 1)->get();
+        } catch (\Exception $e) {
+            $meta['faq_items'] = collect();
+        }
 
         return $meta;
     }

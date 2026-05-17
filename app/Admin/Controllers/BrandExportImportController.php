@@ -253,7 +253,10 @@ class BrandExportImportController extends Controller
                     $stateSlugs = json_decode(file_get_contents($brandDir . '/states.json'), true);
                     if (is_array($stateSlugs)) {
                         $stateIds = collect($stateSlugs)
-                            ->map(fn($s) => $allStates->get($s)?->id)
+                            ->map(function ($s) use ($allStates) {
+                                $state = $allStates->get($s);
+                                return $state ? $state->id : null;
+                            })
                             ->filter()
                             ->values()
                             ->all();
