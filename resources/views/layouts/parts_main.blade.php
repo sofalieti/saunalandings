@@ -176,8 +176,6 @@
         <script type="text/javascript">
             var recaptcha = [];
 
-            // Render a single .g-recaptcha element and store the widget id.
-            // Guards against double-rendering (grecaptcha adds an <iframe> on first render).
             function renderCaptcha(el) {
                 if ($(el).find('iframe').length === 0) {
                     recaptcha.push(grecaptcha.render(el, {'sitekey': $(el).data("sitekey")}));
@@ -185,16 +183,31 @@
             }
 
             // Called by the reCAPTCHA API once it is loaded.
-            // Only renders captchas that are NOT inside a hidden modal — those are lazy.
+            // All captchas are lazy:
+            //   - inside .modal  → rendered on show.bs.modal
+            //   - visible on page → rendered when scrolled into viewport (IntersectionObserver)
             var ReCaptchaCallback = function() {
                 $('.g-recaptcha').each(function() {
-                    if ($(this).closest('.modal').length === 0) {
-                        renderCaptcha(this);
+                    if ($(this).closest('.modal').length > 0) {
+                        return; // handled by show.bs.modal below
+                    }
+                    if ('IntersectionObserver' in window) {
+                        var observer = new IntersectionObserver(function(entries, obs) {
+                            entries.forEach(function(entry) {
+                                if (entry.isIntersecting) {
+                                    renderCaptcha(entry.target);
+                                    obs.unobserve(entry.target);
+                                }
+                            });
+                        }, { rootMargin: '0px 0px 200px 0px', threshold: 0 });
+                        observer.observe(this);
+                    } else {
+                        renderCaptcha(this); // fallback for IE
                     }
                 });
             };
 
-            // Lazy init: render captchas inside a modal the first time it opens.
+            // Lazy init for modal captchas — fires on first open.
             $(document).on('show.bs.modal', function(e) {
                 $(e.target).find('.g-recaptcha').each(function() {
                     renderCaptcha(this);
