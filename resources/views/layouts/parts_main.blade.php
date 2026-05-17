@@ -10,6 +10,55 @@
         <meta name="description" content="{{rt($meta['description'])}}"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="robots" content="index, follow" />
+
+        {{-- Canonical URL --}}
+        <link rel="canonical" href="{{ !empty($meta['canonical_url']) ? $meta['canonical_url'] : url()->current() }}" />
+
+        {{-- OpenGraph --}}
+        <meta property="og:type"        content="{{ $meta['og_type'] ?? 'website' }}" />
+        <meta property="og:title"       content="{{ rt(!empty($meta['og_title']) ? $meta['og_title'] : $meta['title']) }}" />
+        <meta property="og:description" content="{{ rt(!empty($meta['og_description']) ? $meta['og_description'] : $meta['description']) }}" />
+        <meta property="og:url"         content="{{ url()->current() }}" />
+        <meta property="og:site_name"   content="{{ request()->get('brand') ? request()->get('brand')->name : '' }}" />
+        @if(!empty($meta['og_image']))
+        <meta property="og:image"       content="{{ $meta['og_image'] }}" />
+        @endif
+
+        {{-- Twitter Card --}}
+        <meta name="twitter:card"        content="{{ $meta['twitter_card'] ?? 'summary_large_image' }}" />
+        <meta name="twitter:title"       content="{{ rt(!empty($meta['twitter_title']) ? $meta['twitter_title'] : $meta['title']) }}" />
+        <meta name="twitter:description" content="{{ rt(!empty($meta['twitter_description']) ? $meta['twitter_description'] : $meta['description']) }}" />
+        @if(!empty($meta['twitter_image']))
+        <meta name="twitter:image" content="{{ $meta['twitter_image'] }}" />
+        @endif
+
+        {{-- Schema.org JSON-LD (custom block from admin) --}}
+        @if(!empty($meta['schema_org_json']))
+        <script type="application/ld+json">{!! $meta['schema_org_json'] !!}</script>
+        @endif
+
+        {{-- FAQPage schema --}}
+        @if(!empty($meta['faq_items']) && $meta['faq_items']->count())
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            @foreach($meta['faq_items'] as $faqItem)
+            {
+              "@type": "Question",
+              "name": "{{ e($faqItem->question) }}",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "{{ e($faqItem->answer) }}"
+              }
+            }{{ $loop->last ? '' : ',' }}
+            @endforeach
+          ]
+        }
+        </script>
+        @endif
+
         {!! get_favicon() !!}
         <link href="{!! asset('css/bootstrap.min.css') !!}" type="text/css" rel="stylesheet" />
         <link href="{!! asset('fontawesome-free-5.8.1/css/all.min.css') !!}" type="text/css" rel="stylesheet" /> 
@@ -126,12 +175,31 @@
         <script type="text/javascript" src="{!! asset('js/'.request()->get('layout').'/app.js') !!}"></script>
         <script type="text/javascript">
             var recaptcha = [];
+
+            // Render a single .g-recaptcha element and store the widget id.
+            // Guards against double-rendering (grecaptcha adds an <iframe> on first render).
+            function renderCaptcha(el) {
+                if ($(el).find('iframe').length === 0) {
+                    recaptcha.push(grecaptcha.render(el, {'sitekey': $(el).data("sitekey")}));
+                }
+            }
+
+            // Called by the reCAPTCHA API once it is loaded.
+            // Only renders captchas that are NOT inside a hidden modal — those are lazy.
             var ReCaptchaCallback = function() {
-                $('.g-recaptcha').each(function(key, obj){
-                    var el = $(this);
-                    recaptcha.push(grecaptcha.render(el.get(0), {'sitekey' : el.data("sitekey")}));
-                });  
+                $('.g-recaptcha').each(function() {
+                    if ($(this).closest('.modal').length === 0) {
+                        renderCaptcha(this);
+                    }
+                });
             };
+
+            // Lazy init: render captchas inside a modal the first time it opens.
+            $(document).on('show.bs.modal', function(e) {
+                $(e.target).find('.g-recaptcha').each(function() {
+                    renderCaptcha(this);
+                });
+            });
         </script>
         @show
     </body>

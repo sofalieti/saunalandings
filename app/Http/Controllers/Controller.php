@@ -97,7 +97,7 @@ class Controller extends BaseController
     protected function applyPartsCategoryDefaultTitle($meta)
     {
         if (request()->get('layout') !== 'parts_category' || !request()->get('brand')) {
-            return $meta;
+            return $this->appendBrandSeoFields($meta);
         }
 
         if (!is_array($meta)) {
@@ -105,11 +105,36 @@ class Controller extends BaseController
         }
 
         $title = isset($meta['title']) ? trim((string) $meta['title']) : '';
-        if ($title !== '') {
+        if ($title === '') {
+            $meta['title'] = trim(request()->get('brand')->name).' for Infrared Saunas';
+        }
+
+        return $this->appendBrandSeoFields($meta);
+    }
+
+    /**
+     * Append extended SEO fields (OpenGraph, Twitter Card, Schema.org, FAQ)
+     * from the current brand onto the $meta array.
+     */
+    protected function appendBrandSeoFields($meta)
+    {
+        $brand = request()->get('brand');
+
+        if (!$brand || !is_array($meta)) {
             return $meta;
         }
 
-        $meta['title'] = trim(request()->get('brand')->name).' for Infrared Saunas';
+        $meta['og_title']            = $brand->og_title;
+        $meta['og_description']      = $brand->og_description;
+        $meta['og_image']            = $brand->og_image;
+        $meta['og_type']             = $brand->og_type ?: 'website';
+        $meta['twitter_card']        = $brand->twitter_card ?: 'summary_large_image';
+        $meta['twitter_title']       = $brand->twitter_title;
+        $meta['twitter_description'] = $brand->twitter_description;
+        $meta['twitter_image']       = $brand->twitter_image;
+        $meta['canonical_url']       = $brand->canonical_url;
+        $meta['schema_org_json']     = $brand->schema_org_json;
+        $meta['faq_items']           = $brand->faq_items()->where('active', 1)->get();
 
         return $meta;
     }

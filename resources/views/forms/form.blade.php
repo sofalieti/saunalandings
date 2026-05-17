@@ -24,7 +24,7 @@
                     @endforeach
                     @if($form->use_captcha)
                     <div class="col-md-12 text-right recaptcha-block">
-                        <div id="recaptcha_{{$form->id}}" class="g-recaptcha" data-sitekey="6LcgS1gUAAAAAIn8Ix2w2Bg2OeAZJ-F-_9c_XmBe"></div>
+                        <div id="recaptcha_{{uniqid()}}" class="g-recaptcha" data-sitekey="6LcgS1gUAAAAAIn8Ix2w2Bg2OeAZJ-F-_9c_XmBe"></div>
                         <div style="clear: both"></div>
                     </div>
                     @endif

@@ -11,7 +11,10 @@ class Brand extends Model
     
     protected $fillable = [
         'name', 'site_id', 'domain', 'active', 'additional_domains', 'meta_title', 'meta_description',
-        'meta_keywords', 'use_all_states'
+        'meta_keywords', 'use_all_states',
+        'og_title', 'og_description', 'og_image', 'og_type',
+        'twitter_card', 'twitter_title', 'twitter_description', 'twitter_image',
+        'canonical_url', 'schema_org_json',
     ];
     
     public function sluggable()
@@ -51,6 +54,11 @@ class Brand extends Model
     
     public function brand_text_blocks(){
         return $this->hasMany(BrandTextBlock::class);
+    }
+
+    public function faq_items()
+    {
+        return $this->hasMany(BrandFaqItem::class)->orderBy('position');
     }
     
     public function page_brand_templates(){
@@ -93,6 +101,7 @@ class Brand extends Model
         
         self::deleting(function($brand){
             $brand->brand_text_blocks()->delete();
+            $brand->faq_items()->delete();
             //$brand->page_brand_templates()->delete();
         });
     }

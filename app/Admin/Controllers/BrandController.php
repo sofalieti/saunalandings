@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Brand;
 use App\BrandFeature;
+use App\BrandFaqItem;
 use App\State;
 use App\Site;
 use App\Http\Controllers\Controller;
@@ -160,6 +161,35 @@ class BrandController extends Controller {
             $form->text('meta_title', 'Title');
             $form->text('meta_description', 'Description');
             $form->text('meta_keywords', 'Keywords');
+
+            $form->divider('OpenGraph');
+            $form->text('og_title', 'OG Title')->help('Falls back to meta title if empty. Supports !brand! token.');
+            $form->text('og_description', 'OG Description')->help('Falls back to meta description if empty.');
+            $form->text('og_image', 'OG Image URL')->help('Absolute URL to the sharing image (1200×630 recommended).');
+            $form->select('og_type', 'OG Type')
+                ->options(['website' => 'website', 'article' => 'article', 'product' => 'product'])
+                ->default('website');
+
+            $form->divider('Twitter Card');
+            $form->select('twitter_card', 'Card Type')
+                ->options(['summary_large_image' => 'summary_large_image', 'summary' => 'summary'])
+                ->default('summary_large_image');
+            $form->text('twitter_title', 'Twitter Title')->help('Falls back to meta title if empty.');
+            $form->text('twitter_description', 'Twitter Description')->help('Falls back to meta description if empty.');
+            $form->text('twitter_image', 'Twitter Image URL');
+
+            $form->divider('Technical');
+            $form->text('canonical_url', 'Canonical URL')->help('Leave blank to use the current page URL automatically.');
+            $form->textarea('schema_org_json', 'Schema.org JSON-LD')->rows(12)
+                ->help('Paste a complete JSON-LD block (Organization, LocalBusiness, Service, etc.). Will be output as-is inside &lt;script type="application/ld+json"&gt;.');
+        })->tab('FAQ', function ($form) {
+
+            $form->hasMany('faq_items', 'FAQ Items', function ($form) {
+                $form->number('position', 'Order')->default(0);
+                $form->text('question', 'Question')->rules('required');
+                $form->textarea('answer', 'Answer')->rows(4)->rules('required');
+                $form->switch('active', 'Active')->default(1);
+            });
         })->tab('States', function ($form) {
 
             $form->switch('use_all_states', 'Use All States')->default(0);
