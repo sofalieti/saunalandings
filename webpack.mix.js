@@ -32,4 +32,5 @@ mix
         'public/js/parts_main/app.js',
     ], 'public/js/parts_main/bundle.js')
 
-    .version();
+    // No versioning — use asset() in Blade instead of mix()
+    // to avoid mix-manifest.json path mismatches.

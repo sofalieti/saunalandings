@@ -60,8 +60,8 @@
         @endif
 
         {!! get_favicon() !!}
-        @if(file_exists(public_path('mix-manifest.json')) && request()->get('layout') === 'parts_main')
-        <link href="{!! mix('css/parts_main/bundle.css') !!}" type="text/css" rel="stylesheet" />
+        @if(file_exists(public_path('css/parts_main/bundle.css')))
+        <link href="{!! asset('css/parts_main/bundle.css') !!}?v={{ filemtime(public_path('css/parts_main/bundle.css')) }}" type="text/css" rel="stylesheet" />
         @else
         <link href="{!! asset('css/bootstrap.min.css') !!}" type="text/css" rel="stylesheet" />
         <link href="{!! asset('fontawesome-free-5.8.1/css/all.min.css') !!}" type="text/css" rel="stylesheet" />
@@ -169,8 +169,8 @@
         </footer>
         @show
         @section('js')
-        @if(file_exists(public_path('mix-manifest.json')) && request()->get('layout') === 'parts_main')
-        <script type="text/javascript" src="{!! mix('js/parts_main/bundle.js') !!}"></script>
+        @if(file_exists(public_path('js/parts_main/bundle.js')))
+        <script type="text/javascript" src="{!! asset('js/parts_main/bundle.js') !!}?v={{ filemtime(public_path('js/parts_main/bundle.js')) }}"></script>
         @else
         <script type="text/javascript" src="{!! asset('js/jquery-3.3.1.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/jquery.form.min.js') !!}"></script>
