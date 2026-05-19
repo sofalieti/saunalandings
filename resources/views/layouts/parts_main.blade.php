@@ -191,26 +191,12 @@
             }
 
             // Called by the reCAPTCHA API once it is loaded.
-            // All captchas are lazy:
-            //   - inside .modal  → rendered on show.bs.modal
-            //   - visible on page → rendered when scrolled into viewport (IntersectionObserver)
+            // - Captchas visible on page  → rendered immediately (reliable for form submit)
+            // - Captchas inside .modal    → lazy, rendered on show.bs.modal
             var ReCaptchaCallback = function() {
                 $('.g-recaptcha').each(function() {
-                    if ($(this).closest('.modal').length > 0) {
-                        return; // handled by show.bs.modal below
-                    }
-                    if ('IntersectionObserver' in window) {
-                        var observer = new IntersectionObserver(function(entries, obs) {
-                            entries.forEach(function(entry) {
-                                if (entry.isIntersecting) {
-                                    renderCaptcha(entry.target);
-                                    obs.unobserve(entry.target);
-                                }
-                            });
-                        }, { rootMargin: '0px 0px 200px 0px', threshold: 0 });
-                        observer.observe(this);
-                    } else {
-                        renderCaptcha(this); // fallback for IE
+                    if ($(this).closest('.modal').length === 0) {
+                        renderCaptcha(this);
                     }
                 });
             };

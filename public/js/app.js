@@ -14,7 +14,12 @@ $(function() {
     $(document).on('show.bs.modal', function(e) {
         initPhoneMask(e.target);
     });
-    $('.custom-form').ajaxForm({ 
+    function enableForm(form) {
+        $(form).find('input[type=submit]').attr('disabled', false);
+    }
+
+    $('.custom-form').ajaxForm({
+        timeout: 15000,
         beforeSubmit: function(formData, form, options){
             $(form).find('input[type=submit]').attr('disabled', true);
             $(form).find('.error-item').remove();
@@ -23,7 +28,7 @@ $(function() {
             $(form).find('.custom-form-success').html('');
         },
         success: function(response, status, xhr, form){
-            $(form).find('input[type=submit]').attr('disabled', false);
+            enableForm(form);
             if(response.errors != undefined){
                 $.each(response.errors, function(field_id, error){
                     if(field_id == 'recapthca_error'){
@@ -42,19 +47,25 @@ $(function() {
                     scrollTop: $(form).offset().top
                 }, 300);
             }else{
-                $(form).find('.custom-form-error').html('<div class="alert alert-success" role="alert">' + response.msg + '</div>');
+                $(form).find('.custom-form-success').html('<div class="alert alert-success" role="alert">' + response.msg + '</div>');
                 $(form).resetForm();
                 $([document.documentElement, document.body]).animate({
                     scrollTop: $(form).offset().top
                 }, 300);
             }
-            if($('.g-recaptcha').length){
+            if(typeof grecaptcha !== 'undefined' && recaptcha.length){
                 $.each(recaptcha, function(key, obj){
                     grecaptcha.reset(obj);
                 });
             }
+        },
+        error: function(xhr, status, err, form){
+            enableForm(form);
+            $(form).find('.custom-form-error').html(
+                '<div class="alert alert-danger" role="alert">Something went wrong. Please try again.</div>'
+            );
         }
-    }); 
+    });
     
     $('.open-sub-menu').click(function(){
         if(!$(this).hasClass('opened')){
