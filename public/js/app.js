@@ -1,7 +1,18 @@
 $(function() {
-    $(document).on('focus', '.phone-mask, .phone-mask-block .form-control', function(){ 
-        if($(this).val() == '') $(this).val('+1-');
-        $(this).inputmask("+1-999-999-9999");
+    // Apply mask immediately to all existing phone fields.
+    function initPhoneMask(context) {
+        $(context || document).find('.phone-mask, .phone-mask-block .form-control').each(function() {
+            if (!$(this).data('masked')) {
+                $(this).inputmask("+1-999-999-9999", { placeholder: "+1-___-___-____" });
+                $(this).data('masked', true);
+            }
+        });
+    }
+    initPhoneMask();
+
+    // Also init when a modal opens (lazy-loaded forms).
+    $(document).on('show.bs.modal', function(e) {
+        initPhoneMask(e.target);
     });
     $('.custom-form').ajaxForm({ 
         beforeSubmit: function(formData, form, options){
