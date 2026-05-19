@@ -18,19 +18,10 @@ mix
         'public/css/parts_main/app-responsive.css',
     ], 'public/css/parts_main/bundle.css')
 
-    /*
-     * JS bundle for parts_main template.
-     * 6 separate JS requests → 1 file.
-     */
-    .scripts([
-        'public/js/jquery-3.3.1.min.js',
-        'public/js/jquery.form.min.js',
-        'public/js/bootstrap.min.js',
-        'public/fancybox-3/dist/jquery.fancybox.min.js',
-        'public/js/jquery.inputmask.min.js',
-        'public/js/app.js',
-        'public/js/parts_main/app.js',
-    ], 'public/js/parts_main/bundle.js')
-
     // No versioning — use asset() in Blade instead of mix()
     // to avoid mix-manifest.json path mismatches.
+    //
+    // JS bundle for parts_main is built separately by concat-scripts.js
+    // (run via "npm run concat" or "node concat-scripts.js")
+    // to avoid webpack module scope wrapping jQuery — which would prevent
+    // window.$ from being set globally.
