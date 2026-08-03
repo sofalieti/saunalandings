@@ -1,29 +1,24 @@
+@php
+    $brand = request()->get('brand');
+    $state = request()->get('state');
+@endphp
 @extends('layouts.'.request()->get('layout'))
 @section('content')
 
-@php
-    $dualbanner_content[0]['name'] = "Fix/Repair";
-    $dualbanner_content[0]['text'] = "Describe your problem. And our specialist will contact you soon!";
-    $dualbanner_content[0]['img_link'] = "/images/parts_main/fix-big.png";
-    $dualbanner_content[0]['link'] = page_template('repair');
-    $dualbanner_content[0]['category'] = $category->slug;
-
-    $dualbanner_content[1]['name'] = "TROUBLESHOOT";
-    $dualbanner_content[1]['text'] = "Describe your problem. And our specialist will contact you soon!";
-    $dualbanner_content[1]['img_link'] = "/images/parts_main/trouble-top-big.png";
-    $dualbanner_content[1]['link'] = page_template('troubleshooting');
-    $dualbanner_content[1]['category'] = $category->slug;
-@endphp
-
-<div class="pc2-page-hero">
-    <div class="container">
-        <span class="pc-section-kicker">Goods</span>
-        <h1>{{ rt("!brand!") }} {{ $category->name }}</h1>
+<header class="au-page-hero">
+    <div class="au-shell">
+        <nav class="au-crumbs">
+            <a href="/">Home</a>
+            <span>/</span>
+            <span>{{ $category->name }}</span>
+        </nav>
+        <span class="au-label au-head__note">Catalog</span>
+        <h1 class="au-h1">{{ rt("!brand!") }} {{ $category->name }}</h1>
         @if($category->text)
-            <div class="pc-section-body">{!! $category->text !!}</div>
+            <div class="au-prose au-hero__lead">{!! $category->text !!}</div>
         @endif
     </div>
-</div>
+</header>
 
 @include('parts_category_v2.partials.goods-grid', [
     'category' => $category,
@@ -31,9 +26,36 @@
     'heading' => false,
 ])
 
-@include('parts_category_v2.partials.related-links')
+<section class="au-section">
+    <div class="au-shell">
+        <div class="au-split">
+            <div class="au-split__aside">
+                <span class="au-label">Shipping</span>
+            </div>
+            <div class="au-grid au-grid--3">
+                <div>
+                    <p class="au-label">Delivery to {{ $state->name }}</p>
+                    <p class="au-muted">Around 5 days for in-stock parts, tracked door to door.</p>
+                </div>
+                <div>
+                    <p class="au-label">Free over $300</p>
+                    <p class="au-muted">Flat-rate shipping below that, across the USA and Canada.</p>
+                </div>
+                <div>
+                    <p class="au-label">Fitment first</p>
+                    <p class="au-muted">Nothing ships until a specialist has matched the part to your cabin.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-@include('blocks.delivery')
-@include('blocks.dualbanner', ['banners_content' => $dualbanner_content])
+@include('parts_category_v2.partials.quote', [
+    'formId' => 2,
+    'label' => 'Fitment check',
+    'title' => 'Not sure this is your part?',
+])
+@include('parts_category_v2.partials.related-links')
+@include('parts_category_v2.partials.cta')
 
 @endsection

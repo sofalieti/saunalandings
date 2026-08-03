@@ -1,12 +1,10 @@
 @if(isset($faqItems) && count($faqItems))
-<div class="pc-faq-list">
+<div class="au-faq">
     @foreach($faqItems as $faqItem)
-        <div class="pc-faq-item">
-            <details @if($loop->first) open @endif>
-                <summary>{{ $faqItem->question }}</summary>
-                <div class="pc-faq-a">{!! nl2br(e($faqItem->answer)) !!}</div>
-            </details>
-        </div>
+        <details class="au-faq__item" @if($loop->first) open @endif>
+            <summary>{{ $faqItem->question }}</summary>
+            <div class="au-faq__answer">{!! nl2br(e($faqItem->answer)) !!}</div>
+        </details>
     @endforeach
 </div>
 @endif

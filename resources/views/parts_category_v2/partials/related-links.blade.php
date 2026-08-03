@@ -14,18 +14,20 @@
         ->orderBy('name')
         ->get();
 @endphp
-<section class="pc-section pc-related">
-    <div class="container">
-        <span class="pc-section-kicker">Navigate</span>
-        <h2>Helpful links</h2>
-        <ul class="pc-related-list">
-            <li><a href="/">Home</a></li>
+<section class="au-section au-reveal">
+    <div class="au-shell">
+        <div class="au-head">
+            <span class="au-label">Navigate</span>
+            <h2 class="au-title">Helpful links</h2>
+        </div>
+        <div class="au-pills">
+            <a href="/">Home</a>
             @foreach($relatedPages as $page)
-                <li><a href="{{ $page['url'] }}">{{ $page['label'] }}</a></li>
+                <a href="{{ $page['url'] }}">{{ $page['label'] }}</a>
             @endforeach
             @foreach($relatedCategories as $relCategory)
-                <li><a href="{{ route('category', ['slug' => $relCategory->slug]) }}">{{ $relCategory->name }} goods</a></li>
+                <a href="{{ route('category', ['slug' => $relCategory->slug]) }}">{{ $relCategory->name }}</a>
             @endforeach
-        </ul>
+        </div>
     </div>
 </section>

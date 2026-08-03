@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -10,6 +9,7 @@
         <meta name="description" content="{{rt($meta['description'])}}"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="robots" content="index, follow" />
+        <meta name="theme-color" content="#f2f2f4" />
 
         @if(!empty($meta['canonical_url']))
         <link rel="canonical" href="{{ $meta['canonical_url'] }}" />
@@ -41,138 +41,87 @@
         @endif
 
         <link href="{!! asset('css/bootstrap.min.css') !!}" type="text/css" rel="stylesheet" />
-        <link href="{!! asset('fontawesome-free-5.8.1/css/all.min.css') !!}" type="text/css" rel="stylesheet" /> 
-        <link href="{!! asset_version('css/parts_main/app.css') !!}" type="text/css" rel="stylesheet" />
+        <link href="{!! asset_version('fonts/inter/inter.css') !!}" type="text/css" rel="stylesheet" />
         <link href="{!! asset_version('css/parts_category_v2/app.css') !!}" type="text/css" rel="stylesheet" />
-        <link href="{!! asset('fonts/opensans/stylesheetfonts.css') !!}" type="text/css" rel="stylesheet" />
-        <link href="{!! asset_version('css/parts_main/app-responsive.css') !!}" type="text/css" rel="stylesheet" />
-
-
     </head>
-    <body>
-        <header>
-            <div class="container">
-                <div class="row align-items-center">
+    <body class="au-body">
+        @php
+            $auBrand = request()->get('brand');
+            $auState = request()->get('state');
+            $auNavItems = [
+                'how_to_choose' => 'How to choose',
+                'troubleshooting' => 'Troubleshooting',
+                'repair' => 'Repair',
+                'faq' => 'FAQ',
+            ];
+        @endphp
 
-                    <div class="col-lg-3 col-6 text-center text-lg-left">
-                        <a href="/"><img src="/images/parts_category/logo.svg"></a>
-                    </div>
-                    <div class="col-xl-6 col-lg-5 col-sm-8 col-6">
-                        <div class="geo-states">
-                            <div class="l-title">Select your state:</div>
-                            <a href="#" class="cm-dialog-opener cm-dialog-auto-size current-state" data-toggle="modal" data-target="#state_list">
-                                @if(request()->get('state')->default)
-                                {{request()->get('state')->name}}
-                                @else
-                                USA, {{request()->get('state')->name}}
-                                @endif
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-lg-4">
-
-                        <div class="top-phones-main">
-                            <div class="s-links">
-                                <a href="https://www.trustpilot.com/review/infraredsaunaparts.com"><img src="/images/trustpilot_icon.svg" alt="Trustpilot"></a>
-                                <a href="https://twitter.com/InfraSaunaParts"><img src="/images/parts_main/twittericon.png"></a>
-                                <a href="https://www.yelp.com/biz/infraredsaunaparts-san-diego"><img class="sms-icon" src="/images/parts_main/yelpicon.png" ></a>
-                            </div>
-                            <div class="top-phones">
-                                <div>
-                                    <span>Toll Free:</span>
-                                    <span>+1-888-559-PART (7278)</span>
-                                </div>
-                                <div>
-
-                                    <span>International:</span>
-                                    <span>+1-718-709-PART (7278)</span>
-                                </div>
-                                <div>
-                                    <span>24/7 Texting/SMS:</span>
-                                    <span>+1-347-746-1765</span>                            
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="au-topline">
+            <div class="au-topline__inner">
+                <span class="au-tag au-topline__badge">NEW</span>
+                <span>Send a photo of the old part — a specialist confirms the match before you order.</span>
             </div>
-        </header>
-        <nav class="pc-subnav">
-            <div class="container">
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    @if(page_template('how_to_choose'))
-                    <li><a href="{{ route('page_template_without_state', ['slug' => 'how_to_choose']) }}">How to choose</a></li>
-                    @endif
-                    @if(page_template('troubleshooting'))
-                    <li><a href="{{ route('page_template_without_state', ['slug' => 'troubleshooting']) }}">Troubleshooting</a></li>
-                    @endif
-                    @if(page_template('repair'))
-                    <li><a href="{{ route('page_template_without_state', ['slug' => 'repair']) }}">Repair</a></li>
-                    @endif
-                    @if(page_template('faq'))
-                    <li><a href="{{ route('page_template_without_state', ['slug' => 'faq']) }}">FAQ</a></li>
-                    @endif
+        </div>
+
+        <nav class="au-nav" aria-label="Primary">
+            <div class="au-nav__pill">
+                <a class="au-nav__brand" href="/">
+                    @include('parts_category_v2.partials.star')
+                    <span>{{ $auBrand->domain }}</span>
+                </a>
+                <ul class="au-nav__links">
+                    <li><a class="au-ghost" href="/">Home</a></li>
+                    @foreach($auNavItems as $auSlug => $auLabel)
+                        @if(page_template($auSlug))
+                            <li><a class="au-ghost" href="{{ route('page_template_without_state', ['slug' => $auSlug]) }}">{{ $auLabel }}</a></li>
+                        @endif
+                    @endforeach
+                    <li>
+                        <a class="au-ghost" href="#" data-toggle="modal" data-target="#state_list">
+                            @if($auState->default)
+                                {{ $auState->name }}
+                            @else
+                                {{ $auState->name }}
+                            @endif
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
-        {{--@include('categories.menu_category')--}}
+
         @yield('content')
-        <div class="google-map"><iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=56.506174,79.013672&amp;t=m&amp;z=4&amp;output=embed"></iframe></div>
+
+        @include('parts_category_v2.partials.quote-modal')
+
         @section('footer')
-        <footer>
-            <div class="container">    
-                <div class="row">
-                    <div class="col-md-3">
-                        <h4>Build your sauna</h4>
-                        <ul>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/build-your-infrared-sauna.html">Build your sauna</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/build-your-sauna-clone.html">Customize your Rain Cover</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/do-it-yourself-infrared-sauna-kits-en.html">All DIY Infrared Sauna Kits</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-2">
-                        <h4>Support</h4>
-                        <ul>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/support.html">Support</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/f.a.q..html">F.A.Q.</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/new-instructions.html">Instructions</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/return-policy.html">Return Policy</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/privacy-policy.html">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <h4>Main Menu</h4>
-                        <ul>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/">Home Page</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/reviews-en.html">Reviews</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/become-a-dealer.html">Become a Dealer</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com//infrared-sauna-pars-drop-shipping-program.html">Drop Shipping Program</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-2">
-                        <h4 class="s-empty">&nbsp;</h4>
-                        <ul>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/about-us.html">About Us</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/index.php?dispatch=categories.catalog">Products</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/cant-find-a-part.html">Cant find a Part?</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/recycle.html">Recycle with Us</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-2">
-                        <h4 class="s-empty">&nbsp;</h4>
-                        <ul>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/contact-infraredsaunaparts.com.html">Contact us</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/support-claim.html">Trouble Ticket</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/warranty.html">Warranty</a></li>
-                            <li><a class="ty-text-links__a" href="https://infraredsaunaparts.com/virtual-service-call.html">Virtual Service Call</a></li>
-                        </ul>
-                    </div>
+        <footer class="au-footer">
+            <div class="au-shell">
+                <div class="au-footer__brand">
+                    @include('parts_category_v2.partials.star')
+                    <span>{{ $auBrand->domain }}</span>
+                </div>
+                <p class="au-footer__tagline">Replacement parts for infrared saunas, matched to your cabin by a specialist.</p>
+                <ul class="au-footer__links">
+                    <li><a href="/">Home</a></li>
+                    @foreach($auNavItems as $auSlug => $auLabel)
+                        @if(page_template($auSlug))
+                            <li><a href="{{ route('page_template_without_state', ['slug' => $auSlug]) }}">{{ $auLabel }}</a></li>
+                        @endif
+                    @endforeach
+                    <li><a href="tel:+18885597278">+1-888-559-PART</a></li>
+                </ul>
+                <div class="au-footer__bottom">
+                    <span>© {{ date('Y') }} {{ $auBrand->domain }}</span>
+                    <span class="au-footer__social">
+                        <a href="https://www.trustpilot.com/review/infraredsaunaparts.com">Trustpilot</a>
+                        <a href="https://twitter.com/InfraSaunaParts">Twitter</a>
+                        <a href="https://www.yelp.com/biz/infraredsaunaparts-san-diego">Yelp</a>
+                    </span>
                 </div>
             </div>
         </footer>
         @show
+
         @section('js')
         <script type="text/javascript" src="{!! asset('js/jquery-3.3.1.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/jquery.form.min.js') !!}"></script>
@@ -180,7 +129,6 @@
         <script type="text/javascript" src="{!! asset('js/jquery.inputmask.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset_version('js/app.js') !!}"></script>
         <script src="https://www.google.com/recaptcha/api.js?onload=ReCaptchaCallback&render=explicit" async defer></script>
-        <script type="text/javascript" src="{!! asset_version('js/parts_main/app.js') !!}"></script>
         <script type="text/javascript">
             var recaptcha = [];
             var ReCaptchaCallback = function() {
@@ -191,28 +139,29 @@
             };
         </script>
         @show
-    </body>
-</html>
-<div class="modal" id="state_list">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Select State</h4>
-                <button type="button" class="close" data-dismiss="modal">×</button>
-            </div>
-            <div class="modal-body">
-                <noindex>
-                    <ul>
-                        @foreach(request()->get('states') as $state)
-                        @if(request()->route()->getName() == 'home')
-                        <li><a rel='nofollow' href='{{request()->secure() ? 'https' : 'http'}}://{{request()->getHttpHost()}}/{{$state->slug}}'>{{$state->name}}</a></li> 
-                        @else
-                        <li><a rel='nofollow' href='{{str_replace(request()->get('state')->slug, $state->slug, request()->fullUrl())}}'>{{$state->name}}</a></li>
-                        @endif
-                        @endforeach
-                    </ul>
-                </noindex>
+
+        <div class="modal" id="state_list">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Select your state</h4>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <noindex>
+                            <ul>
+                                @foreach(request()->get('states') as $state)
+                                @if(request()->route()->getName() == 'home')
+                                <li><a rel='nofollow' href='{{request()->secure() ? 'https' : 'http'}}://{{request()->getHttpHost()}}/{{$state->slug}}'>{{$state->name}}</a></li>
+                                @else
+                                <li><a rel='nofollow' href='{{str_replace(request()->get('state')->slug, $state->slug, request()->fullUrl())}}'>{{$state->name}}</a></li>
+                                @endif
+                                @endforeach
+                            </ul>
+                        </noindex>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </body>
+</html>
