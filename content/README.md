@@ -59,11 +59,19 @@
 #   content/forms/{id}.json
 #   content/category_brands.json
 #
-# Parts Category goods (site_id 13, template parts_category)
-# ----------------------------------------------------------
-# Source of truth is flat JSON (not MySQL) when FLAT_CONTENT=true.
+# Parts Category templates
+# -------------------------
+# site_id 13  template=parts_category     — original/legacy category landings
+# site_id 18  template=parts_category_v2  — new version (goods + SEO pages + FAQ plugs)
 #
-# Page structure (logical SEO template):
+# Assign a domain (brand) to a version by setting brand.site_id to 13 or 18.
+# When moving a brand to v2 also set its categories' site_id to 18 (WithBrandAndSite
+# filters categories by the brand's site). Page templates for v2: repair,
+# troubleshooting, how_to_choose, faq (content/page_templates 16–19).
+#
+# Parts Category v2 goods + SEO (site_id 18)
+# -----------------------------------------
+# Page structure:
 #   /                 home — H1, intro, symptoms, how-to-choose, goods, FAQ, trust, CTA
 #   /how_to_choose    fitment guide page
 #   /troubleshooting  diagnostics page
@@ -78,36 +86,18 @@
 #   brand.json          — meta_title / meta_description / meta_keywords
 #
 # 1) Category for the domain brand:
-#      content/categories/{id}.json   → "site_id": 13
+#      content/categories/{id}.json   → "site_id": 18
 #
 # 2) Link that category to the brand domain:
 #      content/category_brands.json   → { "category_id", "brand_id" }
 #
 # 3) Add goods (products) into the category:
-#      content/products/{id}.json
-#      {
-#        "id": 85,
-#        "name": "Fan Motor Replacement",
-#        "slug": "fan-motor-replacement",
-#        "image": "images/products/....jpg",
-#        "images": null,
-#        "active": 1,
-#        "position": 100,
-#        "description": "Product text…",
-#        "category_id": 100,
-#        "brand_id": 0,
-#        "exim_code": null,
-#        "enlightensauna_size_weight_html": null,
-#        "enlightensauna_features_html": null,
-#        "enlightensauna_power_html": null,
-#        "exim_link": null
-#      }
+#      content/products/{id}.json with that category_id
 #
 # 4) Rebuild index (or let FLAT_AUTO_REBUILD pick it up):
 #      php artisan flat:build-index
 #
-# Admin: Categories → Brands tab links a category to a Parts Category domain.
-# Products → pick that category. With FLAT_CONTENT=true, saves write JSON under content/.
+# Demo domain on v2: INFRAREDSAUNAFANS.COM (brand fans, site_id 18).
 #
 # Manual rebuild (only if auto-rebuild is off)
 # --------------------------------------------

@@ -1,12 +1,12 @@
 {
-    "id": 2730,
-    "name": "Faq",
+    "id": 19,
+    "name": "FAQ",
     "var_name": "faq",
     "meta_title": "[PLUG] !brand! FAQ | Infrared Sauna Parts",
     "meta_keywords": "!brand! replacement, infrared sauna parts",
-    "meta_description": "[PLUG] FAQ for !brand! replacements.",
+    "meta_description": "[PLUG] Frequently asked questions about !brand! replacements.",
     "active": 1,
     "site_id": 18,
-    "brand_id": 1134,
-    "page_template_id": 19
+    "use_for_states": 0,
+    "show_articles": 0
 }

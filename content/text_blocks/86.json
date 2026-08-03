@@ -3,6 +3,6 @@
     "name": "Repair text",
     "var_name": "repair_text_block",
     "description": "<p>[PLUG] Describe the repair service for this part category. Explain what to include in the form (photos, model, symptoms).</p>",
-    "site_id": 13,
+    "site_id": 18,
     "active": 1
 }

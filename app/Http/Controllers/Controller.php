@@ -96,7 +96,7 @@ class Controller extends BaseController
      */
     protected function applyPartsCategoryDefaultTitle($meta)
     {
-        if (request()->get('layout') !== 'parts_category' || !request()->get('brand')) {
+        if (!in_array(request()->get('layout'), ['parts_category', 'parts_category_v2'], true) || !request()->get('brand')) {
             return $this->appendBrandSeoFields($meta);
         }
 

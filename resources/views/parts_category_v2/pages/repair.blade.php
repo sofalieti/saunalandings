@@ -1,7 +1,7 @@
 @extends('layouts.'.request()->get('layout'))
 @section('content')
-<div class='container'>
-    <h1>{!! text_block('repair_text_block_header') !!}</h1>
+<div class="container pc-page">
+    <h1>{!! text_block('repair_text_block_header') ?: (request()->get('brand')->name.' Repair') !!}</h1>
     <div class="row">
         <div class="col-md-6">
             <div class="main-description">
@@ -18,6 +18,7 @@
         </div>
     </div>
 </div>
+@include('parts_category_v2.partials.related-links')
 <div class="question-block">
     <div class="container text-center">
         <h2>HAVE QUESTIONS?</h2>
@@ -26,7 +27,7 @@
     </div>
 </div>
 @endsection
-@section('footer')    
+@section('footer')
     <div class="modal" id="question">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -34,8 +35,8 @@
                     <h4 class="modal-title">Submit a quote</h4>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
-                <div class="modal-body">   
-                    @include('forms.form', ['form_id' => 3])                    
+                <div class="modal-body">
+                    @include('forms.form', ['form_id' => 3])
                 </div>
             </div>
         </div>

@@ -3,6 +3,6 @@
     "name": "Symptoms text",
     "var_name": "symptoms_text_block",
     "description": "<p>[PLUG] Describe typical failure symptoms for this part (noise, no power, overheating, intermittent work).</p><ul><li>[PLUG] Symptom 1</li><li>[PLUG] Symptom 2</li><li>[PLUG] Symptom 3</li></ul>",
-    "site_id": 13,
+    "site_id": 18,
     "active": 1
 }
