@@ -141,9 +141,9 @@
 
 <section class="pc2-cta">
     <div class="container">
-        <h2>HAVE QUESTIONS?</h2>
-        <h3>CLICK HERE FOR A FREE CONSULTATION!</h3>
-        <a class="btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#question">Submit a quote</a>
+        <h2>Still not sure which part you need?</h2>
+        <h3>Send a photo and a specialist confirms the fitment before you order.</h3>
+        <a class="btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#question">Request a free quote</a>
     </div>
 </section>
 @endsection

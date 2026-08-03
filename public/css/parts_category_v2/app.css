@@ -553,8 +553,10 @@ header {
     text-transform: none;
 }
 .pc2-cta h3 {
-    margin: 0 0 24px;
+    max-width: 620px;
+    margin: 0 auto 26px;
     font-size: 16px;
+    line-height: 1.6;
     font-weight: 500;
     color: var(--pc2-muted);
     text-transform: none;
