@@ -1,82 +1,72 @@
-@extends('layouts.'.request()->get('layout'))
-
-@section('content')
 @php
-    $goodsCategories = collect();
-    foreach (request()->get('brand')->categories()->where('active', true)->orderBy('position')->orderBy('name')->get() as $linkedCategory) {
-        $childCategories = $linkedCategory->childs;
-        if ($childCategories && count($childCategories)) {
-            foreach ($childCategories as $child) {
-                $goodsCategories->push($child);
-            }
-        } else {
-            $goodsCategories->push($linkedCategory);
+$dualbanner_content[0]['name'] = "Fix/Repair";
+$dualbanner_content[0]['text'] = "Describe your problem. And our specialist will contact you soon!";
+$dualbanner_content[0]['img_link'] = "/images/parts_main/fix-big.png";
+$dualbanner_content[0]['link'] = page_template('repair');
+
+$dualbanner_content[1]['name'] = "TROUBLESHOOT";
+$dualbanner_content[1]['text'] = "Describe your problem. And our specialist will contact you soon!";
+$dualbanner_content[1]['img_link'] = "/images/parts_main/trouble-top-big.png";
+$dualbanner_content[1]['link'] = page_template('troubleshooting');
+
+$dualbanner_content[0]['category'] = false;
+$dualbanner_content[1]['category'] = false;
+
+$goodsCategories = collect();
+foreach (request()->get('brand')->categories()->where('active', true)->orderBy('position')->orderBy('name')->get() as $linkedCategory) {
+    $childCategories = $linkedCategory->childs;
+    if ($childCategories && count($childCategories)) {
+        foreach ($childCategories as $child) {
+            $goodsCategories->push($child);
         }
+    } else {
+        $goodsCategories->push($linkedCategory);
     }
+}
 @endphp
 
-<section class="pc-hero">
-    <div class="pc-hero-media" aria-hidden="true"></div>
-    <div class="pc-hero-glow" aria-hidden="true"></div>
-    <div class="pc-hero-inner">
-        <p class="pc-hero-brand">{{ request()->get('brand')->name }}</p>
-        <h1 class="pc-hero-title">Replacement fans that keep infrared cabins cool, quiet, and even.</h1>
-        <p class="pc-hero-lead">Axial motors, exhaust blowers, and cabin circulation fans matched to your sauna electronics and airflow needs.</p>
-        <div class="pc-hero-actions">
-            <a class="pc-btn pc-btn-primary" href="#goods">Browse fans</a>
-            <a class="pc-btn pc-btn-ghost" href="#" data-toggle="modal" data-target="#question">Get a free consult</a>
-        </div>
-    </div>
-</section>
+@extends('layouts.'.request()->get('layout'))
+@section('content')
 
-<section class="pc-intro">
-    <div class="pc-shell pc-intro-grid">
-        <div>
-            <div class="pc-kicker">Infrared sauna parts</div>
-            <h2>The right fan for the right heat path</h2>
-            <div class="pc-copy">
+@include('blocks.topbanner_category', ['banners_content' => $dualbanner_content])
+<div class='container'>
+    <h1>{!! text_block('main_page_text_block_header') !!}</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="main-description">
                 {!! text_block('main_page_text_block') !!}
             </div>
         </div>
-        <div class="pc-form-panel">
-            @include('forms.form', ['form_id' => 2])
+        <div class="col-md-6">
+            <div class="right-form">
+                @include('forms.form', ['form_id' => 2])
+            </div>
         </div>
     </div>
-</section>
+</div>
 
 @foreach($goodsCategories as $goodsCategory)
     @php
         $goodsProducts = $goodsCategory->active_products()->orderBy('position')->orderBy('name')->get();
     @endphp
     @if(count($goodsProducts))
-        <section class="pc-goods" id="goods">
-            <div class="pc-shell">
-                <div class="pc-goods-head">
-                    <div>
-                        <div class="pc-kicker">In stock for this domain</div>
-                        <h2>{{ $goodsCategory->name }}</h2>
-                    </div>
-                    <p>{{ $goodsCategory->text_short ?: $goodsCategory->text }}</p>
-                </div>
-                @include('parts_category.partials.goods-grid', [
-                    'category' => $goodsCategory,
-                    'products' => $goodsProducts,
-                ])
-            </div>
-        </section>
+        @include('parts_category.partials.goods-grid', [
+            'category' => $goodsCategory,
+            'products' => $goodsProducts,
+            'heading' => $goodsCategory->name,
+        ])
     @endif
 @endforeach
 
-<section class="pc-consult">
-    <div class="pc-shell">
-        <h2>Have questions about fitment?</h2>
-        <p>Send a photo of the broken fan or control bay and we’ll match a replacement.</p>
-        <a class="pc-btn pc-btn-primary" href="#" data-toggle="modal" data-target="#question">Submit a quote</a>
+<div class="question-block standartmargin-top">
+    <div class="container text-center">
+        <h2>HAVE QUESTIONS?</h2>
+        <h3>CLICK HERE FOR A FREE CONSULTATION!</h3>
+        <a class="btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#question">Submit a quote</a>
     </div>
-</section>
+</div>
 @endsection
-
-@section('footer')
+@section('footer')    
     <div class="modal" id="question">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -84,8 +74,8 @@
                     <h4 class="modal-title">Submit a quote</h4>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
-                <div class="modal-body">
-                    @include('forms.form', ['form_id' => 3])
+                <div class="modal-body">   
+                    @include('forms.form', ['form_id' => 3])                    
                 </div>
             </div>
         </div>
