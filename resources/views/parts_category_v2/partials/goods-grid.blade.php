@@ -1,4 +1,5 @@
-<div class="container pc2-goods">
+<section class="pc2-goods">
+    <div class="container">
     @if(isset($heading) && $heading)
         <div class="pc2-goods-head">
             <div>
@@ -14,7 +15,7 @@
                 <a class="pc2-goods-item" href="{{ route('product', ['category_slug' => $category->slug, 'product_slug' => $product->slug]) }}">
                     <div class="pc2-goods-media">
                         @if($product->image)
-                            <img src="{{ $product->image_thumb_crop ?: ('/uploads/'.ltrim($product->image, '/')) }}" alt="{{ $product->name }}">
+                            <img src="{{ $product->image_thumb ?: ('/uploads/'.ltrim($product->image, '/')) }}" alt="{{ $product->name }}">
                         @endif
                     </div>
                     <div class="pc2-goods-body">
@@ -33,4 +34,5 @@
     @else
         <div class="alert alert-info" role="alert">No goods in this category yet.</div>
     @endif
-</div>
+    </div>
+</section>
