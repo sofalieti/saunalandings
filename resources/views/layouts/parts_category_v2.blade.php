@@ -42,10 +42,10 @@
 
         <link href="{!! asset('css/bootstrap.min.css') !!}" type="text/css" rel="stylesheet" />
         <link href="{!! asset('fontawesome-free-5.8.1/css/all.min.css') !!}" type="text/css" rel="stylesheet" /> 
-        <link href="{!! asset('css/parts_main/app.css') !!}" type="text/css" rel="stylesheet" />
-        <link href="{!! asset('css/parts_category_v2/app.css') !!}" type="text/css" rel="stylesheet" />
+        <link href="{!! asset_version('css/parts_main/app.css') !!}" type="text/css" rel="stylesheet" />
+        <link href="{!! asset_version('css/parts_category_v2/app.css') !!}" type="text/css" rel="stylesheet" />
         <link href="{!! asset('fonts/opensans/stylesheetfonts.css') !!}" type="text/css" rel="stylesheet" />
-        <link href="{!! asset('css/parts_main/app-responsive.css') !!}" type="text/css" rel="stylesheet" />
+        <link href="{!! asset_version('css/parts_main/app-responsive.css') !!}" type="text/css" rel="stylesheet" />
 
 
     </head>
@@ -178,9 +178,9 @@
         <script type="text/javascript" src="{!! asset('js/jquery.form.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/bootstrap.min.js') !!}"></script>
         <script type="text/javascript" src="{!! asset('js/jquery.inputmask.min.js') !!}"></script>
-        <script type="text/javascript" src="{!! asset('js/app.js') !!}"></script>
+        <script type="text/javascript" src="{!! asset_version('js/app.js') !!}"></script>
         <script src="https://www.google.com/recaptcha/api.js?onload=ReCaptchaCallback&render=explicit" async defer></script>
-        <script type="text/javascript" src="{!! asset('js/parts_main/app.js') !!}"></script>
+        <script type="text/javascript" src="{!! asset_version('js/parts_main/app.js') !!}"></script>
         <script type="text/javascript">
             var recaptcha = [];
             var ReCaptchaCallback = function() {

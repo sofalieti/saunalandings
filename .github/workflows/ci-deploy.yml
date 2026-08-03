@@ -68,9 +68,20 @@ jobs:
 
             # Flat content is read from SQLite index — rebuild after every content pull.
             rm -f bootstrap/cache/config.php
+            $PHP_BIN artisan view:clear || true
             if grep -qE '^FLAT_CONTENT=true' .env 2>/dev/null; then
               $PHP_BIN artisan flat:build-index
             fi
+
+            $PHP_BIN scripts/deploy-verify.php
+
+            # What the origin itself answers for the domain, bypassing the CDN.
+            # Tells a stale edge/browser cache apart from a bad deploy.
+            curl -sk -m 20 -H "Host: infraredsaunafans.com" https://127.0.0.1/ -o /tmp/origin-home.html \
+              || curl -s -m 20 -H "Host: infraredsaunafans.com" http://127.0.0.1/ -o /tmp/origin-home.html || true
+            echo "origin title: $(grep -o '<title>[^<]*</title>' /tmp/origin-home.html | head -1)"
+            echo "origin light-theme markers: $(grep -c 'pc2-' /tmp/origin-home.html || true)"
+            echo "origin placeholder markers: $(grep -c 'PLUG' /tmp/origin-home.html || true)"
 
             echo "Deployed $(git rev-parse --short HEAD)"
             wc -c public/css/parts_main/bundle.css

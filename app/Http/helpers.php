@@ -9,6 +9,19 @@ function get_favicon(){
     }
     return '';
 }
+/**
+ * Asset URL stamped with the file's modification time. Without it a deploy
+ * that only changes the contents of an existing css/js file keeps serving the
+ * previous version from browser and CDN caches.
+ */
+function asset_version($path){
+    $full = public_path(ltrim($path, '/'));
+    $url = asset($path);
+    if(is_file($full)){
+        return $url.'?v='.filemtime($full);
+    }
+    return $url;
+}
 function get_logo(){
     if(!empty(request()->get('brand')->logo)){
         return "/uploads/".request()->get('brand')->logo;
