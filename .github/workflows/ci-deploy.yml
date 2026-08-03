@@ -77,24 +77,27 @@ jobs:
 
             # What the origin itself answers for the domain, bypassing the CDN.
             # Tells a stale edge/browser cache apart from a bad deploy.
+            # --resolve keeps both SNI and Host set to the domain, so nginx picks
+            # the right vhost instead of the default server.
             SERVER_IP=$(hostname -I | awk '{print $1}')
             rm -f /tmp/origin-home.html
-            for target in "https://$SERVER_IP/" "http://$SERVER_IP/" "https://127.0.0.1/" "http://127.0.0.1/"; do
-              curl -sk -m 20 -H "Host: infraredsaunafans.com" "$target" -o /tmp/origin-home.html || true
-              if grep -q "<title>" /tmp/origin-home.html 2>/dev/null && ! grep -q "Welcome to nginx" /tmp/origin-home.html; then
-                echo "origin answered from: $target"
-                break
-              fi
-            done
+            curl -sk -m 20 --resolve "infraredsaunafans.com:443:$SERVER_IP" https://infraredsaunafans.com/ -o /tmp/origin-home.html \
+              || curl -s -m 20 --resolve "infraredsaunafans.com:80:$SERVER_IP" http://infraredsaunafans.com/ -o /tmp/origin-home.html || true
             echo "origin title: $(grep -o '<title>[^<]*</title>' /tmp/origin-home.html | head -1)"
             echo "origin h1: $(grep -o '<h1>[^<]*</h1>' /tmp/origin-home.html | head -1)"
             echo "origin light-theme markers: $(grep -c 'pc2-' /tmp/origin-home.html || true)"
             echo "origin placeholder markers: $(grep -c 'PLUG' /tmp/origin-home.html || true)"
             echo "origin stylesheet url: $(grep -o 'parts_category_v2/app.css[^\"]*' /tmp/origin-home.html | head -1)"
-            echo "origin status: $(curl -sk -m 20 -o /dev/null -w '%{http_code}' -H 'Host: infraredsaunafans.com' https://$SERVER_IP/ || true)"
+            echo "origin status: $(curl -sk -m 20 -o /dev/null -w '%{http_code}' --resolve "infraredsaunafans.com:443:$SERVER_IP" https://infraredsaunafans.com/ || true)"
 
+            echo "--- log files"
+            ls -la storage/logs 2>/dev/null | tail -n 5 || true
             echo "--- last application errors"
-            tail -n 120 storage/logs/laravel.log 2>/dev/null | grep -aiE "exception|error|stack trace" | tail -n 15 || true
+            for log in storage/logs/*.log; do
+              [ -f "$log" ] || continue
+              echo "== $log"
+              tail -n 200 "$log" | grep -aoE "(local|production)\.(ERROR|CRITICAL): [^{]{0,220}" | tail -n 5 || true
+            done
 
             echo "Deployed $(git rev-parse --short HEAD)"
             wc -c public/css/parts_main/bundle.css
