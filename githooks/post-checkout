@@ -1,0 +1,6 @@
+#!/bin/sh
+# After checkout: same as post-merge (branch switches that update content/).
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+cd "$ROOT" || exit 0
+[ -x "$ROOT/githooks/post-merge" ] && exec "$ROOT/githooks/post-merge"
+exit 0

@@ -123,4 +123,37 @@ class Store
     {
         return $this->contentPath() . DIRECTORY_SEPARATOR . str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $relativePath);
     }
+
+    /**
+     * Whether any JSON under content/ is newer than $threshold (unix mtime).
+     * Returns on the first match — fast after git pull when files changed.
+     *
+     * @param int $threshold
+     * @return bool
+     */
+    public function anyJsonNewerThan($threshold)
+    {
+        $root = $this->contentPath();
+        if (!is_dir($root)) {
+            return false;
+        }
+
+        $iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($root, \FilesystemIterator::SKIP_DOTS)
+        );
+
+        foreach ($iterator as $file) {
+            if (!$file->isFile()) {
+                continue;
+            }
+            if (strtolower($file->getExtension()) !== 'json') {
+                continue;
+            }
+            if ($file->getMTime() > $threshold) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

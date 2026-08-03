@@ -31,32 +31,25 @@ class Writer
         if ($table === 'brands') {
             $this->writeBrand($arr);
             $this->writeBrandAggregates((int) $arr['id'], !empty($arr['slug']) ? $arr['slug'] : ('id-' . $arr['id']));
-            return;
-        }
-
-        if ($table === 'custom_forms') {
+        } elseif ($table === 'custom_forms') {
             $this->writeForm((int) $arr['id']);
-            return;
-        }
-
-        if ($table === 'form_fields') {
+        } elseif ($table === 'form_fields') {
             if (!empty($arr['custom_form_id'])) {
                 $this->writeForm((int) $arr['custom_form_id']);
             }
-            return;
-        }
-
-        if ($table === 'brand_faq_items') {
+        } elseif ($table === 'brand_faq_items') {
             if (!empty($arr['brand_id'])) {
                 $this->writeBrandFaqs((int) $arr['brand_id']);
             }
-            return;
+        } else {
+            $path = Paths::forRow($table, $arr);
+            if ($path) {
+                $this->store->write($path, $arr);
+            }
         }
 
-        $path = Paths::forRow($table, $arr);
-        if ($path) {
-            $this->store->write($path, $arr);
-        }
+        // Keep SQLite mtime >= content JSON so auto-rebuild does not fire after admin saves.
+        app(Index::class)->markIndexFresh();
     }
 
     /**
@@ -70,28 +63,20 @@ class Writer
         if ($table === 'brands') {
             $slug = !empty($arr['slug']) ? $arr['slug'] : ('id-' . $arr['id']);
             $this->store->deleteDirectory('brands/' . $slug);
-            return;
-        }
-
-        if ($table === 'custom_forms') {
+        } elseif ($table === 'custom_forms') {
             $this->store->delete('forms/' . $arr['id'] . '.json');
-            return;
-        }
-
-        if ($table === 'form_fields' && !empty($arr['custom_form_id'])) {
+        } elseif ($table === 'form_fields' && !empty($arr['custom_form_id'])) {
             $this->writeForm((int) $arr['custom_form_id']);
-            return;
-        }
-
-        if ($table === 'brand_faq_items' && !empty($arr['brand_id'])) {
+        } elseif ($table === 'brand_faq_items' && !empty($arr['brand_id'])) {
             $this->writeBrandFaqs((int) $arr['brand_id']);
-            return;
+        } else {
+            $path = Paths::forRow($table, $arr);
+            if ($path) {
+                $this->store->delete($path);
+            }
         }
 
-        $path = Paths::forRow($table, $arr);
-        if ($path) {
-            $this->store->delete($path);
-        }
+        app(Index::class)->markIndexFresh();
     }
 
     /**

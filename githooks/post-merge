@@ -1,0 +1,28 @@
+#!/bin/sh
+# After git pull/merge: rebuild flat SQLite if content/ changed.
+# Enable once: git config core.hooksPath githooks
+
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+cd "$ROOT" || exit 0
+
+if [ ! -f artisan ]; then
+  exit 0
+fi
+
+mkdir -p storage/flat
+touch storage/flat/needs-rebuild
+
+# Prefer site PHP binaries when present (ISPManager-style hosts).
+PHP_BIN="php"
+if [ -x /opt/php74/bin/php ]; then
+  PHP_BIN=/opt/php74/bin/php
+elif [ -x /opt/php71/bin/php ]; then
+  PHP_BIN=/opt/php71/bin/php
+fi
+
+# Rebuild now so the next page hit is instant. Web auto-rebuild is the fallback.
+if grep -qE '^FLAT_CONTENT=true' .env 2>/dev/null; then
+  $PHP_BIN artisan flat:build-index >/dev/null 2>&1 || true
+fi
+
+exit 0

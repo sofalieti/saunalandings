@@ -16,6 +16,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Auto-rebuild SQLite when content/ JSON is newer
+    |--------------------------------------------------------------------------
+    |
+    | After git pull / rsync of content/, the next request rebuilds the index.
+    | No manual `flat:build-index` needed. Disable only for debugging.
+    |
+    */
+    'auto_rebuild' => env('FLAT_AUTO_REBUILD', true),
+
+    /*
+    |--------------------------------------------------------------------------
     | Paths
     |--------------------------------------------------------------------------
     */

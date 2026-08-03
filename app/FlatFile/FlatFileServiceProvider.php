@@ -2,7 +2,6 @@
 
 namespace App\FlatFile;
 
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 
 class FlatFileServiceProvider extends ServiceProvider
@@ -53,19 +52,22 @@ class FlatFileServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (!$this->app->runningInConsole()) {
-            // Ensure SQLite exists when flat mode is on (avoid fatal on missing file)
-            if (config('flat.enabled')) {
-                $path = config('flat.sqlite_path');
-                if (!File::exists($path)) {
-                    try {
-                        app(Index::class)->rebuild();
-                    } catch (\Exception $e) {
-                        // Leave error visible in logs; site may 500 until flat:build-index
-                        \Log::error('Flat content index missing and rebuild failed: ' . $e->getMessage());
-                    }
-                }
+        if (!config('flat.enabled') || !config('flat.auto_rebuild')) {
+            return;
+        }
+
+        // Skip while explicitly rebuilding from CLI to avoid nested rebuilds.
+        if ($this->app->runningInConsole()) {
+            $argv = isset($_SERVER['argv']) ? implode(' ', (array) $_SERVER['argv']) : '';
+            if (strpos($argv, 'flat:build-index') !== false || strpos($argv, 'flat:export-from-db') !== false) {
+                return;
             }
+        }
+
+        try {
+            app(Index::class)->rebuildIfStale();
+        } catch (\Exception $e) {
+            \Log::error('Flat content auto-rebuild failed: ' . $e->getMessage());
         }
     }
 }

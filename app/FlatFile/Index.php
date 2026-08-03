@@ -74,8 +74,94 @@ class Index
         $counts['form_fields'] = $formCounts['fields'];
 
         $this->fixAutoIncrements();
+        $this->markIndexFresh();
 
         return $counts;
+    }
+
+    /**
+     * True when SQLite is missing or any content JSON is newer than the index.
+     *
+     * @return bool
+     */
+    public function needsRebuild()
+    {
+        $sqlitePath = config('flat.sqlite_path');
+        if (!File::exists($sqlitePath) || filesize($sqlitePath) === 0) {
+            return true;
+        }
+
+        if (File::exists(storage_path('flat/needs-rebuild'))) {
+            return true;
+        }
+
+        // After admin/Writer saves we touch the sqlite file so it stays >= JSON mtimes.
+        return $this->store->anyJsonNewerThan(filemtime($sqlitePath));
+    }
+
+    /**
+     * Rebuild only when content/ is ahead of the SQLite index (safe for git pull).
+     * Uses a lock so concurrent web requests do not rebuild in parallel.
+     *
+     * @return array|null counts when rebuilt, null when already fresh
+     */
+    public function rebuildIfStale()
+    {
+        if (!$this->needsRebuild()) {
+            return null;
+        }
+
+        $lockPath = storage_path('flat/rebuild.lock');
+        $lockDir = dirname($lockPath);
+        if (!File::isDirectory($lockDir)) {
+            File::makeDirectory($lockDir, 0755, true);
+        }
+
+        $fh = fopen($lockPath, 'c+');
+        if ($fh === false) {
+            $counts = $this->rebuild();
+            $this->clearNeedsRebuildFlag();
+            return $counts;
+        }
+
+        try {
+            if (!flock($fh, LOCK_EX)) {
+                $counts = $this->rebuild();
+                $this->clearNeedsRebuildFlag();
+                return $counts;
+            }
+            // Another process may have rebuilt while we waited for the lock.
+            if (!$this->needsRebuild()) {
+                return null;
+            }
+
+            $counts = $this->rebuild();
+            $this->clearNeedsRebuildFlag();
+            return $counts;
+        } finally {
+            flock($fh, LOCK_UN);
+            fclose($fh);
+        }
+    }
+
+    /**
+     * Mark SQLite as in sync with content/ (call after Writer updates files).
+     */
+    public function markIndexFresh()
+    {
+        $sqlitePath = config('flat.sqlite_path');
+        if (File::exists($sqlitePath)) {
+            @touch($sqlitePath);
+        }
+        $this->clearNeedsRebuildFlag();
+    }
+
+    protected function clearNeedsRebuildFlag()
+    {
+        $flag = storage_path('flat/needs-rebuild');
+        if (File::exists($flag)) {
+            File::delete($flag);
+        }
     }
 
     /**
