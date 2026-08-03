@@ -436,11 +436,20 @@ and open the template in the editor.
     {
         display:none;
     }
+    .main-container .brand-page-intro {
+        margin-bottom: 22px;
+    }
+    .main-container .brand-page-logo {
+        margin-bottom: 8px;
+    }
     .main-container .brand-page-logo img {
         display: block;
         max-width: min(300px, 100%);
         width: auto;
         height: auto;
+    }
+    .main-container .brand-page-intro h1 {
+        text-align: left;
     }
     h1{text-align:left;}
     .main-container  .Blockimg 

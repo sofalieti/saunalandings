@@ -348,8 +348,13 @@ a:focus, button:focus{
 
 }
 
+/* Brand mark + page title as one intro stack in the content column */
+.brand-page-intro {
+    margin: 0 0 28px;
+}
+
 .brand-page-logo {
-    margin: 0 0 16px;
+    margin: 0 0 10px;
     text-align: left;
 }
 
@@ -359,6 +364,12 @@ a:focus, button:focus{
     max-width: 300px;
     height: auto;
     object-fit: contain;
+}
+
+.brand-page-intro h1 {
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .inside-block-margin
@@ -2326,11 +2337,20 @@ and open the template in the editor.
     {
         display:none;
     }
+    .main-container .brand-page-intro {
+        margin-bottom: 22px;
+    }
+    .main-container .brand-page-logo {
+        margin-bottom: 8px;
+    }
     .main-container .brand-page-logo img {
         display: block;
         max-width: min(300px, 100%);
         width: auto;
         height: auto;
+    }
+    .main-container .brand-page-intro h1 {
+        text-align: left;
     }
     h1{text-align:left;}
     .main-container  .Blockimg 

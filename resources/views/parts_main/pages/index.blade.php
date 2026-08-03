@@ -19,16 +19,21 @@ $dualbanner_content[1]['category'] = false;
 @include('blocks.topbanner', ['banners_content' => $dualbanner_content])
 
 <div class='container main-container'>
-    <div class="brand-page-logo">
-        @if(!empty(request()->get('brand')->main_image))
-        <img src="/uploads/{{request()->get('brand')->main_image}}" alt="{{ request()->get('brand')->name }}">
-        @elseif(!empty(request()->get('brand')->site->default_brand_logo))
-        <img src="/uploads/{{request()->get('brand')->site->default_brand_logo}}" alt="{{ request()->get('brand')->name }}">
-        @endif
-    </div>
-    <h1>{{rt("!brand! infrared sauna parts")}}</h1>
     <div class="row">
         <div class="col-12 col-md-8 col-lg-6 ">
+            <div class="brand-page-intro">
+                @if(!empty(request()->get('brand')->main_image) || !empty(request()->get('brand')->site->default_brand_logo))
+                <div class="brand-page-logo">
+                    @if(!empty(request()->get('brand')->main_image))
+                    <img src="/uploads/{{request()->get('brand')->main_image}}" alt="{{ request()->get('brand')->name }}">
+                    @else
+                    <img src="/uploads/{{request()->get('brand')->site->default_brand_logo}}" alt="{{ request()->get('brand')->name }}">
+                    @endif
+                </div>
+                @endif
+                <h1>{{rt("!brand! infrared sauna parts")}}</h1>
+            </div>
+
             <div class="row">
                 <div class="col-12 inside-block-margin">
                     <div class="row">
