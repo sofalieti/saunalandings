@@ -1,20 +1,28 @@
+@php
+    $repairText = text_block('repair_text_block');
+    $mainPageExcerpt = trim(str_limit(strip_tags(text_block('main_page_text_block')), $limit = 300, $end = '...'));
+@endphp
 @extends('layouts.'.request()->get('layout'))
 @section('content')
 <div class="pc2-page-hero">
     <div class="container">
         <span class="pc-section-kicker">Repair</span>
-        <h1>{!! text_block('repair_text_block_header') ?: (request()->get('brand')->name.' Repair') !!}</h1>
+        <h1>{!! text_block('repair_text_block_header') ?: (ucwords(strtolower(trim(request()->get('brand')->name))).' Repair') !!}</h1>
     </div>
 </div>
 <div class="container pc-page">
     <div class="row">
         <div class="col-md-6">
+            @if($repairText)
             <div class="main-description pc-section-body">
-                {!! text_block('repair_text_block') !!}
+                {!! $repairText !!}
             </div>
+            @endif
+            @if($mainPageExcerpt)
             <div class="description-from-main-page">
-                {{ str_limit(strip_tags(text_block('main_page_text_block')), $limit = 300, $end = '...') }}
+                {{ $mainPageExcerpt }}
             </div>
+            @endif
         </div>
         <div class="col-md-6">
             <div class="right-form">
