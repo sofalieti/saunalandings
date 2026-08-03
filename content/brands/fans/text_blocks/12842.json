@@ -2,7 +2,7 @@
     "id": 12842,
     "name": "Faq Text Block",
     "var_name": "faq_text_block",
-    "description": "<p>[PLUG] Short intro above the FAQ list for this spare-part category.</p>",
+    "description": "<p>The questions we are asked most often about replacing sauna fans. If yours is not here, send a photo through the form and we will answer it directly.</p>",
     "brand_id": 1134,
     "site_id": 18,
     "text_block_id": 90,

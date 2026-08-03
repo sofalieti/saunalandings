@@ -2,7 +2,7 @@
     "id": 12840,
     "name": "Troubleshooting Text Block",
     "var_name": "troubleshooting_text_block",
-    "description": "<p>[PLUG] Step-by-step checks before replacing this part. List safe basic diagnostics.</p>",
+    "description": "<p>Work through these checks before ordering a part. Always switch the sauna off at the breaker before you open a vent or the control box.</p><ul><li>Confirm the cabin has power and that the breaker has not tripped.</li><li>Remove the grille and look for dust, lint or a loose screw jamming the blades.</li><li>Spin the blade by hand: a gritty or stiff bearing means the motor is finished.</li><li>Inspect the connector and wiring for heat marks, brittle insulation or a loose spade terminal.</li><li>Listen for a hum without rotation - the motor is getting power, but the bearing or the capacitor has failed.</li><li>If the fan runs through a speed controller or a relay, have a qualified electrician test the fan with the controller bypassed.</li></ul>",
     "brand_id": 1134,
     "site_id": 18,
     "text_block_id": 88,
