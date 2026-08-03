@@ -1,0 +1,8 @@
+{
+    "id": 88,
+    "name": "Troubleshooting text",
+    "var_name": "troubleshooting_text_block",
+    "description": "<p>[PLUG] Step-by-step checks before replacing this part. List safe basic diagnostics.</p>",
+    "site_id": 13,
+    "active": 1
+}

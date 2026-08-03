@@ -63,6 +63,20 @@
 # ----------------------------------------------------------
 # Source of truth is flat JSON (not MySQL) when FLAT_CONTENT=true.
 #
+# Page structure (logical SEO template):
+#   /                 home — H1, intro, symptoms, how-to-choose, goods, FAQ, trust, CTA
+#   /how_to_choose    fitment guide page
+#   /troubleshooting  diagnostics page
+#   /repair           repair / fix page
+#   /faq              full FAQ page
+#   /category/{slug}  goods list
+#   /category/{slug}/{product}  product detail
+#
+# Content plugs (edit per brand under content/brands/{slug}/):
+#   text_blocks/*.json  — main_page_*, symptoms_*, how_to_choose_*, trust_*, repair_*, troubleshooting_*, faq_*
+#   faq.json            — FAQ items (also powers FAQPage schema)
+#   brand.json          — meta_title / meta_description / meta_keywords
+#
 # 1) Category for the domain brand:
 #      content/categories/{id}.json   → "site_id": 13
 #

@@ -33,6 +33,8 @@
     'heading' => false,
 ])
 
+@include('parts_category.partials.related-links')
+
 @include('blocks.delivery')
 @include('blocks.dualbanner', ['banners_content' => $dualbanner_content])
 

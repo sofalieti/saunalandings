@@ -1,0 +1,11 @@
+{
+    "id": 12776,
+    "name": "Faq Text Block Header",
+    "var_name": "faq_text_block_header",
+    "description": "[PLUG] !brand! FAQ",
+    "brand_id": 1129,
+    "site_id": 13,
+    "text_block_id": 89,
+    "active": 1,
+    "disable_update": 0
+}

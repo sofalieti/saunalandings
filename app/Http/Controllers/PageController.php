@@ -42,10 +42,13 @@ class PageController extends Controller
     
     public function page_template(Request $request){
         $template = request()->get('brand')->site->page_templates()->where(['var_name' => $request->slug, 'active' => true])->firstOrFail();
+        $brandTemplate = request()->get('brand')->page_brand_templates()
+            ->where(['var_name' => $request->slug, 'active' => true])
+            ->first();
         $categories = Category::withBrandAndSite()->withArticles()->get();
         
         return view(request()->get('layout').".pages.{$request->slug}", [
-            'meta' => $this->get_meta($template),
+            'meta' => $this->get_meta($brandTemplate ?: $template),
             'template' => $template,
             'categories' => $categories
         ]);        

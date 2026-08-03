@@ -10,6 +10,36 @@
         <meta name="description" content="{{rt($meta['description'])}}"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="robots" content="index, follow" />
+
+        @if(!empty($meta['canonical_url']))
+        <link rel="canonical" href="{{ $meta['canonical_url'] }}" />
+        @endif
+
+        @if(!empty($meta['schema_org_json']))
+        <script type="application/ld+json">{!! $meta['schema_org_json'] !!}</script>
+        @endif
+
+        @if(!empty($meta['faq_items']) && $meta['faq_items']->count())
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            @foreach($meta['faq_items'] as $faqItem)
+            {
+              "@type": "Question",
+              "name": "{{ e($faqItem->question) }}",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "{{ e($faqItem->answer) }}"
+              }
+            }{{ $loop->last ? '' : ',' }}
+            @endforeach
+          ]
+        }
+        </script>
+        @endif
+
         <link href="{!! asset('css/bootstrap.min.css') !!}" type="text/css" rel="stylesheet" />
         <link href="{!! asset('fontawesome-free-5.8.1/css/all.min.css') !!}" type="text/css" rel="stylesheet" /> 
         <link href="{!! asset('css/parts_main/app.css') !!}" type="text/css" rel="stylesheet" />
@@ -68,6 +98,25 @@
                 </div>
             </div>
         </header>
+        <nav class="pc-subnav">
+            <div class="container">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    @if(page_template('how_to_choose'))
+                    <li><a href="{{ route('page_template_without_state', ['slug' => 'how_to_choose']) }}">How to choose</a></li>
+                    @endif
+                    @if(page_template('troubleshooting'))
+                    <li><a href="{{ route('page_template_without_state', ['slug' => 'troubleshooting']) }}">Troubleshooting</a></li>
+                    @endif
+                    @if(page_template('repair'))
+                    <li><a href="{{ route('page_template_without_state', ['slug' => 'repair']) }}">Repair</a></li>
+                    @endif
+                    @if(page_template('faq'))
+                    <li><a href="{{ route('page_template_without_state', ['slug' => 'faq']) }}">FAQ</a></li>
+                    @endif
+                </ul>
+            </div>
+        </nav>
         {{--@include('categories.menu_category')--}}
         @yield('content')
         <div class="google-map"><iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=56.506174,79.013672&amp;t=m&amp;z=4&amp;output=embed"></iframe></div>

@@ -15,6 +15,78 @@
     margin-bottom: 20px;
     text-align: center;
 }
+.pc-subnav{
+    border-bottom: 1px solid #e5e5e5;
+    background: #fff;
+}
+.pc-subnav ul{
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+}
+.pc-subnav a{
+    color: #333;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.pc-subnav a:hover{
+    color: #479391;
+}
+.pc-section{
+    padding: 35px 0;
+}
+.pc-section-alt{
+    background: #f7f7f7;
+}
+.pc-section h2{
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+.pc-section-body{
+    max-width: 900px;
+}
+.pc-section-link{
+    margin-top: 15px;
+}
+.pc-faq-list{
+    margin-top: 20px;
+}
+.pc-faq-item{
+    padding: 15px 0;
+    border-bottom: 1px solid #e8e8e8;
+}
+.pc-faq-q{
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 8px;
+}
+.pc-faq-a{
+    color: #444;
+}
+.pc-related-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+}
+.pc-related-list a{
+    font-weight: 600;
+}
+.pc-trust{
+    background: #f0f0f0;
+    font-size: 16px;
+}
+.pc-page{
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
 @media screen and (max-width: 768px){
     header{
         padding: 20px 0 !important;

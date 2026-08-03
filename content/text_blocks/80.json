@@ -1,0 +1,8 @@
+{
+    "id": 80,
+    "name": "Symptoms header",
+    "var_name": "symptoms_text_block_header",
+    "description": "[PLUG] Common symptoms",
+    "site_id": 13,
+    "active": 1
+}

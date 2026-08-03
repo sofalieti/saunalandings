@@ -1,6 +1,23 @@
 @extends('layouts.'.request()->get('layout'))
 @section('content')
 
+@php
+    $productImage = $product->image ? url('/uploads/'.ltrim($product->image, '/')) : null;
+@endphp
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ json_encode($product->name) }},
+  "description": {{ json_encode(trim(strip_tags($product->description))) }},
+  "brand": {{ json_encode(request()->get('brand')->name) }}
+  @if($productImage)
+  ,"image": {{ json_encode($productImage) }}
+  @endif
+  ,"category": {{ json_encode($category->name) }}
+}
+</script>
+
 <div class="container">
     <h1>{{ $product->name }}</h1>
     <div class="row">
@@ -8,13 +25,8 @@
             <div class="product-img">
                 @if($product->image)
                     <div class="product-main-img">
-                        <a href="{{ $product->image_big }}" data-fancybox="gallery"><img src="{{ $product->image_medium }}" alt="{{ $product->name }}"/></a>
+                        <img src="{{ $product->image_medium ?: ('/uploads/'.ltrim($product->image, '/')) }}" alt="{{ $product->name }}"/>
                     </div>
-                @endif
-                @if(is_array($product->image_thumbs))
-                    @foreach($product->image_thumbs as $image)
-                        <div class="product-small-img"><img src="{{ $image }}" alt=""/></div>
-                    @endforeach
                 @endif
             </div>
         </div>
@@ -37,6 +49,8 @@
         </div>
     </div>
 </div>
+
+@include('parts_category.partials.related-links')
 
 @endsection
 @section('footer')

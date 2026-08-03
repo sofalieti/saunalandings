@@ -1,0 +1,11 @@
+{
+    "id": 12723,
+    "name": "Troubleshooting Text Block",
+    "var_name": "troubleshooting_text_block",
+    "description": "<p>[PLUG] Step-by-step checks before replacing this part. List safe basic diagnostics.</p>",
+    "brand_id": 1124,
+    "site_id": 13,
+    "text_block_id": 88,
+    "active": 1,
+    "disable_update": 0
+}
