@@ -1,29 +1,41 @@
 @php
+    $brand = request()->get('brand');
     $chooseText = text_block('how_to_choose_text_block');
+    $pageTitle = text_block('how_to_choose_page_header')
+        ?: text_block('how_to_choose_text_block_header')
+        ?: ('How to choose '.ucwords(strtolower(trim($brand->name))));
 @endphp
 @extends('layouts.'.request()->get('layout'))
 @section('content')
-<div class="pc2-page-hero">
-    <div class="container">
-        <span class="pc-section-kicker">Fitment</span>
-        <h1>{!! text_block('how_to_choose_page_header') ?: text_block('how_to_choose_text_block_header') ?: ('How to choose '.ucwords(strtolower(trim(request()->get('brand')->name)))) !!}</h1>
+
+<header class="au-page-hero">
+    <div class="au-shell">
+        <nav class="au-crumbs">
+            <a href="/">Home</a>
+            <span>/</span>
+            <span>How to choose</span>
+        </nav>
+        <span class="au-label au-head__note">Fitment</span>
+        <h1 class="au-h1">{!! $pageTitle !!}</h1>
     </div>
-</div>
-<div class="container pc-page">
-    <div class="row">
-        <div class="col-md-6">
-            @if($chooseText)
-            <div class="main-description pc2-choose-body pc-section-body">
-                {!! $chooseText !!}
+</header>
+
+<section class="au-section au-section--tight">
+    <div class="au-shell">
+        <div class="au-split au-split--wide">
+            <div class="au-card au-card--body">
+                @if($chooseText)
+                    <div class="au-prose au-prose--full au-prose--steps">{!! $chooseText !!}</div>
+                @endif
             </div>
-            @endif
-        </div>
-        <div class="col-md-6">
-            <div class="right-form">
+            <aside class="au-split__aside au-form-card">
                 @include('forms.form', ['form_id' => 2])
-            </div>
+            </aside>
         </div>
     </div>
-</div>
+</section>
+
 @include('parts_category_v2.partials.related-links')
+@include('parts_category_v2.partials.cta')
+
 @endsection

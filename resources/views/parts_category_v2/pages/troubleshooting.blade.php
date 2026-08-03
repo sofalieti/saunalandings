@@ -1,58 +1,43 @@
 @php
+    $brand = request()->get('brand');
     $troubleshootingText = text_block('troubleshooting_text_block');
     $mainPageExcerpt = trim(str_limit(strip_tags(text_block('main_page_text_block')), $limit = 300, $end = '...'));
+    $pageTitle = text_block('troubleshooting_text_block_header') ?: (ucwords(strtolower(trim($brand->name))).' Troubleshooting');
 @endphp
 @extends('layouts.'.request()->get('layout'))
 @section('content')
-<div class="pc2-page-hero">
-    <div class="container">
-        <span class="pc-section-kicker">Troubleshooting</span>
-        <h1>{!! text_block('troubleshooting_text_block_header') ?: (ucwords(strtolower(trim(request()->get('brand')->name))).' Troubleshooting') !!}</h1>
+
+<header class="au-page-hero">
+    <div class="au-shell">
+        <nav class="au-crumbs">
+            <a href="/">Home</a>
+            <span>/</span>
+            <span>Troubleshooting</span>
+        </nav>
+        <span class="au-label au-head__note">Diagnostics</span>
+        <h1 class="au-h1">{!! $pageTitle !!}</h1>
+        @if($mainPageExcerpt)
+            <p class="au-lead au-hero__lead">{{ $mainPageExcerpt }}</p>
+        @endif
     </div>
-</div>
-<div class="container pc-page">
-    <div class="row">
-        <div class="col-md-6">
-            @if($troubleshootingText)
-            <div class="main-description pc-section-body">
-                {!! $troubleshootingText !!}
+</header>
+
+<section class="au-section au-section--tight">
+    <div class="au-shell">
+        <div class="au-split au-split--wide">
+            <div class="au-card au-card--body">
+                @if($troubleshootingText)
+                    <div class="au-prose au-prose--full au-prose--steps">{!! $troubleshootingText !!}</div>
+                @endif
             </div>
-            @endif
-            @if($mainPageExcerpt)
-            <div class="description-from-main-page">
-                {{ $mainPageExcerpt }}
-            </div>
-            @endif
-        </div>
-        <div class="col-md-6">
-            <div class="right-form">
+            <aside class="au-split__aside au-form-card">
                 @include('forms.form', ['form_id' => 2])
-            </div>
+            </aside>
         </div>
-    </div>
-</div>
-@include('parts_category_v2.partials.related-links')
-<section class="pc2-cta">
-    <div class="container">
-        <h2>Still not sure which part you need?</h2>
-        <h3>Send a photo and a specialist confirms the fitment before you order.</h3>
-        <a class="btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#question">Request a free quote</a>
     </div>
 </section>
+
+@include('parts_category_v2.partials.related-links')
+@include('parts_category_v2.partials.cta')
+
 @endsection
-@section('footer')
-    <div class="modal" id="question">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Submit a quote</h4>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                </div>
-                <div class="modal-body">
-                    @include('forms.form', ['form_id' => 3])
-                </div>
-            </div>
-        </div>
-    </div>
-    @parent
-@stop
