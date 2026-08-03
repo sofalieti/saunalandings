@@ -53,5 +53,8 @@ jobs:
             cd "${{ secrets.DEPLOY_PATH }}"
             git fetch origin main
             git checkout main
+            # Local/untracked files (e.g. built assets) must not block pull.
+            git stash push -u -m "ci-pre-deploy" || true
             git pull --ff-only origin main
+            git stash pop || true
             echo "Deployed $(git rev-parse --short HEAD)"
