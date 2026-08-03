@@ -3,6 +3,7 @@
 namespace App\FlatFile;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * Exports content tables from the default MySQL connection into content/ JSON files.
@@ -18,6 +19,19 @@ class Exporter
     }
 
     /**
+     * @param string $table
+     * @return bool
+     */
+    protected function hasTable($table)
+    {
+        try {
+            return Schema::connection(config('database.default'))->hasTable($table);
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
      * @param bool $dryRun
      * @return array summary counts
      */
@@ -25,6 +39,10 @@ class Exporter
     {
         $this->store->ensureContentDir();
         $summary = [];
+
+        if (!$this->hasTable('brands')) {
+            throw new \RuntimeException('Table brands not found on default DB connection.');
+        }
 
         $brands = DB::connection()->table('brands')->get();
         Paths::$brandSlugMap = [];
@@ -72,6 +90,10 @@ class Exporter
      */
     protected function exportTable($table, $dryRun)
     {
+        if (!$this->hasTable($table)) {
+            return 0;
+        }
+
         $rows = DB::connection()->table($table)->get();
         $count = 0;
         foreach ($rows as $row) {
@@ -129,6 +151,10 @@ class Exporter
      */
     protected function exportBrandStates($dryRun)
     {
+        if (!$this->hasTable('brand_states')) {
+            return 0;
+        }
+
         $count = 0;
         foreach (Paths::$brandSlugMap as $brandId => $slug) {
             $stateIds = DB::connection()->table('brand_states')
@@ -156,15 +182,19 @@ class Exporter
     protected function exportBrandFaqs($dryRun)
     {
         $count = 0;
+        $hasFaq = $this->hasTable('brand_faq_items');
+
         foreach (Paths::$brandSlugMap as $brandId => $slug) {
-            $items = DB::connection()->table('brand_faq_items')
-                ->where('brand_id', $brandId)
-                ->orderBy('position')
-                ->get();
             $list = [];
-            foreach ($items as $item) {
-                $list[] = $this->rowToArray($item);
-                $count++;
+            if ($hasFaq) {
+                $items = DB::connection()->table('brand_faq_items')
+                    ->where('brand_id', $brandId)
+                    ->orderBy('position')
+                    ->get();
+                foreach ($items as $item) {
+                    $list[] = $this->rowToArray($item);
+                    $count++;
+                }
             }
             if (!$dryRun) {
                 $this->store->write('brands/' . $slug . '/faq.json', $list);
@@ -180,6 +210,10 @@ class Exporter
      */
     protected function exportBrandTextBlocks($dryRun)
     {
+        if (!$this->hasTable('brand_text_blocks')) {
+            return 0;
+        }
+
         $rows = DB::connection()->table('brand_text_blocks')->get();
         $count = 0;
         foreach ($rows as $row) {
@@ -203,6 +237,10 @@ class Exporter
      */
     protected function exportBrandFeatureValues($dryRun)
     {
+        if (!$this->hasTable('brand_brand_feature')) {
+            return 0;
+        }
+
         $rows = DB::connection()->table('brand_brand_feature')->get();
         $count = 0;
         foreach ($rows as $row) {
@@ -226,6 +264,10 @@ class Exporter
      */
     protected function exportBrandModelLines($dryRun)
     {
+        if (!$this->hasTable('brand_model_line')) {
+            return 0;
+        }
+
         $count = 0;
         foreach (Paths::$brandSlugMap as $brandId => $slug) {
             $rows = DB::connection()->table('brand_model_line')->where('brand_id', $brandId)->get();
@@ -248,6 +290,10 @@ class Exporter
      */
     protected function exportCategoryBrands($dryRun)
     {
+        if (!$this->hasTable('category_brands')) {
+            return 0;
+        }
+
         $rows = DB::connection()->table('category_brands')->get();
         $list = [];
         foreach ($rows as $row) {
@@ -266,19 +312,26 @@ class Exporter
      */
     protected function exportForms($dryRun)
     {
+        if (!$this->hasTable('custom_forms')) {
+            return ['forms' => 0, 'fields' => 0];
+        }
+
         $forms = DB::connection()->table('custom_forms')->get();
         $fieldCount = 0;
         $formCount = 0;
+        $hasFields = $this->hasTable('form_fields');
         foreach ($forms as $form) {
             $arr = $this->rowToArray($form);
-            $fields = DB::connection()->table('form_fields')
-                ->where('custom_form_id', $arr['id'])
-                ->orderBy('position')
-                ->get();
             $fieldList = [];
-            foreach ($fields as $field) {
-                $fieldList[] = $this->rowToArray($field);
-                $fieldCount++;
+            if ($hasFields) {
+                $fields = DB::connection()->table('form_fields')
+                    ->where('custom_form_id', $arr['id'])
+                    ->orderBy('position')
+                    ->get();
+                foreach ($fields as $field) {
+                    $fieldList[] = $this->rowToArray($field);
+                    $fieldCount++;
+                }
             }
             $arr['fields'] = $fieldList;
             if (!$dryRun) {

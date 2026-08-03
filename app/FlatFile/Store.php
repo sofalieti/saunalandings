@@ -95,7 +95,7 @@ class Store
     /**
      * Glob relative paths under content/.
      *
-     * @param string $pattern e.g. brands/*/brand.json
+     * @param string $pattern e.g. brands/{slug}/brand.json with wildcards
      * @return array list of relative paths
      */
     public function glob($pattern)
