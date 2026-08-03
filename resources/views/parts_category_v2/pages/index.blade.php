@@ -61,46 +61,38 @@
 @section('content')
 
 <header class="au-hero">
-    <div class="au-shell">
-        <div class="au-hero__grid">
-            <div class="au-hero__copy">
-                <span class="au-tag">{{ $brand->domain }}</span>
-                <h1 class="au-h1">{{ $h1 }}</h1>
-                @if($heroLead)
-                    <p class="au-lead au-hero__lead">{{ $heroLead }}</p>
-                @endif
-                <div class="au-actions">
-                    <a class="au-btn" href="#quote" data-toggle="modal" data-target="#question">Request a fitment check</a>
-                    @if(count($goodsCategories))
-                        <a class="au-link au-link--icon" href="#parts">See the parts we stock</a>
-                    @endif
-                </div>
-                <div class="au-hero__meta">
-                    <span class="au-tag au-tag--quiet">Photo-matched fitment</span>
-                    <span class="au-tag au-tag--quiet">USA &amp; Canada shipping</span>
-                    <span class="au-tag au-tag--quiet">Specialist answer, not a bot</span>
-                </div>
-            </div>
-            @if($heroImage)
-                <div class="au-hero__media">
-                    <img src="{{ $heroImage }}" alt="{{ $heroCaption }}">
-                    <span class="au-caption">{{ $heroCaption }}</span>
-                </div>
+    @if($heroImage)
+        <div class="au-hero__media" aria-hidden="true">
+            <img src="{{ $heroImage }}" alt="">
+        </div>
+    @endif
+    <div class="au-shell au-hero__shell">
+        <div class="au-hero__copy au-rise">
+            <p class="au-brand-mark">{{ $brand->domain }}</p>
+            <h1 class="au-h1">{{ $h1 }}</h1>
+            @if($heroLead)
+                <p class="au-lead au-hero__lead">{{ $heroLead }}</p>
             @endif
+            <div class="au-actions">
+                <a class="au-btn" href="#" data-toggle="modal" data-target="#question">Request a fitment check</a>
+                @if(count($goodsCategories))
+                    <a class="au-link au-link--icon" href="#parts">See the parts</a>
+                @endif
+            </div>
         </div>
     </div>
 </header>
 
 @if($overviewText)
-<section class="au-section">
+<section class="au-section au-reveal">
     <div class="au-shell">
         <div class="au-split">
             <div class="au-split__aside">
                 <span class="au-label">Overview</span>
-                <p class="au-caption au-head__note">One part family, described in detail — no generic catalog copy.</p>
             </div>
-            <div class="au-card au-card--body">
-                <div class="au-prose au-prose--full">{!! $overviewText !!}</div>
+            <div>
+                <h2 class="au-title au-title--plain">Breakthrough fitment, without the catalog noise</h2>
+                <div class="au-prose au-head__note">{!! $overviewText !!}</div>
             </div>
         </div>
     </div>
@@ -108,19 +100,21 @@
 @endif
 
 @if($symptomsText)
-<section class="au-section" id="symptoms">
+<section class="au-section au-reveal" id="symptoms">
     <div class="au-shell">
         <div class="au-head">
             <span class="au-label">Diagnostics</span>
             <h2 class="au-title">{!! text_block('symptoms_text_block_header') ?: 'Signs the part is failing' !!}</h2>
         </div>
-        <div class="au-prose au-prose--full au-prose--rows au-head__note">{!! $symptomsText !!}</div>
+        <div class="au-card au-card--body au-head__note">
+            <div class="au-prose au-prose--full au-prose--rows">{!! $symptomsText !!}</div>
+        </div>
     </div>
 </section>
 @endif
 
 @if($chooseText)
-<section class="au-section" id="fitment">
+<section class="au-section au-reveal" id="fitment">
     <div class="au-shell">
         <div class="au-head">
             <span class="au-label">Fitment</span>
@@ -156,7 +150,7 @@
 @include('parts_category_v2.partials.quote', ['formId' => 2])
 
 @if(count($faqItems))
-<section class="au-section" id="faq">
+<section class="au-section au-reveal" id="faq">
     <div class="au-shell">
         <div class="au-head">
             <span class="au-label">Questions</span>
@@ -176,7 +170,7 @@
 @endif
 
 @if($trustText)
-<section class="au-section">
+<section class="au-section au-reveal">
     <div class="au-shell">
         <div class="au-trust">
             <div>

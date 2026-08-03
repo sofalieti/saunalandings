@@ -57,38 +57,35 @@
         @endphp
 
         <div class="au-topline">
-            <div class="au-shell">
-                <div class="au-topline__inner">
-                    <span class="au-tag au-topline__badge">Fitment check</span>
-                    <span>Send a photo of the old part — a specialist confirms the match before you order.</span>
-                </div>
+            <div class="au-topline__inner">
+                <span class="au-tag au-topline__badge">NEW</span>
+                <span>Send a photo of the old part — a specialist confirms the match before you order.</span>
             </div>
         </div>
 
-        <nav class="au-nav">
-            <div class="au-shell">
-                <div class="au-nav__pill">
-                    <a class="au-nav__brand" href="/">
-                        @include('parts_category_v2.partials.star')
-                        <span>{{ $auBrand->domain }}</span>
-                    </a>
-                    <ul class="au-nav__links">
-                        <li><a href="/">Home</a></li>
-                        @foreach($auNavItems as $auSlug => $auLabel)
-                            @if(page_template($auSlug))
-                                <li><a href="{{ route('page_template_without_state', ['slug' => $auSlug]) }}">{{ $auLabel }}</a></li>
-                            @endif
-                        @endforeach
-                    </ul>
-                    <a href="#" class="au-nav__state au-link" data-toggle="modal" data-target="#state_list">
-                        <span class="au-label">State</span>
-                        @if($auState->default)
-                            {{ $auState->name }}
-                        @else
-                            USA, {{ $auState->name }}
+        <nav class="au-nav" aria-label="Primary">
+            <div class="au-nav__pill">
+                <a class="au-nav__brand" href="/">
+                    @include('parts_category_v2.partials.star')
+                    <span>{{ $auBrand->domain }}</span>
+                </a>
+                <ul class="au-nav__links">
+                    <li><a class="au-ghost" href="/">Home</a></li>
+                    @foreach($auNavItems as $auSlug => $auLabel)
+                        @if(page_template($auSlug))
+                            <li><a class="au-ghost" href="{{ route('page_template_without_state', ['slug' => $auSlug]) }}">{{ $auLabel }}</a></li>
                         @endif
-                    </a>
-                </div>
+                    @endforeach
+                    <li>
+                        <a class="au-ghost" href="#" data-toggle="modal" data-target="#state_list">
+                            @if($auState->default)
+                                {{ $auState->name }}
+                            @else
+                                {{ $auState->name }}
+                            @endif
+                        </a>
+                    </li>
+                </ul>
             </div>
         </nav>
 
@@ -99,69 +96,27 @@
         @section('footer')
         <footer class="au-footer">
             <div class="au-shell">
-                <div class="au-footer__top">
-                    <div>
-                        <div class="au-footer__brand">
-                            @include('parts_category_v2.partials.star')
-                            <span>{{ $auBrand->domain }}</span>
-                        </div>
-                        <p class="au-footer__tagline">Replacement parts for infrared saunas, matched to your cabin by a specialist before you order.</p>
-                    </div>
-                    <div class="au-footer__phones">
-                        <div><span>Toll free</span> <a href="tel:+18885597278">+1-888-559-PART (7278)</a></div>
-                        <div><span>International</span> <a href="tel:+17187097278">+1-718-709-PART (7278)</a></div>
-                        <div><span>Texting / SMS 24/7</span> <a href="tel:+13477461765">+1-347-746-1765</a></div>
-                    </div>
+                <div class="au-footer__brand">
+                    @include('parts_category_v2.partials.star')
+                    <span>{{ $auBrand->domain }}</span>
                 </div>
-
-                <div class="au-footer__nav">
-                    <div>
-                        <h4>Build your sauna</h4>
-                        <ul>
-                            <li><a href="https://infraredsaunaparts.com/build-your-infrared-sauna.html">Build your sauna</a></li>
-                            <li><a href="https://infraredsaunaparts.com/build-your-sauna-clone.html">Customize your Rain Cover</a></li>
-                            <li><a href="https://infraredsaunaparts.com/do-it-yourself-infrared-sauna-kits-en.html">All DIY Infrared Sauna Kits</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4>Support</h4>
-                        <ul>
-                            <li><a href="https://infraredsaunaparts.com/support.html">Support</a></li>
-                            <li><a href="https://infraredsaunaparts.com/f.a.q..html">F.A.Q.</a></li>
-                            <li><a href="https://infraredsaunaparts.com/new-instructions.html">Instructions</a></li>
-                            <li><a href="https://infraredsaunaparts.com/return-policy.html">Return Policy</a></li>
-                            <li><a href="https://infraredsaunaparts.com/privacy-policy.html">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4>Main menu</h4>
-                        <ul>
-                            <li><a href="https://infraredsaunaparts.com/">Home Page</a></li>
-                            <li><a href="https://infraredsaunaparts.com/reviews-en.html">Reviews</a></li>
-                            <li><a href="https://infraredsaunaparts.com/become-a-dealer.html">Become a Dealer</a></li>
-                            <li><a href="https://infraredsaunaparts.com//infrared-sauna-pars-drop-shipping-program.html">Drop Shipping Program</a></li>
-                            <li><a href="https://infraredsaunaparts.com/index.php?dispatch=categories.catalog">Products</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4>Company</h4>
-                        <ul>
-                            <li><a href="https://infraredsaunaparts.com/about-us.html">About Us</a></li>
-                            <li><a href="https://infraredsaunaparts.com/contact-infraredsaunaparts.com.html">Contact us</a></li>
-                            <li><a href="https://infraredsaunaparts.com/support-claim.html">Trouble Ticket</a></li>
-                            <li><a href="https://infraredsaunaparts.com/warranty.html">Warranty</a></li>
-                            <li><a href="https://infraredsaunaparts.com/cant-find-a-part.html">Cant find a Part?</a></li>
-                        </ul>
-                    </div>
-                </div>
-
+                <p class="au-footer__tagline">Replacement parts for infrared saunas, matched to your cabin by a specialist.</p>
+                <ul class="au-footer__links">
+                    <li><a href="/">Home</a></li>
+                    @foreach($auNavItems as $auSlug => $auLabel)
+                        @if(page_template($auSlug))
+                            <li><a href="{{ route('page_template_without_state', ['slug' => $auSlug]) }}">{{ $auLabel }}</a></li>
+                        @endif
+                    @endforeach
+                    <li><a href="tel:+18885597278">+1-888-559-PART</a></li>
+                </ul>
                 <div class="au-footer__bottom">
-                    <div>© {{ date('Y') }} {{ $auBrand->domain }} — infrared sauna parts. Shipping across the USA and Canada.</div>
-                    <div class="au-footer__social">
+                    <span>© {{ date('Y') }} {{ $auBrand->domain }}</span>
+                    <span class="au-footer__social">
                         <a href="https://www.trustpilot.com/review/infraredsaunaparts.com">Trustpilot</a>
                         <a href="https://twitter.com/InfraSaunaParts">Twitter</a>
                         <a href="https://www.yelp.com/biz/infraredsaunaparts-san-diego">Yelp</a>
-                    </div>
+                    </span>
                 </div>
             </div>
         </footer>
