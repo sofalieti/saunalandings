@@ -18,7 +18,7 @@ function line($label, $value)
 $css = $root . '/public/css/parts_category_v2/app.css';
 if (is_file($css)) {
     $body = (string) file_get_contents($css);
-    line('v2 stylesheet', strpos($body, '--pc2-mist') !== false ? 'light build' : 'OLD BUILD (light palette missing)');
+    line('v2 stylesheet', strpos($body, '--color-signal-blue') !== false ? 'augen build' : 'OLD BUILD (augen palette missing)');
     line('v2 stylesheet bytes', strlen($body));
     line('v2 stylesheet mtime', date('Y-m-d H:i:s', filemtime($css)));
 } else {
