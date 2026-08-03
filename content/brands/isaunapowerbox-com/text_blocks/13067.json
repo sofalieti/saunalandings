@@ -2,7 +2,7 @@
     "id": 13067,
     "name": "Symptoms Text Block",
     "var_name": "symptoms_text_block",
-    "description": "<p>[PLUG] Describe typical failure symptoms for this part (noise, no power, overheating, intermittent work).</p><ul><li>[PLUG] Symptom 1</li><li>[PLUG] Symptom 2</li><li>[PLUG] Symptom 3</li></ul>",
+    "description": "",
     "brand_id": 1373,
     "site_id": 13,
     "text_block_id": 81,
