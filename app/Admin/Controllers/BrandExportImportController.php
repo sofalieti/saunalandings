@@ -6,6 +6,7 @@ use App\Brand;
 use App\BrandFaqItem;
 use App\Site;
 use App\State;
+use App\FlatFile\Writer;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Encore\Admin\Layout\Content;
@@ -237,23 +238,28 @@ class BrandExportImportController extends Controller
                         foreach ($blocks as $blockData) {
                             if (empty($blockData['var_name'])) continue;
                             if (!$dryRun) {
-                                $brand->brand_text_blocks()
+                                $block = $brand->brand_text_blocks()
                                     ->where('var_name', $blockData['var_name'])
-                                    ->update([
-                                        'description' => $blockData['description'] ?? null,
-                                        'active'      => $blockData['active'] ?? true,
-                                    ]);
+                                    ->first();
+                                if ($block) {
+                                    $block->description = isset($blockData['description']) ? $blockData['description'] : null;
+                                    $block->active = isset($blockData['active']) ? $blockData['active'] : true;
+                                    $block->save();
+                                }
                             }
                         }
                     }
                 }
 
-                // states.json — re-sync pivot
+                // states.json — re-sync pivot (ZIP may contain state slugs OR numeric ids)
                 if (file_exists($brandDir . '/states.json')) {
                     $stateSlugs = json_decode(file_get_contents($brandDir . '/states.json'), true);
                     if (is_array($stateSlugs)) {
                         $stateIds = collect($stateSlugs)
                             ->map(function ($s) use ($allStates) {
+                                if (is_numeric($s)) {
+                                    return (int) $s;
+                                }
                                 $state = $allStates->get($s);
                                 return $state ? $state->id : null;
                             })
@@ -264,6 +270,11 @@ class BrandExportImportController extends Controller
                             $brand->states()->sync($stateIds);
                         }
                     }
+                }
+
+                if (!$dryRun && config('flat.enabled')) {
+                    $brandSlug = !empty($brand->slug) ? $brand->slug : $slug;
+                    app(Writer::class)->writeBrandAggregates((int) $brand->id, $brandSlug);
                 }
 
                 $result['updated'][] = $slug;

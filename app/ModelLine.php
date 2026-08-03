@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Cviebrock\EloquentSluggable\Sluggable;
+use App\FlatFile\UsesFlatFiles;
 
 class ModelLine extends Model {
 
-    use Sluggable;
+    use Sluggable, UsesFlatFiles;
 
     public function sluggable() {
         return [

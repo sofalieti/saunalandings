@@ -10,6 +10,7 @@ use Storage;
 
 use Encore\Admin\Traits\AdminBuilder;
 use Encore\Admin\Traits\ModelTree;
+use App\FlatFile\UsesFlatFiles;
 
 class Category extends Model
 {
@@ -19,6 +20,7 @@ class Category extends Model
     
     use Sluggable;
     use ModelTree, AdminBuilder;
+    use UsesFlatFiles;
     public $timestamps = false;
     
     public function __construct(array $attributes = []){

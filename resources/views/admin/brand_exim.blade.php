@@ -12,7 +12,8 @@
         <p class="text-muted">
           Select a site and (optionally) specific brands. The result is a ZIP where every brand
           gets its own folder with <code>brand.json</code>, <code>seo.json</code>,
-          <code>faq.json</code>, <code>text_blocks.json</code> and <code>states.json</code>.
+          <code>faq.json</code>, <code>text_blocks.json</code> and <code>states.json</code>
+          (same layout as <code>content/brands/{slug}/</code> used by the flat-file store).
           Edit the files, then re-import the same ZIP.
         </p>
 

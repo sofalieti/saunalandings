@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use App\FlatFile\UsesFlatFiles;
 
 class Brand extends Model
 {
-    use Sluggable;
+    use Sluggable, UsesFlatFiles;
     
     protected $fillable = [
         'name', 'site_id', 'domain', 'active', 'additional_domains', 'meta_title', 'meta_description',

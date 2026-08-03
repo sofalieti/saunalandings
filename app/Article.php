@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use App\FlatFile\UsesFlatFiles;
 
 class Article extends Model
 {
-    use Sluggable;
+    use Sluggable, UsesFlatFiles;
     
     protected $fillable = [
         'name', 'slug', 'active', 'description', 'brand_id', 'site_id', 'category_id'

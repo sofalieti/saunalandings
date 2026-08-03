@@ -7,10 +7,11 @@ use Cviebrock\EloquentSluggable\Sluggable;
 
 use Encore\Admin\Traits\AdminBuilder;
 use Encore\Admin\Traits\ModelTree;
+use App\FlatFile\UsesFlatFiles;
 
 class Menu extends Model
 {
-    use Sluggable;
+    use Sluggable, UsesFlatFiles;
     
      use ModelTree, AdminBuilder;
      

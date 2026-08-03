@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use App\FlatFile\UsesFlatFiles;
 
 class BrandFeature extends Model
 {
-    use Sluggable;
+    use Sluggable, UsesFlatFiles;
     
     public static $types = [
         'string' => 'String',

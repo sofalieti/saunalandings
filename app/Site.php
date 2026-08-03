@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\FlatFile\UsesFlatFiles;
 
 class Site extends Model
 {
+    use UsesFlatFiles;
+
     public $timestamps = false;
     
     public function brands(){

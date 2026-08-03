@@ -140,6 +140,19 @@ class BrandController extends Controller {
             $form->additional_domains = str_replace("\n", "|", $form->additional_domains);
         });
 
+        // After relations (states/features) are synced by laravel-admin, refresh flat aggregate files.
+        $form->saved(function (Form $form) {
+            if (!config('flat.enabled')) {
+                return;
+            }
+            $brand = $form->model();
+            if (!$brand || !$brand->id) {
+                return;
+            }
+            $slug = !empty($brand->slug) ? $brand->slug : ('id-' . $brand->id);
+            app(\App\FlatFile\Writer::class)->writeBrandAggregates((int) $brand->id, $slug);
+        });
+
         $form->tab('General info', function ($form) {
             $form->image('main_image', 'Image')
                     ->move('images/brands/' . date('Y') . '/' . date('m') . '/' . date('d'))

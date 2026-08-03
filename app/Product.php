@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use App\FlatFile\UsesFlatFiles;
 
 class Product extends Model
 {
@@ -12,7 +13,7 @@ class Product extends Model
         'enlightensauna_size_weight_html', 'enlightensauna_features_html',
         'enlightensauna_power_html', 'exim_link'
     ];
-    use Sluggable;
+    use Sluggable, UsesFlatFiles;
     public $timestamps = false;
     
     public function sluggable()

@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\FlatFile\UsesFlatFiles;
 
 class BrandTextBlock extends Model
 {
+    use UsesFlatFiles;
+
     public $timestamps = false;
     
     protected $fillable = [

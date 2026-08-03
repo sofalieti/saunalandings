@@ -40,6 +40,13 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
+        'flat' => [
+            'driver' => 'sqlite',
+            'database' => env('FLAT_SQLITE_PATH', storage_path('flat/content.sqlite')),
+            'prefix' => '',
+            'foreign_key_constraints' => false,
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),

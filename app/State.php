@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use App\FlatFile\UsesFlatFiles;
 
 class State extends Model
 {
-    use Sluggable;
+    use Sluggable, UsesFlatFiles;
     
     public $timestamps = false;
     
