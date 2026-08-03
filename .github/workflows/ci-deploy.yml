@@ -59,8 +59,22 @@ jobs:
             git clean -fd -- public/css/parts_main/bundle.css public/js/parts_main/bundle.js || true
             # Drop leftover deploy stashes (if any) so they never reappear.
             git stash clear || true
+
+            # Prefer site PHP binaries (ISPManager).
+            PHP_BIN=php
+            if [ -x /opt/php74/bin/php ]; then PHP_BIN=/opt/php74/bin/php
+            elif [ -x /opt/php71/bin/php ]; then PHP_BIN=/opt/php71/bin/php
+            fi
+
+            # Flat content is read from SQLite index — rebuild after every content pull.
+            rm -f bootstrap/cache/config.php
+            if grep -qE '^FLAT_CONTENT=true' .env 2>/dev/null; then
+              $PHP_BIN artisan flat:build-index
+            fi
+
             echo "Deployed $(git rev-parse --short HEAD)"
             wc -c public/css/parts_main/bundle.css
             test -f public/css/parts_main/bundle.css
             grep -q "brand-page-intro" public/css/parts_main/bundle.css
             grep -q "bootstrap" public/css/parts_main/bundle.css
+            grep -q "keep your cabin heating" content/brands/active-forever/text_blocks/9190.json
