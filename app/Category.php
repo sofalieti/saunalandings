@@ -36,7 +36,11 @@ class Category extends Model
     }
     
     public function childs(){
-        return $this->hasMany(Category::class, 'parent_id')->WithBrandAndSite();
+        return $this->hasMany(Category::class, 'parent_id')
+            ->WithBrandAndSite()
+            ->where('active', true)
+            ->orderBy('position', 'ASC')
+            ->orderBy('name', 'ASC');
     }
     public function products(){
         return $this->hasMany(Product::class);

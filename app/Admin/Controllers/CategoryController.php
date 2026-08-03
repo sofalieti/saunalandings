@@ -138,7 +138,7 @@ class CategoryController extends Controller
                 $category = Category::find(request()->route()->parameters()['category']);
                 $form->multipleSelect('brands', 'Show only for brands')
                         ->options($category->site->brands()->pluck('name', 'id'))
-                        ->help('Default is shown for all brands in site.');
+                        ->help('Default is shown for all brands in site. For Landings (site Enlighten Sauna Products): link a size category (e.g. 2 Person) to a brand — all child variations (Infrared / Hybrid / Traditional) with their goods are shown on the brand main page. Add more child categories under that parent to add more variations.');
             }else{
                 $form->html('After creating a category, you can select brands.');
             }
