@@ -138,7 +138,7 @@ class CategoryController extends Controller
                 $category = Category::find(request()->route()->parameters()['category']);
                 $form->multipleSelect('brands', 'Show only for brands')
                         ->options($category->site->brands()->pluck('name', 'id'))
-                        ->help('Default is shown for all brands in site.');
+                        ->help('Default is shown for all brands in site. For Parts Category (site 13): link the category to the domain brand, then add goods under Products with this category_id — stored in content/products and content/category_brands.json when FLAT_CONTENT=true.');
             }else{
                 $form->html('After creating a category, you can select brands.');
             }
@@ -157,6 +157,13 @@ class CategoryController extends Controller
         
         $form->saving(function (Form $form) {
             $form->parent_id = (int)$form->parent_id;
+        });
+
+        $form->saved(function (Form $form) {
+            // belongsToMany brand links are synced after the model save; persist pivot to flat JSON.
+            if (config('flat.enabled')) {
+                app(\App\FlatFile\Writer::class)->writeCategoryBrands();
+            }
         });
 
         return $form;

@@ -1,0 +1,15 @@
+{
+    "id": 113,
+    "name": "SWITCHES",
+    "image": null,
+    "active": 1,
+    "slug": "switches",
+    "position": 2400,
+    "site_id": 13,
+    "parent_id": 0,
+    "text": "",
+    "text_short": "",
+    "type": "SWITCHES",
+    "main_models_category": 0,
+    "exim_code": null
+}

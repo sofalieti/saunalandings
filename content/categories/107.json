@@ -1,0 +1,15 @@
+{
+    "id": 107,
+    "name": "LIGHTS",
+    "image": null,
+    "active": 1,
+    "slug": "lights",
+    "position": 1800,
+    "site_id": 13,
+    "parent_id": 0,
+    "text": "",
+    "text_short": "",
+    "type": "LIGHTS",
+    "main_models_category": 0,
+    "exim_code": null
+}

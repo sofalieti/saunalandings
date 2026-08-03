@@ -1,0 +1,15 @@
+{
+    "id": 103,
+    "name": "INFRARED",
+    "image": null,
+    "active": 1,
+    "slug": "infrared",
+    "position": 1400,
+    "site_id": 13,
+    "parent_id": 0,
+    "text": "",
+    "text_short": "",
+    "type": "INFRARED",
+    "main_models_category": 0,
+    "exim_code": null
+}

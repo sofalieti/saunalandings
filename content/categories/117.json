@@ -1,0 +1,15 @@
+{
+    "id": 117,
+    "name": "floors",
+    "image": null,
+    "active": 1,
+    "slug": "floors",
+    "position": 2800,
+    "site_id": 13,
+    "parent_id": 0,
+    "text": "",
+    "text_short": "",
+    "type": "floors",
+    "main_models_category": 0,
+    "exim_code": null
+}

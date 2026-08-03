@@ -11,6 +11,18 @@ $dualbanner_content[1]['link'] = page_template('troubleshooting');
 
 $dualbanner_content[0]['category'] = false;
 $dualbanner_content[1]['category'] = false;
+
+$goodsCategories = collect();
+foreach (request()->get('brand')->categories()->where('active', true)->orderBy('position')->orderBy('name')->get() as $linkedCategory) {
+    $childCategories = $linkedCategory->childs;
+    if ($childCategories && count($childCategories)) {
+        foreach ($childCategories as $child) {
+            $goodsCategories->push($child);
+        }
+    } else {
+        $goodsCategories->push($linkedCategory);
+    }
+}
 @endphp
 
 @extends('layouts.'.request()->get('layout'))
@@ -32,6 +44,20 @@ $dualbanner_content[1]['category'] = false;
         </div>
     </div>
 </div>
+
+@foreach($goodsCategories as $goodsCategory)
+    @php
+        $goodsProducts = $goodsCategory->active_products()->orderBy('position')->orderBy('name')->get();
+    @endphp
+    @if(count($goodsProducts))
+        @include('parts_category.partials.goods-grid', [
+            'category' => $goodsCategory,
+            'products' => $goodsProducts,
+            'heading' => $goodsCategory->name,
+        ])
+    @endif
+@endforeach
+
 <div class="question-block standartmargin-top">
     <div class="container text-center">
         <h2>HAVE QUESTIONS?</h2>
@@ -39,36 +65,6 @@ $dualbanner_content[1]['category'] = false;
         <a class="btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#question">Submit a quote</a>
     </div>
 </div>
-{{-- <div class='romb-fon '>
-    <div class='container'>
-        <div class="rhombus-block">
-            @if($repair = page_template('repair'))
-            <div class="rhombus-block1">
-                <a class="link-romb" href="{{route_with_state('page_template', ['slug' => $repair->var_name])}}">CLICK FOR Details</a>
-                <img src="/images/parts_main/leftimg.png">
-                <div class="rhombus-in">
-                    <a href="{{route_with_state('page_template', ['slug' => $repair->var_name])}}">
-                        <span class="title-romb">CHOROMOTHERAPY <span class="title-romb1">FIX/REPAIR</span></span>
-                        <span class="main-romb">Describe your problem. And our specialist will contact you soon!</span>
-                    </a>
-                </div>
-            </div>
-            @endif
-            @if($troubleshooting = page_template('troubleshooting'))
-            <div class="rhombus-block2">
-                <a class="link-romb" href="{{route_with_state('page_template', ['slug' => $troubleshooting->var_name])}}">CLICK FOR Details</a>
-                <img src="/images/parts_main/rightimg.png">
-                <div class="rhombus-in">
-                    <a href="{{route_with_state('page_template', ['slug' => $troubleshooting->var_name])}}">
-                        <span class="title-romb">CHOROMOTHERAPY <span class="title-romb1">TROUBLESHOOT</span></span>
-                        <span class="main-romb">Just make a photo of broken detail, and we will solve your problem</span>
-                    </a>
-                </div>
-            </div>
-            @endif
-        </div>
-    </div>
-</div> --}}
 @endsection
 @section('footer')    
     <div class="modal" id="question">

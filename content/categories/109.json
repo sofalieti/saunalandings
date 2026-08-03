@@ -1,0 +1,15 @@
+{
+    "id": 109,
+    "name": "POWERBOARDS",
+    "image": null,
+    "active": 1,
+    "slug": "powerboards",
+    "position": 2000,
+    "site_id": 13,
+    "parent_id": 0,
+    "text": "",
+    "text_short": "",
+    "type": "POWERBOARDS",
+    "main_models_category": 0,
+    "exim_code": null
+}

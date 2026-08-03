@@ -1,0 +1,15 @@
+{
+    "id": 115,
+    "name": "UNASHELVES",
+    "image": null,
+    "active": 1,
+    "slug": "unashelves",
+    "position": 2600,
+    "site_id": 13,
+    "parent_id": 0,
+    "text": "",
+    "text_short": "",
+    "type": "UNASHELVES",
+    "main_models_category": 0,
+    "exim_code": null
+}

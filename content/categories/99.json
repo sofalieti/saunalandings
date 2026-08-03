@@ -1,0 +1,15 @@
+{
+    "id": 99,
+    "name": "ELEMENTS",
+    "image": null,
+    "active": 1,
+    "slug": "elements",
+    "position": 1000,
+    "site_id": 13,
+    "parent_id": 0,
+    "text": "",
+    "text_short": "",
+    "type": "ELEMENTS",
+    "main_models_category": 0,
+    "exim_code": null
+}

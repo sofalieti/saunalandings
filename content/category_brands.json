@@ -18,5 +18,160 @@
         "id": 6,
         "category_id": 73,
         "brand_id": 1389
+    },
+    {
+        "id": 7,
+        "category_id": 90,
+        "brand_id": 1122
+    },
+    {
+        "id": 8,
+        "category_id": 91,
+        "brand_id": 1123
+    },
+    {
+        "id": 9,
+        "category_id": 92,
+        "brand_id": 1124
+    },
+    {
+        "id": 10,
+        "category_id": 93,
+        "brand_id": 1126
+    },
+    {
+        "id": 11,
+        "category_id": 94,
+        "brand_id": 1127
+    },
+    {
+        "id": 12,
+        "category_id": 95,
+        "brand_id": 1128
+    },
+    {
+        "id": 13,
+        "category_id": 96,
+        "brand_id": 1129
+    },
+    {
+        "id": 14,
+        "category_id": 97,
+        "brand_id": 1130
+    },
+    {
+        "id": 15,
+        "category_id": 98,
+        "brand_id": 1131
+    },
+    {
+        "id": 16,
+        "category_id": 99,
+        "brand_id": 1133
+    },
+    {
+        "id": 17,
+        "category_id": 100,
+        "brand_id": 1134
+    },
+    {
+        "id": 18,
+        "category_id": 101,
+        "brand_id": 1136
+    },
+    {
+        "id": 19,
+        "category_id": 102,
+        "brand_id": 1132
+    },
+    {
+        "id": 20,
+        "category_id": 103,
+        "brand_id": 1148
+    },
+    {
+        "id": 21,
+        "category_id": 104,
+        "brand_id": 1138
+    },
+    {
+        "id": 22,
+        "category_id": 105,
+        "brand_id": 1139
+    },
+    {
+        "id": 23,
+        "category_id": 106,
+        "brand_id": 1353
+    },
+    {
+        "id": 24,
+        "category_id": 107,
+        "brand_id": 1140
+    },
+    {
+        "id": 25,
+        "category_id": 108,
+        "brand_id": 1141
+    },
+    {
+        "id": 26,
+        "category_id": 109,
+        "brand_id": 1142
+    },
+    {
+        "id": 27,
+        "category_id": 110,
+        "brand_id": 1143
+    },
+    {
+        "id": 28,
+        "category_id": 111,
+        "brand_id": 1144
+    },
+    {
+        "id": 29,
+        "category_id": 112,
+        "brand_id": 1137
+    },
+    {
+        "id": 30,
+        "category_id": 113,
+        "brand_id": 1146
+    },
+    {
+        "id": 31,
+        "category_id": 114,
+        "brand_id": 1147
+    },
+    {
+        "id": 32,
+        "category_id": 115,
+        "brand_id": 1145
+    },
+    {
+        "id": 33,
+        "category_id": 116,
+        "brand_id": 1396
+    },
+    {
+        "id": 34,
+        "category_id": 117,
+        "brand_id": 1135
+    },
+    {
+        "id": 35,
+        "category_id": 118,
+        "brand_id": 1372
+    },
+    {
+        "id": 36,
+        "category_id": 119,
+        "brand_id": 1374
+    },
+    {
+        "id": 37,
+        "category_id": 120,
+        "brand_id": 1373
     }
 ]

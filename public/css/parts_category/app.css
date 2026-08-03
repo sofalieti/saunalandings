@@ -5,6 +5,16 @@
 .geo-states {
     display: block;
 }
+.parts-category-goods{
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.parts-category-goods .goods-heading{
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
 @media screen and (max-width: 768px){
     header{
         padding: 20px 0 !important;

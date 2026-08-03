@@ -1,0 +1,15 @@
+{
+    "id": 101,
+    "name": "FUSES",
+    "image": null,
+    "active": 1,
+    "slug": "fuses-2",
+    "position": 1200,
+    "site_id": 13,
+    "parent_id": 0,
+    "text": "",
+    "text_short": "",
+    "type": "FUSES",
+    "main_models_category": 0,
+    "exim_code": null
+}

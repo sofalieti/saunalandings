@@ -1,0 +1,15 @@
+{
+    "id": 108,
+    "name": "PLAYERS",
+    "image": null,
+    "active": 1,
+    "slug": "players",
+    "position": 1900,
+    "site_id": 13,
+    "parent_id": 0,
+    "text": "",
+    "text_short": "",
+    "type": "PLAYERS",
+    "main_models_category": 0,
+    "exim_code": null
+}

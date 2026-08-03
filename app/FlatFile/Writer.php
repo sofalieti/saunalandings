@@ -41,6 +41,13 @@ class Writer
             if (!empty($arr['brand_id'])) {
                 $this->writeBrandFaqs((int) $arr['brand_id']);
             }
+        } elseif ($table === 'categories') {
+            $path = Paths::forRow($table, $arr);
+            if ($path) {
+                $this->store->write($path, $arr);
+            }
+            // Brand links live in a pivot file; keep it in sync after category saves.
+            $this->writeCategoryBrands();
         } else {
             $path = Paths::forRow($table, $arr);
             if ($path) {
@@ -69,6 +76,12 @@ class Writer
             $this->writeForm((int) $arr['custom_form_id']);
         } elseif ($table === 'brand_faq_items' && !empty($arr['brand_id'])) {
             $this->writeBrandFaqs((int) $arr['brand_id']);
+        } elseif ($table === 'categories') {
+            $path = Paths::forRow($table, $arr);
+            if ($path) {
+                $this->store->delete($path);
+            }
+            $this->writeCategoryBrands();
         } else {
             $path = Paths::forRow($table, $arr);
             if ($path) {
@@ -77,6 +90,20 @@ class Writer
         }
 
         app(Index::class)->markIndexFresh();
+    }
+
+    /**
+     * Dump category_brands pivot rows from SQLite back to content/category_brands.json.
+     */
+    public function writeCategoryBrands()
+    {
+        $conn = config('flat.enabled') ? 'flat' : null;
+        $rows = DB::connection($conn)->table('category_brands')->orderBy('id')->get();
+        $list = [];
+        foreach ($rows as $row) {
+            $list[] = json_decode(json_encode($row), true);
+        }
+        $this->store->write('category_brands.json', $list);
     }
 
     /**

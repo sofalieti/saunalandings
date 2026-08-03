@@ -59,6 +59,42 @@
 #   content/forms/{id}.json
 #   content/category_brands.json
 #
+# Parts Category goods (site_id 13, template parts_category)
+# ----------------------------------------------------------
+# Source of truth is flat JSON (not MySQL) when FLAT_CONTENT=true.
+#
+# 1) Category for the domain brand:
+#      content/categories/{id}.json   → "site_id": 13
+#
+# 2) Link that category to the brand domain:
+#      content/category_brands.json   → { "category_id", "brand_id" }
+#
+# 3) Add goods (products) into the category:
+#      content/products/{id}.json
+#      {
+#        "id": 85,
+#        "name": "Fan Motor Replacement",
+#        "slug": "fan-motor-replacement",
+#        "image": "images/products/....jpg",
+#        "images": null,
+#        "active": 1,
+#        "position": 100,
+#        "description": "Product text…",
+#        "category_id": 100,
+#        "brand_id": 0,
+#        "exim_code": null,
+#        "enlightensauna_size_weight_html": null,
+#        "enlightensauna_features_html": null,
+#        "enlightensauna_power_html": null,
+#        "exim_link": null
+#      }
+#
+# 4) Rebuild index (or let FLAT_AUTO_REBUILD pick it up):
+#      php artisan flat:build-index
+#
+# Admin: Categories → Brands tab links a category to a Parts Category domain.
+# Products → pick that category. With FLAT_CONTENT=true, saves write JSON under content/.
+#
 # Manual rebuild (only if auto-rebuild is off)
 # --------------------------------------------
 #      php artisan flat:build-index

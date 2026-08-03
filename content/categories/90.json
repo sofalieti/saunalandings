@@ -1,0 +1,15 @@
+{
+    "id": 90,
+    "name": "ACCESSORIES",
+    "image": null,
+    "active": 1,
+    "slug": "accessories",
+    "position": 100,
+    "site_id": 13,
+    "parent_id": 0,
+    "text": "",
+    "text_short": "",
+    "type": "ACCESSORIES",
+    "main_models_category": 0,
+    "exim_code": null
+}

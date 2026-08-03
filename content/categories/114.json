@@ -1,0 +1,15 @@
+{
+    "id": 114,
+    "name": "TOUCHPADS",
+    "image": null,
+    "active": 1,
+    "slug": "touchpads",
+    "position": 2500,
+    "site_id": 13,
+    "parent_id": 0,
+    "text": "",
+    "text_short": "",
+    "type": "TOUCHPADS",
+    "main_models_category": 0,
+    "exim_code": null
+}
