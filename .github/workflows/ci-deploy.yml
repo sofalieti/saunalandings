@@ -77,11 +77,20 @@ jobs:
 
             # What the origin itself answers for the domain, bypassing the CDN.
             # Tells a stale edge/browser cache apart from a bad deploy.
-            curl -sk -m 20 -H "Host: infraredsaunafans.com" https://127.0.0.1/ -o /tmp/origin-home.html \
-              || curl -s -m 20 -H "Host: infraredsaunafans.com" http://127.0.0.1/ -o /tmp/origin-home.html || true
+            SERVER_IP=$(hostname -I | awk '{print $1}')
+            rm -f /tmp/origin-home.html
+            for target in "https://$SERVER_IP/" "http://$SERVER_IP/" "https://127.0.0.1/" "http://127.0.0.1/"; do
+              curl -sk -m 20 -H "Host: infraredsaunafans.com" "$target" -o /tmp/origin-home.html || true
+              if grep -q "<title>" /tmp/origin-home.html 2>/dev/null && ! grep -q "Welcome to nginx" /tmp/origin-home.html; then
+                echo "origin answered from: $target"
+                break
+              fi
+            done
             echo "origin title: $(grep -o '<title>[^<]*</title>' /tmp/origin-home.html | head -1)"
+            echo "origin h1: $(grep -o '<h1>[^<]*</h1>' /tmp/origin-home.html | head -1)"
             echo "origin light-theme markers: $(grep -c 'pc2-' /tmp/origin-home.html || true)"
             echo "origin placeholder markers: $(grep -c 'PLUG' /tmp/origin-home.html || true)"
+            echo "origin stylesheet url: $(grep -o 'parts_category_v2/app.css[^\"]*' /tmp/origin-home.html | head -1)"
 
             echo "Deployed $(git rev-parse --short HEAD)"
             wc -c public/css/parts_main/bundle.css
