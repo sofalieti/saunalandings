@@ -53,8 +53,14 @@ jobs:
             cd "${{ secrets.DEPLOY_PATH }}"
             git fetch origin main
             git checkout main
-            # Local/untracked files (e.g. built assets) must not block pull.
-            git stash push -u -m "ci-pre-deploy" || true
-            git pull --ff-only origin main
-            git stash pop || true
+            # Production must match origin exactly. Stash-pop was restoring an old
+            # local/untracked bundle.css over the freshly pulled file.
+            git reset --hard origin/main
+            git clean -fd -- public/css/parts_main/bundle.css public/js/parts_main/bundle.js || true
+            # Drop leftover deploy stashes (if any) so they never reappear.
+            git stash clear || true
             echo "Deployed $(git rev-parse --short HEAD)"
+            wc -c public/css/parts_main/bundle.css
+            test -f public/css/parts_main/bundle.css
+            grep -q "brand-page-intro" public/css/parts_main/bundle.css
+            grep -q "bootstrap" public/css/parts_main/bundle.css
