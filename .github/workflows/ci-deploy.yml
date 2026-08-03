@@ -91,6 +91,10 @@ jobs:
             echo "origin light-theme markers: $(grep -c 'pc2-' /tmp/origin-home.html || true)"
             echo "origin placeholder markers: $(grep -c 'PLUG' /tmp/origin-home.html || true)"
             echo "origin stylesheet url: $(grep -o 'parts_category_v2/app.css[^\"]*' /tmp/origin-home.html | head -1)"
+            echo "origin status: $(curl -sk -m 20 -o /dev/null -w '%{http_code}' -H 'Host: infraredsaunafans.com' https://$SERVER_IP/ || true)"
+
+            echo "--- last application errors"
+            tail -n 120 storage/logs/laravel.log 2>/dev/null | grep -aiE "exception|error|stack trace" | tail -n 15 || true
 
             echo "Deployed $(git rev-parse --short HEAD)"
             wc -c public/css/parts_main/bundle.css
