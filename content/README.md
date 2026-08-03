@@ -7,24 +7,35 @@
 #
 # Day-to-day workflow (local ↔ server)
 # ------------------------------------
-# 1) One-time: copy content/ from the server to your machine:
+# 1) Edit JSON files locally (e.g. brands/{slug}/text_blocks/{id}.json → description).
 #
-#      rsync -avz --progress \
-#        user@server:/var/www/www-root/data/www/activeforeversaunaparts.com/content/ \
-#        ./content/
-#
-#    Or download a tarball of content/ and unpack into ./content/
-#
-# 2) Edit JSON files locally (e.g. brands/{slug}/text_blocks/{id}.json → description).
-#
-# 3) Commit and push content/ with the rest of the repo:
+# 2) Commit and push to main:
 #
 #      git add content
 #      git commit -m "Update Active Forever repair text"
 #      git push
 #
-# 4) On the server: git pull only.
-#    Index rebuilds automatically on the next HTTP request (FLAT_AUTO_REBUILD=true).
+# 3) GitHub Actions (automatic — no server terminal):
+#      push main → Checks (composer / php -l / scripts/ci-check.php)
+#               → if OK → SSH → git pull on the server
+#      Index rebuilds on the next HTTP request (FLAT_AUTO_REBUILD=true).
+#
+# GitHub Actions secrets (repo → Settings → Secrets and variables → Actions)
+# -------------------------------------------------------------------------
+#   SSH_HOST         server hostname or IP
+#   SSH_USER         SSH user (e.g. root)
+#   SSH_PRIVATE_KEY  private key paired with server authorized_keys
+#   SSH_PORT         optional, default 22
+#   DEPLOY_PATH      /var/www/www-root/data/www/activeforeversaunaparts.com
+#
+# One-time on the server: add the CI public key to ~/.ssh/authorized_keys
+# and ensure `git pull` works without a password for that user.
+#
+# Local CI (same as Actions check job):
+#      php scripts/ci-check.php
+#
+# Manual server pull (only if Actions deploy is not configured yet):
+#      git pull
 #    Optional once on the server for even faster pulls:
 #      git config core.hooksPath githooks
 #
