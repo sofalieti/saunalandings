@@ -1,0 +1,22 @@
+[
+    {
+        "id": 3,
+        "category_id": 70,
+        "brand_id": 1382
+    },
+    {
+        "id": 4,
+        "category_id": 71,
+        "brand_id": 1380
+    },
+    {
+        "id": 5,
+        "category_id": 72,
+        "brand_id": 1392
+    },
+    {
+        "id": 6,
+        "category_id": 73,
+        "brand_id": 1389
+    }
+]

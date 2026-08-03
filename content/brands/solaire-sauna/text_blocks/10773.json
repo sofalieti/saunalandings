@@ -1,0 +1,11 @@
+{
+    "id": 10773,
+    "name": "Infrared Sauna Parts (Main)",
+    "var_name": "REPAIR_TEXT",
+    "description": "So you’re experiencing maintenance issues with your !brand! infrared sauna, perhaps it is broken and needs fixing. We are here to help. Your infrared sauna is a fairly complex system but we have experience in fixing most sauna malfunctions. <br><br>\r\n\r\nPlease use the form to provide details of the nature of malfunction, the better the description the quicker we will be able to provide a solution to your sauna problem.<br><br>\r\n\r\n<b>In order to fix your infrared sauna include the following details:</b>\r\n<ul><li>Model and make of your infrared sauna</li><li>\r\nThe description of the problem with your sauna, including the details of which parts have stopped working or what section in particular is not functioning as it should.</li><li>\r\nIf you know the exact part that needs replacing describe it or provide a picture by uploading a file</li><li>\r\nAny additional details such as the cause of the problem, because the issue might be wider than first assumed.</li><li>\r\nA picture of where you think the problem is or the part that is malfunctioning would also help</li></ul>\r\n<br><br>\r\nWe are looking forward to helping you fix that sauna to get you enjoying it once again!",
+    "brand_id": 1312,
+    "site_id": 1,
+    "text_block_id": 62,
+    "active": 1,
+    "disable_update": 0
+}

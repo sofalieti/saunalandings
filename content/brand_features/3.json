@@ -1,0 +1,8 @@
+{
+    "id": 3,
+    "name": "Sauna Size",
+    "slug": "string",
+    "position": 100,
+    "type": "string",
+    "data": ""
+}

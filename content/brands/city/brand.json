@@ -1,0 +1,17 @@
+{
+    "id": 1234,
+    "name": "City",
+    "slug": "city",
+    "domain": "citysaunapart.com",
+    "active": 1,
+    "additional_domains": "citysaunapart",
+    "created_at": "2019-04-09 05:36:20",
+    "updated_at": "2020-02-03 14:25:43",
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "use_all_states": 1,
+    "site_id": 1,
+    "main_image": "images/brands/2020/02/03/79a641bca4efc1bcef55d745ca26231a.jpg",
+    "favicon": null
+}

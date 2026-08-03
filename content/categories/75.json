@@ -1,0 +1,15 @@
+{
+    "id": 75,
+    "name": "Infrared Saunas",
+    "image": null,
+    "active": 1,
+    "slug": "2-person-infrared-saunas",
+    "position": 200,
+    "site_id": 16,
+    "parent_id": 70,
+    "text": null,
+    "text_short": null,
+    "type": null,
+    "main_models_category": 0,
+    "exim_code": "380"
+}

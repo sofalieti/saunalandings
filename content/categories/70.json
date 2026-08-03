@@ -1,0 +1,15 @@
+{
+    "id": 70,
+    "name": "2 Person",
+    "image": null,
+    "active": 1,
+    "slug": "2-person",
+    "position": 100,
+    "site_id": 16,
+    "parent_id": 69,
+    "text": "",
+    "text_short": "",
+    "type": "",
+    "main_models_category": 0,
+    "exim_code": "2 Person"
+}

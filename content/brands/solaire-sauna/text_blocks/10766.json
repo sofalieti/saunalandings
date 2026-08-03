@@ -1,0 +1,11 @@
+{
+    "id": 10766,
+    "name": "BRAND TEXT",
+    "var_name": "BRAND_TEXT",
+    "description": "Solar-Sauna Int’l Ltd. (SSI) is committed to sustainable “Green building” as an integrated framework of design, construction, and operations practices that encompasses the environmental, economic, and social impacts of buildings. Green building practices recognize the interdependence of the natural and built environments and seek to minimize the use of energy, water, and other natural resources and provide a healthy, productive indoor environment.  SSI has worked to integrate numerous sustainability guidelines into our Technical Design Standards. Since 2016, SSI has implemented a green building policy requiring all new construction and major renovations to meet the LEED (Leadership in Energy and Environmental Design) certification through the U.S. Green Building Council, and now commits to achieving LEED Gold.",
+    "brand_id": 1312,
+    "site_id": 1,
+    "text_block_id": 31,
+    "active": 1,
+    "disable_update": 1
+}

@@ -1,0 +1,30 @@
+[
+    {
+        "id": 130,
+        "brand_id": 1294,
+        "model_line_id": 127,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 131,
+        "brand_id": 1294,
+        "model_line_id": 128,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 132,
+        "brand_id": 1294,
+        "model_line_id": 129,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 133,
+        "brand_id": 1294,
+        "model_line_id": 130,
+        "created_at": null,
+        "updated_at": null
+    }
+]

@@ -1,0 +1,11 @@
+{
+    "id": 12523,
+    "name": "Infrared Sauna Parts (Main)",
+    "var_name": "BRAND_LOGO",
+    "description": "/images/parts_main/infrarednewlogo1.png",
+    "brand_id": 1289,
+    "site_id": 1,
+    "text_block_id": 76,
+    "active": 1,
+    "disable_update": 0
+}

@@ -1,0 +1,11 @@
+{
+    "id": 12666,
+    "name": "Header Text",
+    "var_name": "header_text",
+    "description": "Header",
+    "brand_id": 1366,
+    "site_id": 15,
+    "text_block_id": 77,
+    "active": 1,
+    "disable_update": 0
+}

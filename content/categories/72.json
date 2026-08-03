@@ -1,0 +1,15 @@
+{
+    "id": 72,
+    "name": "4 Person",
+    "image": null,
+    "active": 1,
+    "slug": "4-person",
+    "position": 900,
+    "site_id": 16,
+    "parent_id": 69,
+    "text": "",
+    "text_short": "",
+    "type": "",
+    "main_models_category": 0,
+    "exim_code": "4 Person"
+}
