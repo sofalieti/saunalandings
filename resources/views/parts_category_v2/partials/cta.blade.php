@@ -1,4 +1,4 @@
-<section class="au-section au-section--last">
+<section class="au-section au-section--last au-reveal">
     <div class="au-shell">
         <div class="au-card au-card--body">
             <div class="au-cta">

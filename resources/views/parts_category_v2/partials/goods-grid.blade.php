@@ -2,7 +2,7 @@
     $auGoodsHeading = isset($heading) ? $heading : false;
     $auShowCategoryLink = isset($showCategoryLink) ? $showCategoryLink : false;
 @endphp
-<section class="au-section">
+<section class="au-section au-reveal">
     <div class="au-shell">
         @if($auGoodsHeading)
             <div class="au-head">

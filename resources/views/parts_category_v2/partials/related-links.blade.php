@@ -14,7 +14,7 @@
         ->orderBy('name')
         ->get();
 @endphp
-<section class="au-section">
+<section class="au-section au-reveal">
     <div class="au-shell">
         <div class="au-head">
             <span class="au-label">Navigate</span>

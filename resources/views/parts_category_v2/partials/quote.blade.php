@@ -3,7 +3,7 @@
     $auQuoteLabel = isset($label) ? $label : 'Fitment check';
     $auQuoteTitle = isset($title) ? $title : 'Send a photo, get the exact part';
 @endphp
-<section class="au-section" id="quote">
+<section class="au-section au-reveal" id="quote">
     <div class="au-shell">
         <div class="au-quote">
             <div class="au-quote__copy">
