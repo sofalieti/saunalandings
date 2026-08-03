@@ -1,0 +1,23 @@
+---
+description: Always rebuild flat SQLite index after content/ changes
+alwaysApply: true
+---
+
+# Flat content: always rebuild the index
+
+When `FLAT_CONTENT=true`, the site reads **SQLite** (`storage/flat/content.sqlite`), not JSON directly. Editing `content/**/*.json` alone does **not** go live until the index is rebuilt.
+
+## After any change under `content/`
+
+1. Rebuild the index before considering the task done:
+   - Local (PHP 7.4 if needed): `php artisan flat:build-index` or `/opt/php74/bin/php artisan flat:build-index`
+   - Production: deploy must run `flat:build-index` (CI does this after `git reset --hard`). Do not tell the user “it’s live” until rebuild has run (or confirm deploy finished).
+2. If you only push JSON and skip rebuild, treat that as incomplete.
+3. Do not commit `storage/flat/content.sqlite` — it is a local/server index only.
+
+## Related
+
+- Source of truth: `content/` JSON files
+- Command: `php artisan flat:build-index`
+- Deploy: `.github/workflows/ci-deploy.yml` already runs rebuild when `FLAT_CONTENT=true`
+- Docs: `content/README.md`
