@@ -67,16 +67,21 @@ class Landing
 
         
         $domain = Brand::where('active', 1)->where(function($query) use($current_domain){
-            $query->where('domain', $current_domain);
+            // SQLite is case-sensitive; MySQL usually is not — always compare lowercased.
+            $query->whereRaw('LOWER(domain) = ?', [$current_domain]);
             $query->orWhere(function($query) use($current_domain){
                 preg_match("/(www\.(.*?)s\.)|((.*?)s\.)|(www\.(.*?)\.)|((.*?)\.)/i", $current_domain, $d_result);
                 $d_result = array_values(array_diff($d_result, array('', NULL, false)));
                 
                 if(isset($d_result[2])){
-                    $query->where('additional_domains', $d_result[2]);
+                    $extra = strtolower($d_result[2]);
+                    $query->whereRaw('LOWER(additional_domains) = ?', [$extra]);
                     $query->orWhere('additional_domains', 'like', "{$d_result[2]}|%");
                     $query->orWhere('additional_domains', 'like', "%|{$d_result[2]}|%");
                     $query->orWhere('additional_domains', 'like', "%|{$d_result[2]}");
+                    $query->orWhere('additional_domains', 'like', $extra . '|%');
+                    $query->orWhere('additional_domains', 'like', '%|' . $extra . '|%');
+                    $query->orWhere('additional_domains', 'like', '%|' . $extra);
                 }
             });
         })->first();

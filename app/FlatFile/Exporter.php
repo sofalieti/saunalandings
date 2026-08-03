@@ -136,6 +136,12 @@ class Exporter
                 }
             }
             if (!$dryRun) {
+                if (!empty($arr['domain'])) {
+                    $arr['domain'] = strtolower($arr['domain']);
+                }
+                if (!empty($arr['additional_domains'])) {
+                    $arr['additional_domains'] = strtolower($arr['additional_domains']);
+                }
                 $this->store->write('brands/' . $slug . '/brand.json', $arr);
                 $this->store->write('brands/' . $slug . '/seo.json', $seo);
             }
