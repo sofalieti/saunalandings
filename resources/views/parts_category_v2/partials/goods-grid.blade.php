@@ -21,7 +21,7 @@
                     <div class="pc2-goods-body">
                         <span class="name">{{ $product->name }}</span>
                         @if($product->description)
-                            <span class="desc">{{ str_words(trim(strip_tags($product->description)), 16, '…') }}</span>
+                            <span class="desc">{{ \Illuminate\Support\Str::words(trim(strip_tags($product->description)), 16, '…') }}</span>
                         @endif
                         <span class="pc2-goods-cta">View part</span>
                     </div>
