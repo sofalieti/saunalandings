@@ -75,28 +75,25 @@ jobs:
 
             $PHP_BIN scripts/deploy-verify.php
 
-            # What the origin itself answers for the domain, bypassing the CDN.
-            # Tells a stale edge/browser cache apart from a bad deploy.
-            # --resolve keeps both SNI and Host set to the domain, so nginx picks
-            # the right vhost instead of the default server.
+            # Smoke test the origin itself, bypassing the CDN. --resolve keeps both
+            # SNI and Host set to the domain so nginx picks the right vhost.
+            # One canary per template: a fatal in a shared view took a domain down
+            # for an hour before, and only a page fetch catches that.
             SERVER_IP=$(hostname -I | awk '{print $1}')
-            rm -f /tmp/origin-home.html
-            curl -sk -m 20 --resolve "infraredsaunafans.com:443:$SERVER_IP" https://infraredsaunafans.com/ -o /tmp/origin-home.html \
-              || curl -s -m 20 --resolve "infraredsaunafans.com:80:$SERVER_IP" http://infraredsaunafans.com/ -o /tmp/origin-home.html || true
-            echo "origin title: $(grep -o '<title>[^<]*</title>' /tmp/origin-home.html | head -1)"
-            echo "origin h1: $(grep -o '<h1>[^<]*</h1>' /tmp/origin-home.html | head -1)"
-            echo "origin light-theme markers: $(grep -c 'pc2-' /tmp/origin-home.html || true)"
-            echo "origin placeholder markers: $(grep -c 'PLUG' /tmp/origin-home.html || true)"
-            echo "origin stylesheet url: $(grep -o 'parts_category_v2/app.css[^\"]*' /tmp/origin-home.html | head -1)"
-            echo "origin status: $(curl -sk -m 20 -o /dev/null -w '%{http_code}' --resolve "infraredsaunafans.com:443:$SERVER_IP" https://infraredsaunafans.com/ || true)"
-
-            echo "--- log files"
-            ls -la storage/logs 2>/dev/null | tail -n 5 || true
-            echo "--- last application errors"
-            for log in storage/logs/*.log; do
-              [ -f "$log" ] || continue
-              echo "== $log"
-              tail -n 200 "$log" | grep -aoE "(local|production)\.(ERROR|CRITICAL): [^{]{0,220}" | tail -n 5 || true
+            SMOKE_FAILED=0
+            for canary in infraredsaunafans.com infraredsaunaaccessories.com; do
+              rm -f /tmp/origin-home.html
+              curl -sk -m 25 --resolve "$canary:443:$SERVER_IP" "https://$canary/" -o /tmp/origin-home.html || true
+              status=$(curl -sk -m 25 -o /dev/null -w '%{http_code}' --resolve "$canary:443:$SERVER_IP" "https://$canary/" || echo 000)
+              echo "smoke $canary: status $status"
+              echo "smoke $canary: title $(grep -o '<title>[^<]*</title>' /tmp/origin-home.html | head -1)"
+              echo "smoke $canary: placeholder markers $(grep -c 'PLUG' /tmp/origin-home.html || true)"
+              if [ "$status" != "200" ]; then
+                SMOKE_FAILED=1
+                echo "smoke $canary: FAILED"
+                tail -n 60 storage/logs/laravel-$(date +%Y-%m-%d).log 2>/dev/null \
+                  | grep -aoE "(local|production)\.(ERROR|CRITICAL): [^{]{0,220}" | tail -n 3 || true
+              fi
             done
 
             echo "Deployed $(git rev-parse --short HEAD)"
@@ -105,3 +102,4 @@ jobs:
             grep -q "brand-page-intro" public/css/parts_main/bundle.css
             grep -q "bootstrap" public/css/parts_main/bundle.css
             grep -q "keep your cabin heating" content/brands/active-forever/text_blocks/9190.json
+            test "$SMOKE_FAILED" = "0"
