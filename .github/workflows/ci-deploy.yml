@@ -97,7 +97,7 @@ jobs:
             done
 
             # Reported, not enforced: these paths depend on slugs an editor can change.
-            for path in how_to_choose troubleshooting repair faq fans-2 fans-2/cabin-circulation-fan; do
+            for path in how_to_choose troubleshooting repair faq category/fans-2 category/fans-2/cabin-circulation-fan; do
               echo "smoke infraredsaunafans.com/$path: status $(curl -sk -m 25 -o /dev/null -w '%{http_code}' --resolve "infraredsaunafans.com:443:$SERVER_IP" "https://infraredsaunafans.com/$path" || echo 000)"
             done
 
