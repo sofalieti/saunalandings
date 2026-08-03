@@ -2,7 +2,7 @@
     "id": 12838,
     "name": "Repair Text Block",
     "var_name": "repair_text_block",
-    "description": "<p>[PLUG] Describe the repair service for this part category. Explain what to include in the form (photos, model, symptoms).</p>",
+    "description": "<p>Not every fan fault needs a new part. A loose grille, blades packed with dust, a tired speed controller and a dead motor all produce similar symptoms, and we can usually tell them apart from a photo and a short description.</p><p>Tell us what happens when the sauna powers up, add the brand and model of the cabin, and attach photos of the fan and its wiring. A specialist replies with the diagnosis, the part you need, and what the repair involves.</p>",
     "brand_id": 1134,
     "site_id": 18,
     "text_block_id": 86,

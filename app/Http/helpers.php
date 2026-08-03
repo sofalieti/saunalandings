@@ -30,9 +30,20 @@ function rt($text){
     }
     return $text;
 }
+/**
+ * Unfinished content is marked with [PLUG] while an editor prepares the real
+ * copy. Such text must never reach a visitor, so every reader treats it as empty.
+ */
+function is_content_placeholder($text){
+    $plain = trim(strip_tags((string) $text));
+    if($plain === ''){
+        return true;
+    }
+    return stripos($plain, '[PLUG]') !== false;
+}
 function text_block($var_name){
     $text_block = request()->get('brand')->brand_text_blocks()->where(['var_name' => $var_name, 'active' => true])->first();
-    if(count($text_block)){
+    if(count($text_block) && !is_content_placeholder($text_block->description)){
         return rt($text_block->description);
     }
     return '';

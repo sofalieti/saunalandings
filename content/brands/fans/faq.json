@@ -2,24 +2,24 @@
     {
         "id": 67,
         "brand_id": 1134,
-        "question": "How do I know this part is failing?",
-        "answer": "[PLUG] List the typical signs that this part needs replacement.",
+        "question": "How do I know the fan is failing?",
+        "answer": "Start with sound and airflow. A healthy sauna fan is quiet and moves noticeable air within a few seconds of powering up. Grinding or clicking, a blade that turns slowly or stops mid-session, a hum with no rotation, or a cabin that stays humid after a session all point to a worn motor or bearing.",
         "position": 10,
         "active": 1
     },
     {
         "id": 68,
         "brand_id": 1134,
-        "question": "Is this a direct replacement?",
-        "answer": "[PLUG] Explain fitment / drop-in compatibility and when a photo is needed.",
+        "question": "Is the replacement fan a direct fit?",
+        "answer": "In most cases, yes. Cabin fans are built to a handful of standard frame sizes and voltages, so a matching fan drops into the original opening and reuses the existing wiring. Where a cabin is discontinued, we supply the closest equivalent and tell you in advance if an adapter bracket or a different connector is needed.",
         "position": 20,
         "active": 1
     },
     {
         "id": 69,
         "brand_id": 1134,
-        "question": "What information should I send?",
-        "answer": "[PLUG] Ask for photos, model/brand of sauna, voltage, and symptoms.",
+        "question": "What information should I send with my request?",
+        "answer": "A photo of the fan in place, a photo of its label or stamped part number, the brand and model of your sauna, and one sentence about what it is doing (or not doing). If the label is gone, add the frame size and the blade diameter - that is usually enough to identify the part.",
         "position": 30,
         "active": 1
     },
@@ -27,23 +27,23 @@
         "id": 70,
         "brand_id": 1134,
         "question": "Do you ship to my state?",
-        "answer": "[PLUG] Confirm shipping coverage and lead time.",
+        "answer": "We ship to all 50 states and to Canada. Ground shipping is free on orders above $300; smaller orders show the exact rate before checkout, and we can quote a faster service if your cabin is out of use.",
         "position": 40,
         "active": 1
     },
     {
         "id": 71,
         "brand_id": 1134,
-        "question": "Is there a warranty?",
-        "answer": "[PLUG] State warranty terms for replacement parts.",
+        "question": "Is there a warranty on replacement fans?",
+        "answer": "Replacement fans carry the manufacturer warranty against defects. Keep your order number, and if a part fails, send photos and a description of the fault - we take the claim from there.",
         "position": 50,
         "active": 1
     },
     {
         "id": 72,
         "brand_id": 1134,
-        "question": "Can you help if I am not sure which part I need?",
-        "answer": "[PLUG] Offer free consult / photo match via the quote form.",
+        "question": "What if I am not sure which fan I need?",
+        "answer": "That is exactly what the form is for. Send photos and your cabin details, and a specialist identifies the fan, confirms the fitment and sends a quote. Identifying the part is free and does not commit you to an order.",
         "position": 60,
         "active": 1
     }

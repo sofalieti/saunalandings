@@ -1,17 +1,22 @@
+@php
+    $chooseText = text_block('how_to_choose_text_block');
+@endphp
 @extends('layouts.'.request()->get('layout'))
 @section('content')
 <div class="pc2-page-hero">
     <div class="container">
         <span class="pc-section-kicker">Fitment</span>
-        <h1>{!! text_block('how_to_choose_page_header') ?: text_block('how_to_choose_text_block_header') ?: ('How to choose '.request()->get('brand')->name) !!}</h1>
+        <h1>{!! text_block('how_to_choose_page_header') ?: text_block('how_to_choose_text_block_header') ?: ('How to choose '.ucwords(strtolower(trim(request()->get('brand')->name)))) !!}</h1>
     </div>
 </div>
 <div class="container pc-page">
     <div class="row">
         <div class="col-md-6">
+            @if($chooseText)
             <div class="main-description pc2-choose-body pc-section-body">
-                {!! text_block('how_to_choose_text_block') !!}
+                {!! $chooseText !!}
             </div>
+            @endif
         </div>
         <div class="col-md-6">
             <div class="right-form">

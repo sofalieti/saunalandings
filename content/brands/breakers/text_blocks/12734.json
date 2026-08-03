@@ -2,7 +2,7 @@
     "id": 12734,
     "name": "Repair Text Block",
     "var_name": "repair_text_block",
-    "description": "<p>[PLUG] Describe the repair service for this part category. Explain what to include in the form (photos, model, symptoms).</p>",
+    "description": "",
     "brand_id": 1126,
     "site_id": 13,
     "text_block_id": 86,

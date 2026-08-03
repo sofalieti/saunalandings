@@ -17,9 +17,9 @@ class Controller extends BaseController
         switch (Route::currentRouteName()) {
             case 'home':
                 return $this->applyPartsCategoryDefaultTitle([
-                    'title' => empty(request()->get('brand')->meta_title) ? request()->get('brand')->site->seo_main_page_title : request()->get('brand')->meta_title,
-                    'description' => empty(request()->get('brand')->meta_description) ? request()->get('brand')->site->seo_main_page_description : request()->get('brand')->meta_description,
-                    'keywords' => empty(request()->get('brand')->meta_keywords) ? request()->get('brand')->site->seo_main_page_keywords : request()->get('brand')->meta_keywords,
+                    'title' => $this->preferContent(request()->get('brand')->meta_title, request()->get('brand')->site->seo_main_page_title),
+                    'description' => $this->preferContent(request()->get('brand')->meta_description, request()->get('brand')->site->seo_main_page_description),
+                    'keywords' => $this->preferContent(request()->get('brand')->meta_keywords, request()->get('brand')->site->seo_main_page_keywords),
                 ]);
             case 'page_template':
                 return $this->applyPartsCategoryDefaultTitle([
@@ -96,6 +96,8 @@ class Controller extends BaseController
      */
     protected function applyPartsCategoryDefaultTitle($meta)
     {
+        $meta = $this->stripPlaceholderMeta($meta);
+
         if (!in_array(request()->get('layout'), ['parts_category', 'parts_category_v2'], true) || !request()->get('brand')) {
             return $this->appendBrandSeoFields($meta);
         }
@@ -110,6 +112,30 @@ class Controller extends BaseController
         }
 
         return $this->appendBrandSeoFields($meta);
+    }
+
+    /**
+     * Draft copy marked with [PLUG] falls back to the generated defaults
+     * instead of being published in the head of a live page.
+     */
+    protected function preferContent($primary, $fallback)
+    {
+        return is_content_placeholder($primary) ? $fallback : $primary;
+    }
+
+    protected function stripPlaceholderMeta($meta)
+    {
+        if (!is_array($meta)) {
+            return $meta;
+        }
+
+        foreach (['title', 'description', 'keywords'] as $key) {
+            if (isset($meta[$key]) && is_content_placeholder($meta[$key])) {
+                $meta[$key] = '';
+            }
+        }
+
+        return $meta;
     }
 
     /**
@@ -136,7 +162,11 @@ class Controller extends BaseController
         $meta['schema_org_json']     = $brand->schema_org_json;
 
         try {
-            $meta['faq_items'] = $brand->faq_items()->where('active', 1)->get();
+            $meta['faq_items'] = $brand->faq_items()->where('active', 1)->get()
+                ->reject(function ($item) {
+                    return is_content_placeholder($item->question) || is_content_placeholder($item->answer);
+                })
+                ->values();
         } catch (\Exception $e) {
             $meta['faq_items'] = collect();
         }

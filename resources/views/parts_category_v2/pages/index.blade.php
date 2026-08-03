@@ -1,8 +1,13 @@
 @php
     $h1 = trim(strip_tags(text_block('main_page_text_block_header')));
     if ($h1 === '') {
-        $h1 = request()->get('brand')->name.' Replacement for Infrared Saunas';
+        $h1 = ucwords(strtolower(trim(request()->get('brand')->name))).' for Infrared Saunas';
     }
+
+    $symptomsText = text_block('symptoms_text_block');
+    $chooseText = text_block('how_to_choose_text_block');
+    $faqText = text_block('faq_text_block');
+    $trustText = text_block('trust_text_block');
 
     $dualbanner_content[0]['name'] = "Fix/Repair";
     $dualbanner_content[0]['text'] = "Describe your problem. And our specialist will contact you soon!";
@@ -28,7 +33,10 @@
         }
     }
 
-    $faqItems = request()->get('brand')->faq_items()->where('active', true)->orderBy('position')->get();
+    $faqItems = request()->get('brand')->faq_items()->where('active', true)->orderBy('position')->get()
+        ->reject(function ($item) {
+            return is_content_placeholder($item->question) || is_content_placeholder($item->answer);
+        });
 @endphp
 
 @extends('layouts.'.request()->get('layout'))
@@ -55,6 +63,7 @@
     </div>
 </section>
 
+@if($symptomsText)
 <section class="pc-section pc2-symptoms">
     <div class="container">
         <div class="pc-section-head">
@@ -62,11 +71,13 @@
             <h2>{!! text_block('symptoms_text_block_header') ?: 'Common symptoms' !!}</h2>
         </div>
         <div class="pc-section-body">
-            {!! text_block('symptoms_text_block') !!}
+            {!! $symptomsText !!}
         </div>
     </div>
 </section>
+@endif
 
+@if($chooseText)
 <section class="pc-section pc2-choose">
     <div class="container">
         <div class="pc-section-head">
@@ -74,7 +85,7 @@
             <h2>{!! text_block('how_to_choose_text_block_header') ?: 'How to choose the right part' !!}</h2>
         </div>
         <div class="pc-section-body">
-            {!! text_block('how_to_choose_text_block') !!}
+            {!! $chooseText !!}
         </div>
         @if(page_template('how_to_choose'))
             <p class="pc-section-link">
@@ -83,6 +94,7 @@
         @endif
     </div>
 </section>
+@endif
 
 @foreach($goodsCategories as $goodsCategory)
     @php
@@ -104,7 +116,9 @@
             <span class="pc-section-kicker">Questions</span>
             <h2>{!! text_block('faq_text_block_header') ?: 'FAQ' !!}</h2>
         </div>
-        <div class="pc-section-body">{!! text_block('faq_text_block') !!}</div>
+        @if($faqText)
+            <div class="pc-section-body">{!! $faqText !!}</div>
+        @endif
         @include('parts_category_v2.partials.faq-list', ['faqItems' => $faqItems])
         @if(page_template('faq'))
             <p class="pc-section-link">
@@ -117,17 +131,19 @@
 
 @include('parts_category_v2.partials.related-links')
 
+@if($trustText)
 <section class="pc-section pc-trust">
     <div class="container text-center">
-        {!! text_block('trust_text_block') !!}
+        {!! $trustText !!}
     </div>
 </section>
+@endif
 
 <section class="pc2-cta">
     <div class="container">
-        <h2>HAVE QUESTIONS?</h2>
-        <h3>CLICK HERE FOR A FREE CONSULTATION!</h3>
-        <a class="btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#question">Submit a quote</a>
+        <h2>Still not sure which part you need?</h2>
+        <h3>Send a photo and a specialist confirms the fitment before you order.</h3>
+        <a class="btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#question">Request a free quote</a>
     </div>
 </section>
 @endsection

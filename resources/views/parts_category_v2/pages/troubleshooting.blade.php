@@ -1,20 +1,28 @@
+@php
+    $troubleshootingText = text_block('troubleshooting_text_block');
+    $mainPageExcerpt = trim(str_limit(strip_tags(text_block('main_page_text_block')), $limit = 300, $end = '...'));
+@endphp
 @extends('layouts.'.request()->get('layout'))
 @section('content')
 <div class="pc2-page-hero">
     <div class="container">
         <span class="pc-section-kicker">Troubleshooting</span>
-        <h1>{!! text_block('troubleshooting_text_block_header') ?: (request()->get('brand')->name.' Troubleshooting') !!}</h1>
+        <h1>{!! text_block('troubleshooting_text_block_header') ?: (ucwords(strtolower(trim(request()->get('brand')->name))).' Troubleshooting') !!}</h1>
     </div>
 </div>
 <div class="container pc-page">
     <div class="row">
         <div class="col-md-6">
+            @if($troubleshootingText)
             <div class="main-description pc-section-body">
-                {!! text_block('troubleshooting_text_block') !!}
+                {!! $troubleshootingText !!}
             </div>
+            @endif
+            @if($mainPageExcerpt)
             <div class="description-from-main-page">
-                {{ str_limit(strip_tags(text_block('main_page_text_block')), $limit = 300, $end = '...') }}
+                {{ $mainPageExcerpt }}
             </div>
+            @endif
         </div>
         <div class="col-md-6">
             <div class="right-form">
@@ -26,9 +34,9 @@
 @include('parts_category_v2.partials.related-links')
 <section class="pc2-cta">
     <div class="container">
-        <h2>HAVE QUESTIONS?</h2>
-        <h3>CLICK HERE FOR A FREE CONSULTATION!</h3>
-        <a class="btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#question">Submit a quote</a>
+        <h2>Still not sure which part you need?</h2>
+        <h3>Send a photo and a specialist confirms the fitment before you order.</h3>
+        <a class="btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#question">Request a free quote</a>
     </div>
 </section>
 @endsection

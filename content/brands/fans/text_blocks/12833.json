@@ -2,7 +2,7 @@
     "id": 12833,
     "name": "Symptoms Text Block",
     "var_name": "symptoms_text_block",
-    "description": "<p>[PLUG] Describe typical failure symptoms for this part (noise, no power, overheating, intermittent work).</p><ul><li>[PLUG] Symptom 1</li><li>[PLUG] Symptom 2</li><li>[PLUG] Symptom 3</li></ul>",
+    "description": "<p>A failing fan almost always warns you first. If any of these sound familiar, plan the replacement before the motor seizes completely.</p><ul><li>The fan stays silent when the cabin powers up</li><li>Rattling, grinding or clicking coming from the vent grille</li><li>Weak airflow, and a cabin that stays humid long after a session</li><li>The fan runs only at full speed, or cuts out mid-session</li><li>A hot, dusty or burning smell near the vent</li><li>The control panel reports a fan, airflow or over-temperature error</li></ul>",
     "brand_id": 1134,
     "site_id": 18,
     "text_block_id": 81,

@@ -2,7 +2,7 @@
     "id": 12835,
     "name": "How To Choose Text Block",
     "var_name": "how_to_choose_text_block",
-    "description": "<ul><li>[PLUG] Check voltage / power rating</li><li>[PLUG] Match size and mount type</li><li>[PLUG] Confirm where it sits (cabin / power box / heater bay)</li></ul><p>[PLUG] Not sure? Send a photo and we will match the part.</p>",
+    "description": "<ul><li>Find the cabin model and serial label - usually inside the door frame or on the power box.</li><li>Measure the fan frame and the blade diameter, plus the depth of the opening.</li><li>Check the voltage printed on the old motor; most home cabins in the US run 110-120V.</li><li>Match the wiring: spade terminals, screw posts or a plug-in harness.</li><li>Note where the fan sits - cabin wall, heater bay or control box - because airflow direction and heat rating differ for each position.</li></ul><p>If the label is unreadable, photograph the fan in place together with its wiring and we will identify it for you.</p>",
     "brand_id": 1134,
     "site_id": 18,
     "text_block_id": 83,
