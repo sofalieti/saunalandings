@@ -1,10 +1,15 @@
 @extends('layouts.'.request()->get('layout'))
 @section('content')
+<div class="pc2-page-hero">
+    <div class="container">
+        <span class="pc-section-kicker">Troubleshooting</span>
+        <h1>{!! text_block('troubleshooting_text_block_header') ?: (request()->get('brand')->name.' Troubleshooting') !!}</h1>
+    </div>
+</div>
 <div class="container pc-page">
-    <h1>{!! text_block('troubleshooting_text_block_header') ?: (request()->get('brand')->name.' Troubleshooting') !!}</h1>
     <div class="row">
         <div class="col-md-6">
-            <div class="main-description">
+            <div class="main-description pc-section-body">
                 {!! text_block('troubleshooting_text_block') !!}
             </div>
             <div class="description-from-main-page">
@@ -19,13 +24,13 @@
     </div>
 </div>
 @include('parts_category_v2.partials.related-links')
-<div class="question-block">
-    <div class="container text-center">
+<section class="pc2-cta">
+    <div class="container">
         <h2>HAVE QUESTIONS?</h2>
         <h3>CLICK HERE FOR A FREE CONSULTATION!</h3>
         <a class="btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#question">Submit a quote</a>
     </div>
-</div>
+</section>
 @endsection
 @section('footer')
     <div class="modal" id="question">

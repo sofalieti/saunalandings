@@ -18,31 +18,32 @@
 }
 </script>
 
-<div class="container">
-    <h1>{{ $product->name }}</h1>
-    <div class="row">
-        <div class="col-xl-6">
-            <div class="product-img">
-                @if($product->image)
-                    <div class="product-main-img">
+<div class="pc2-product-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="pc2-product-media">
+                    @if($product->image)
                         <img src="{{ $product->image_medium ?: ('/uploads/'.ltrim($product->image, '/')) }}" alt="{{ $product->name }}"/>
-                    </div>
-                @endif
-            </div>
-        </div>
-        <div class="col-xl-6">
-            <div class="product-description">
-                <span class="produc-description-title">description</span>
-                <div class="produc-description-main">
-                    {!! $product->description !!}
+                    @endif
                 </div>
-                <span class="produc-description-title wasauna">{{ request()->get('brand')->name }}</span>
-                <div class="product-description-banner">
-                    <div class="product-description-banner-leftromb">
-                        <span class="leftromb-text">10% <span class="leftromb-text-white">off</span></span>
+            </div>
+            <div class="col-xl-6">
+                <div class="product-description pc2-product-copy">
+                    <span class="pc-section-kicker">{{ $category->name }}</span>
+                    <h1>{{ $product->name }}</h1>
+                    <span class="produc-description-title">description</span>
+                    <div class="produc-description-main">
+                        {!! $product->description !!}
                     </div>
-                    <div class="product-description-banner-rightromb">
-                        <a class="rightromb-text" href="#" data-toggle="modal" data-target="#contact_us">contact us</a>
+                    <span class="produc-description-title wasauna">{{ request()->get('brand')->name }}</span>
+                    <div class="product-description-banner">
+                        <div class="product-description-banner-leftromb">
+                            <span class="leftromb-text">10% <span class="leftromb-text-white">off</span></span>
+                        </div>
+                        <div class="product-description-banner-rightromb">
+                            <a class="rightromb-text" href="#" data-toggle="modal" data-target="#contact_us">contact us</a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -36,34 +36,43 @@
 
 @include('blocks.topbanner_category', ['banners_content' => $dualbanner_content])
 
-<div class="container">
-    <h1>{{ $h1 }}</h1>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="main-description">
-                {!! text_block('main_page_text_block') !!}
+<section class="pc2-intro">
+    <div class="container">
+        <span class="pc-section-kicker">{{ request()->get('brand')->domain }}</span>
+        <h1>{{ $h1 }}</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="main-description">
+                    {!! text_block('main_page_text_block') !!}
+                </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="right-form">
-                @include('forms.form', ['form_id' => 2])
+            <div class="col-md-6">
+                <div class="right-form">
+                    @include('forms.form', ['form_id' => 2])
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<section class="pc-section">
+<section class="pc-section pc2-symptoms">
     <div class="container">
-        <h2>{!! text_block('symptoms_text_block_header') ?: '[PLUG] Common symptoms' !!}</h2>
+        <div class="pc-section-head">
+            <span class="pc-section-kicker">Diagnostics</span>
+            <h2>{!! text_block('symptoms_text_block_header') ?: 'Common symptoms' !!}</h2>
+        </div>
         <div class="pc-section-body">
             {!! text_block('symptoms_text_block') !!}
         </div>
     </div>
 </section>
 
-<section class="pc-section pc-section-alt">
+<section class="pc-section pc2-choose">
     <div class="container">
-        <h2>{!! text_block('how_to_choose_text_block_header') ?: '[PLUG] How to choose the right part' !!}</h2>
+        <div class="pc-section-head">
+            <span class="pc-section-kicker">Fitment</span>
+            <h2>{!! text_block('how_to_choose_text_block_header') ?: 'How to choose the right part' !!}</h2>
+        </div>
         <div class="pc-section-body">
             {!! text_block('how_to_choose_text_block') !!}
         </div>
@@ -89,9 +98,12 @@
 @endforeach
 
 @if(count($faqItems))
-<section class="pc-section" id="faq">
+<section class="pc-section pc-section-alt" id="faq">
     <div class="container">
-        <h2>{!! text_block('faq_text_block_header') ?: 'FAQ' !!}</h2>
+        <div class="pc-section-head">
+            <span class="pc-section-kicker">Questions</span>
+            <h2>{!! text_block('faq_text_block_header') ?: 'FAQ' !!}</h2>
+        </div>
         <div class="pc-section-body">{!! text_block('faq_text_block') !!}</div>
         @include('parts_category_v2.partials.faq-list', ['faqItems' => $faqItems])
         @if(page_template('faq'))
@@ -111,13 +123,13 @@
     </div>
 </section>
 
-<div class="question-block standartmargin-top">
-    <div class="container text-center">
+<section class="pc2-cta">
+    <div class="container">
         <h2>HAVE QUESTIONS?</h2>
         <h3>CLICK HERE FOR A FREE CONSULTATION!</h3>
         <a class="btn btn-lg btn-success" href="#" data-toggle="modal" data-target="#question">Submit a quote</a>
     </div>
-</div>
+</section>
 @endsection
 @section('footer')
     <div class="modal" id="question">

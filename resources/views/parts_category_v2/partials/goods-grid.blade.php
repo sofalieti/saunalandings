@@ -1,35 +1,36 @@
-<div class="container center category-block parts-category-goods">
+<div class="container pc2-goods">
     @if(isset($heading) && $heading)
-        <h2 class="goods-heading">{{ $heading }}</h2>
-    @endif
-    <div class="row category_page_paddings">
-        @if(count($products))
-            @foreach($products as $product)
-                <div class="col-xl-3 col-md-4 col-sm-6">
-                    <a class="item" href="{{ route('product', ['category_slug' => $category->slug, 'product_slug' => $product->slug]) }}">
-                        <div class="item-img-block">
-                            @if($product->image)
-                                <img class="category-img" src="{{ $product->image_thumb_crop }}" alt="{{ $product->name }}"/>
-                            @endif
-                        </div>
-                        <div class="item-description">
-                            <span class="name">{{ mb_strimwidth($product->name, 0, 50, "...") }}</span>
-                            @if($product->description)
-                                <span class="category-description">{!! str_limit(strip_tags($product->description), 100) !!}</span>
-                            @endif
-                        </div>
-                    </a>
-                </div>
-            @endforeach
-            @if(method_exists($products, 'links'))
-                {{ $products->links() }}
-            @endif
-        @else
-            <div class="col-12">
-                <div class="alert alert-info" role="alert">
-                    No goods in this category yet.
-                </div>
+        <div class="pc2-goods-head">
+            <div>
+                <span class="pc-section-kicker">Goods</span>
+                <h2>{{ $heading }}</h2>
             </div>
+        </div>
+    @endif
+
+    @if(count($products))
+        <div class="pc2-goods-grid">
+            @foreach($products as $product)
+                <a class="pc2-goods-item" href="{{ route('product', ['category_slug' => $category->slug, 'product_slug' => $product->slug]) }}">
+                    <div class="pc2-goods-media">
+                        @if($product->image)
+                            <img src="{{ $product->image_thumb_crop ?: ('/uploads/'.ltrim($product->image, '/')) }}" alt="{{ $product->name }}">
+                        @endif
+                    </div>
+                    <div class="pc2-goods-body">
+                        <span class="name">{{ $product->name }}</span>
+                        @if($product->description)
+                            <span class="desc">{!! str_limit(strip_tags($product->description), 110) !!}</span>
+                        @endif
+                        <span class="pc2-goods-cta">View part</span>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+        @if(method_exists($products, 'links'))
+            <div class="pc-pagination">{{ $products->links() }}</div>
         @endif
-    </div>
+    @else
+        <div class="alert alert-info" role="alert">No goods in this category yet.</div>
+    @endif
 </div>

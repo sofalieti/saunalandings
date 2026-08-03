@@ -16,6 +16,7 @@
 @endphp
 <section class="pc-section pc-related">
     <div class="container">
+        <span class="pc-section-kicker">Navigate</span>
         <h2>Helpful links</h2>
         <ul class="pc-related-list">
             <li><a href="/">Home</a></li>

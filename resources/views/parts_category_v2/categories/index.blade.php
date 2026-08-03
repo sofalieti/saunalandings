@@ -15,15 +15,13 @@
     $dualbanner_content[1]['category'] = $category->slug;
 @endphp
 
-<div class="container main-container leftheader">
-    <div class="row">
-        <div class="col-12">
-            <div class="thin-line"></div>
-            <h1>{{ rt("!brand!") }} {{ $category->name }}</h1>
-            @if($category->text)
-                <div class="inside-block-margin">{!! $category->text !!}</div>
-            @endif
-        </div>
+<div class="pc2-page-hero">
+    <div class="container">
+        <span class="pc-section-kicker">Goods</span>
+        <h1>{{ rt("!brand!") }} {{ $category->name }}</h1>
+        @if($category->text)
+            <div class="pc-section-body">{!! $category->text !!}</div>
+        @endif
     </div>
 </div>
 
