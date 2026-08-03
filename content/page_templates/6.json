@@ -1,0 +1,12 @@
+{
+    "id": 6,
+    "name": "Repair",
+    "var_name": "repair",
+    "meta_title": null,
+    "meta_keywords": null,
+    "meta_description": null,
+    "active": 1,
+    "site_id": 13,
+    "use_for_states": 0,
+    "show_articles": 0
+}

@@ -1,0 +1,15 @@
+{
+    "id": 73,
+    "name": "5 Person",
+    "image": null,
+    "active": 1,
+    "slug": "5-person",
+    "position": 1300,
+    "site_id": 16,
+    "parent_id": 69,
+    "text": "",
+    "text_short": "",
+    "type": "",
+    "main_models_category": 0,
+    "exim_code": "5 Person"
+}

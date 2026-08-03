@@ -1,0 +1,11 @@
+{
+    "id": 11685,
+    "name": "Infrared Sauna Parts (Main)",
+    "var_name": "contact_us_text_block",
+    "description": "If you have any questions related to new or existing order, billing (or any other related issues), please feel free to contact us by phone or email during our regular business hours.<br><br>\r\n\r\n<div class=\"row\"><div class=\"col-12 col-md-6\">\r\n<h3>Customer Service</h3>\r\nE-mail: customerservice@infraredsaunaparts.com<br>\r\nMonday - Friday: 7am - 7pm (PST)<br>\r\nSaturday: Closed<br>\r\nSunday: Closed<br>\r\n</div>\r\n<div class=\"col-12 col-md-6\">\r\n<h3>Billing</h3>\r\nE-mail: billing@infraredsaunaparts.com<br>\r\nMonday - Friday: 9am - 5pm (PST)<br>\r\nSaturday: Closed<br>\r\nSunday: Closed<br>\r\n</div>\r\n<div class=\"col-12 col-md-6\">\r\n<h3>General inquiries:</h3>\r\nE-mail: info@infraredsaunaparts.com<br>\r\nMonday - Friday: 7am - 7pm (PST)<br>\r\nSaturday: 10am - 4pm (PST)<br>\r\nSunday: Closed\r\n</div>\r\n<div class=\"col-12 col-md-6\">\r\n<h3>Shipping</h3>\r\nE-mail: shipping@infraredsaunaparts.com<br>\r\nMonday - Friday: 9am - 5pm (PST)<br>\r\nSaturday: Closed<br>\r\nSunday: Closed\r\n</div></div>",
+    "brand_id": 1204,
+    "site_id": 1,
+    "text_block_id": 72,
+    "active": 1,
+    "disable_update": 0
+}

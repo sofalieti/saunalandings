@@ -1,0 +1,17 @@
+{
+    "id": 1226,
+    "name": "Grand",
+    "slug": "grand",
+    "domain": "grandsaunapart.com",
+    "active": 1,
+    "additional_domains": "grandsaunapart",
+    "created_at": "2019-04-09 05:36:19",
+    "updated_at": "2020-02-03 14:06:21",
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "use_all_states": 1,
+    "site_id": 1,
+    "main_image": "images/brands/2020/02/03/8855a0c09f645d06c562d499e26d2120.png",
+    "favicon": null
+}

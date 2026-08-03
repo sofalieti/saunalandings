@@ -1,0 +1,17 @@
+{
+    "id": 1167,
+    "name": "HELO",
+    "slug": "helo",
+    "domain": "HELOSAUNAPARTS.COM",
+    "active": 1,
+    "additional_domains": "HELOINFRAREDSAUNAPART|HELOSAUNAPART",
+    "created_at": "2019-04-09 05:36:12",
+    "updated_at": "2020-02-03 11:48:58",
+    "meta_title": "",
+    "meta_description": "",
+    "meta_keywords": "",
+    "use_all_states": 1,
+    "site_id": 1,
+    "main_image": "images/brands/2020/02/03/fbba304357be02fc86b0e3c3746ca16b.png",
+    "favicon": null
+}

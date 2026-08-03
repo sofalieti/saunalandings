@@ -1,0 +1,12 @@
+{
+    "id": 13,
+    "name": "Pay",
+    "var_name": "pay",
+    "meta_title": "Pay",
+    "meta_keywords": null,
+    "meta_description": null,
+    "active": 1,
+    "site_id": 17,
+    "use_for_states": 0,
+    "show_articles": 0
+}

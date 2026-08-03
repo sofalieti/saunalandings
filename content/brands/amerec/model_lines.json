@@ -1,0 +1,51 @@
+[
+    {
+        "id": 184,
+        "brand_id": 1151,
+        "model_line_id": 181,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 185,
+        "brand_id": 1151,
+        "model_line_id": 182,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 186,
+        "brand_id": 1151,
+        "model_line_id": 183,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 187,
+        "brand_id": 1151,
+        "model_line_id": 184,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 188,
+        "brand_id": 1151,
+        "model_line_id": 185,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 189,
+        "brand_id": 1151,
+        "model_line_id": 186,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 190,
+        "brand_id": 1151,
+        "model_line_id": 187,
+        "created_at": null,
+        "updated_at": null
+    }
+]

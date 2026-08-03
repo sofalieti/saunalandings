@@ -1,0 +1,100 @@
+[
+    {
+        "id": 45,
+        "brand_id": 1202,
+        "model_line_id": 42,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 46,
+        "brand_id": 1202,
+        "model_line_id": 43,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 47,
+        "brand_id": 1202,
+        "model_line_id": 44,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 48,
+        "brand_id": 1202,
+        "model_line_id": 45,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 49,
+        "brand_id": 1202,
+        "model_line_id": 46,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 50,
+        "brand_id": 1202,
+        "model_line_id": 47,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 51,
+        "brand_id": 1202,
+        "model_line_id": 48,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 52,
+        "brand_id": 1202,
+        "model_line_id": 49,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 53,
+        "brand_id": 1202,
+        "model_line_id": 50,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 54,
+        "brand_id": 1202,
+        "model_line_id": 51,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 55,
+        "brand_id": 1202,
+        "model_line_id": 52,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 56,
+        "brand_id": 1202,
+        "model_line_id": 53,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 57,
+        "brand_id": 1202,
+        "model_line_id": 54,
+        "created_at": null,
+        "updated_at": null
+    },
+    {
+        "id": 58,
+        "brand_id": 1202,
+        "model_line_id": 55,
+        "created_at": null,
+        "updated_at": null
+    }
+]

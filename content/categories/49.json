@@ -1,0 +1,15 @@
+{
+    "id": 49,
+    "name": "Catalog",
+    "image": "images/categories/2020/01/24/6a3932c2f046a3eaa240209b4173b462.png",
+    "active": 1,
+    "slug": "catalog",
+    "position": 0,
+    "site_id": 1,
+    "parent_id": 0,
+    "text": "",
+    "text_short": "",
+    "type": "",
+    "main_models_category": 1,
+    "exim_code": null
+}

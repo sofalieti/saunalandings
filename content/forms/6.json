@@ -1,0 +1,62 @@
+{
+    "id": 6,
+    "name": "Form (Form Template)",
+    "header_text": "",
+    "footer_text": "",
+    "active": 1,
+    "use_captcha": 0,
+    "css_class": "",
+    "success_text": "ОК",
+    "title": "Form",
+    "button_text": "Send",
+    "fields": [
+        {
+            "id": 39,
+            "name": "Name",
+            "custom_form_id": 6,
+            "type": "text",
+            "css_class": null,
+            "position": 100,
+            "select_and_radio_values": null,
+            "required": 1,
+            "placeholder": "Name",
+            "zoho_field_type": ""
+        },
+        {
+            "id": 40,
+            "name": "Phone",
+            "custom_form_id": 6,
+            "type": "phone",
+            "css_class": null,
+            "position": 200,
+            "select_and_radio_values": null,
+            "required": 1,
+            "placeholder": "Phone",
+            "zoho_field_type": ""
+        },
+        {
+            "id": 41,
+            "name": "E-mail",
+            "custom_form_id": 6,
+            "type": "email",
+            "css_class": null,
+            "position": 300,
+            "select_and_radio_values": null,
+            "required": 1,
+            "placeholder": "E-mail",
+            "zoho_field_type": ""
+        },
+        {
+            "id": 42,
+            "name": "Message",
+            "custom_form_id": 6,
+            "type": "textarea",
+            "css_class": null,
+            "position": 400,
+            "select_and_radio_values": null,
+            "required": 1,
+            "placeholder": "Message",
+            "zoho_field_type": ""
+        }
+    ]
+}

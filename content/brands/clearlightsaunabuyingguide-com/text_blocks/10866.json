@@ -1,0 +1,11 @@
+{
+    "id": 10866,
+    "name": "Infrared Sauna Parts (Main)",
+    "var_name": "BRAND_TEXT",
+    "description": "<div class=\" col-12 col-md-6  col-lg-12\">\r\n<div class=\"row inside-block-margin\">\r\n<div class=\"col-12 col-lg-4\">\r\n<div class=\"Blockimg\"><img src=\"/images/parts_main/Hang-on.png\" /></div></div>\r\n<div class=\"col-12 col-lg-8\">\r\n\r\n\r\n</div>\r\n</div>\r\n</div>\r\n\r\n<div class=\"col-12 col-md-6  col-lg-12\">\r\n<div class=\"row inside-block-margin\">\r\n<div class=\"col-12 col-lg-4\">\r\n<div class=\"Blockimg\"><img src=\"/images/parts_main/offers.png\" /></div></div>\r\n<div class=\"col-12 col-lg-8\">\r\n\r\n\r\n</div>\r\n</div>\r\n</div>",
+    "brand_id": 1322,
+    "site_id": 1,
+    "text_block_id": 31,
+    "active": 1,
+    "disable_update": 0
+}

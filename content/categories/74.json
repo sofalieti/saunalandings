@@ -1,0 +1,15 @@
+{
+    "id": 74,
+    "name": "Corner",
+    "image": null,
+    "active": 1,
+    "slug": "corner",
+    "position": 1700,
+    "site_id": 16,
+    "parent_id": 69,
+    "text": null,
+    "text_short": null,
+    "type": null,
+    "main_models_category": 0,
+    "exim_code": "Corner"
+}

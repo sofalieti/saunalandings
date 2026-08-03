@@ -1,0 +1,15 @@
+{
+    "id": 55,
+    "name": "FANS",
+    "image": "images/categories/2020/04/29/7609b86992e22c7ab32b4a5dde8d418d.png",
+    "active": 1,
+    "slug": "fans",
+    "position": 0,
+    "site_id": 1,
+    "parent_id": 49,
+    "text": "Are you looking for a replacement fan for your infrared sauna? You can buy a fan here.<br><br>\r\n\r\nInfrared saunas rely on infrared light rather than heat to provide the effect. However, devices that provide this effect often run hot when in operation. Particularly if the air in the sauna is warm, there needs to be a way to cool down and that’s where the fans are utilized. <br><br>\r\n\r\nTo prevent damage to the heaters and the rest of the system, fans are employed in such a way that they are not noticeable. Thermal overload shortens the lifespan of the electrical parts so it is necessary to select a fan that can handle the heat.<br><br>\r\n\r\nFans ought to be quiet so as not to distract the infrared sauna user from relaxation. However, the blades need to be functional enough to generate air flow to cool down parts that need cooling.",
+    "text_short": "Infrared sauna devices often run hot during the sauna session. The air in the sauna is warm, so electrical components cannot cool off.\r\nIt is quite important to protect sauna electrical components against overheating each time you use infrared sauna. Thermal overload shortens the product life of the devices. To avoid overheating, it is required to use a special fan. This small device is made of rotating arrangement of blades. The blades generate high air pressure and air flow, which then cool the whole electrical component.",
+    "type": "FANS",
+    "main_models_category": 0,
+    "exim_code": null
+}

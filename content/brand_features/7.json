@@ -1,0 +1,8 @@
+{
+    "id": 7,
+    "name": "Heater Types",
+    "slug": "checkbox-multiply",
+    "position": 500,
+    "type": "text",
+    "data": "value 1|value 2|value 3"
+}

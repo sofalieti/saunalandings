@@ -1,0 +1,74 @@
+{
+    "id": 2,
+    "name": "Parts main  Free Consult",
+    "header_text": "",
+    "footer_text": "",
+    "active": 1,
+    "use_captcha": 1,
+    "css_class": "form-free-consult",
+    "success_text": "Congratulations! Thank you for your interest one of our sales representatives will contact you shortly",
+    "title": "Free Consult",
+    "button_text": "Send",
+    "fields": [
+        {
+            "id": 22,
+            "name": "Name",
+            "custom_form_id": 2,
+            "type": "text",
+            "css_class": "col-md-12",
+            "position": 100,
+            "select_and_radio_values": "",
+            "required": 1,
+            "placeholder": "Name",
+            "zoho_field_type": "name"
+        },
+        {
+            "id": 23,
+            "name": "Phone",
+            "custom_form_id": 2,
+            "type": "phone",
+            "css_class": "col-md-6",
+            "position": 200,
+            "select_and_radio_values": null,
+            "required": 1,
+            "placeholder": "Phone",
+            "zoho_field_type": "phone"
+        },
+        {
+            "id": 24,
+            "name": "E-mail",
+            "custom_form_id": 2,
+            "type": "email",
+            "css_class": "col-md-6",
+            "position": 300,
+            "select_and_radio_values": null,
+            "required": 1,
+            "placeholder": "E-mail",
+            "zoho_field_type": "email"
+        },
+        {
+            "id": 25,
+            "name": "Problem description",
+            "custom_form_id": 2,
+            "type": "textarea",
+            "css_class": null,
+            "position": 400,
+            "select_and_radio_values": null,
+            "required": 0,
+            "placeholder": "",
+            "zoho_field_type": ""
+        },
+        {
+            "id": 26,
+            "name": "Image",
+            "custom_form_id": 2,
+            "type": "image",
+            "css_class": null,
+            "position": 500,
+            "select_and_radio_values": null,
+            "required": 0,
+            "placeholder": "",
+            "zoho_field_type": ""
+        }
+    ]
+}

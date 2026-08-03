@@ -1,0 +1,11 @@
+{
+    "id": 12007,
+    "name": "Infrared Sauna Parts (Main)",
+    "var_name": "BRAND_SHORT_TEXT",
+    "description": "Please fill in the form and we will help you troubleshoot the problem!<br><br>\r\nRemember that some parts require special technical skills in order to be replaced, particularly electrical parts so do not attempt to replace them before you receive our instructions.",
+    "brand_id": 1337,
+    "site_id": 1,
+    "text_block_id": 73,
+    "active": 1,
+    "disable_update": 0
+}

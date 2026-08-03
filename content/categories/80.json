@@ -1,0 +1,15 @@
+{
+    "id": 80,
+    "name": "Traditional Saunas",
+    "image": null,
+    "active": 1,
+    "slug": "3-person-traditional-saunas",
+    "position": 800,
+    "site_id": 16,
+    "parent_id": 71,
+    "text": null,
+    "text_short": null,
+    "type": null,
+    "main_models_category": 0,
+    "exim_code": "419"
+}

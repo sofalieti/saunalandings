@@ -1,0 +1,11 @@
+{
+    "id": 9167,
+    "name": "Main Page Text Block",
+    "var_name": "main_page_text_block",
+    "description": "<div class=\"block block-block block--infrared-sauna-breakers\">\r\n<h4 class=\"block__title\">INFRARED SAUNA BREAKERS</h4>\r\n<div class=\"block__content\">\r\n<p>Hello! Our main goal is to provide your best quality infrared sauna parts. Just complete the form and our specialist would contact you as soon as possible!</p>\r\n</div>\r\n</div>\r\n<article class=\"node node-landingpage node-promoted clearfix\">\r\n<div class=\"content\">\r\n<div class=\"field field-name-body field-type-text-with-summary field-label-hidden\">\r\n<div class=\"field-items\">\r\n<div class=\"field-item even\">\r\n<p>Various electrical breakers are available for controlling the flow of electricity to your infrared sauna. A circuit breaker is a manually or automatically operated electrical switch designed to protect an electrical circuit from damage caused by overload or short circuit. Its basic function is to detect a fault condition and interrupt current flow.</p>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n</article>",
+    "brand_id": 1126,
+    "site_id": 13,
+    "text_block_id": 67,
+    "active": 1,
+    "disable_update": 0
+}

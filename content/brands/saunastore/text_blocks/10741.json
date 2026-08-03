@@ -1,0 +1,11 @@
+{
+    "id": 10741,
+    "name": "Infrared Sauna Parts (Main)",
+    "var_name": "TROUBLESHOOT_TEXT",
+    "description": "If you’re experiencing issues and you don’t know what the problem is exactly this troubleshooting page is for you. Provide us with the details of the malfunction  or what you consider to be a problem with your sauna.  <br><br>\r\n\r\n<b>In order to help us troubleshoot the problem with your sauna please provide the following details:</b>\r\n<br>\r\n<ul>\r\n<li>Make and model of the sauna in question</li><li>\r\nDescribe the problem providing extensive detail. What stopped working and when, what kind of action preceded the appearance of the issue. </li><li>\r\nIf the problem made the sauna change in they way it operates such as excess noise, or trembling or any other noticeable part malfunctioning, please include that.</li><li>\r\nIf you know what parti in particular stopped working or is working incorrectly, tell us.</li><li>\r\nIn addition, please add a picture if you can.</li></ul>\r\n<br><br>\r\nWe hope to be of help and we’re looking forward to fixing your sauna.",
+    "brand_id": 1309,
+    "site_id": 1,
+    "text_block_id": 60,
+    "active": 1,
+    "disable_update": 0
+}
