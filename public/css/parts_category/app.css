@@ -1,25 +1,601 @@
-.main-description h2, .main-description h4{
-    font-size: 20px;
-    font-weight: bold;
+:root {
+    --pc-ink: #14181c;
+    --pc-ink-soft: #2a3138;
+    --pc-mist: #eef1f3;
+    --pc-paper: #f7f5f1;
+    --pc-ember: #d4622b;
+    --pc-ember-deep: #a6471c;
+    --pc-brass: #b08d57;
+    --pc-line: rgba(20, 24, 28, 0.12);
+    --pc-font-display: "Syne", "Avenir Next", "Segoe UI", sans-serif;
+    --pc-font-body: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
 }
-.geo-states {
+
+html {
+    scroll-behavior: smooth;
+}
+
+body.parts-category-body {
+    margin: 0;
+    color: var(--pc-ink);
+    background:
+        radial-gradient(1200px 500px at 10% -10%, rgba(212, 98, 43, 0.12), transparent 55%),
+        radial-gradient(900px 420px at 100% 0%, rgba(176, 141, 87, 0.14), transparent 50%),
+        linear-gradient(180deg, #fbfaf7 0%, var(--pc-paper) 40%, #efeae3 100%);
+    font-family: var(--pc-font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.parts-category-body a {
+    color: var(--pc-ember-deep);
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.parts-category-body a:hover {
+    color: var(--pc-ember);
+}
+
+.pc-shell {
+    width: min(1180px, calc(100% - 2rem));
+    margin: 0 auto;
+}
+
+/* Header */
+.pc-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    backdrop-filter: blur(14px);
+    background: rgba(247, 245, 241, 0.88);
+    border-bottom: 1px solid var(--pc-line);
+}
+
+.pc-header-inner {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1.2fr;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.85rem 0;
+}
+
+.pc-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--pc-ink);
+}
+
+.pc-brand img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.pc-brand-name {
+    font-family: var(--pc-font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+}
+
+.pc-brand-name span {
     display: block;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pc-ink-soft);
+    opacity: 0.7;
 }
-.parts-category-goods{
-    margin-top: 40px;
-    margin-bottom: 20px;
-}
-.parts-category-goods .goods-heading{
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 20px;
+
+.pc-state {
     text-align: center;
 }
-@media screen and (max-width: 768px){
-    header{
-        padding: 20px 0 !important;
+
+.pc-state-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.55;
+}
+
+.pc-state-link {
+    display: inline-block;
+    margin-top: 0.15rem;
+    font-family: var(--pc-font-display);
+    font-weight: 600;
+    color: var(--pc-ink);
+    border-bottom: 1px solid rgba(212, 98, 43, 0.45);
+}
+
+.pc-phones {
+    text-align: right;
+    font-size: 0.82rem;
+    line-height: 1.35;
+}
+
+.pc-phones strong {
+    display: block;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    font-weight: 600;
+}
+
+.pc-phones a {
+    color: var(--pc-ink);
+    font-weight: 600;
+}
+
+.pc-social {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.55rem;
+    margin-bottom: 0.35rem;
+}
+
+.pc-social img {
+    width: 18px;
+    height: 18px;
+    opacity: 0.75;
+}
+
+/* Hero */
+.pc-hero {
+    position: relative;
+    min-height: min(78vh, 720px);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    color: #fff;
+    isolation: isolate;
+}
+
+.pc-hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+        linear-gradient(180deg, rgba(20, 24, 28, 0.15) 0%, rgba(20, 24, 28, 0.72) 70%, rgba(20, 24, 28, 0.88) 100%),
+        url("/images/parts_category/hero-atmosphere.jpg") center / cover no-repeat;
+    transform: scale(1.04);
+    animation: pc-hero-drift 18s ease-in-out infinite alternate;
+}
+
+.pc-hero-glow {
+    position: absolute;
+    inset: auto -10% -30% 20%;
+    height: 55%;
+    z-index: -1;
+    background: radial-gradient(ellipse at center, rgba(212, 98, 43, 0.35), transparent 65%);
+    animation: pc-glow-pulse 6s ease-in-out infinite;
+}
+
+.pc-hero-inner {
+    width: min(1180px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 4.5rem 0 3.5rem;
+}
+
+.pc-hero-brand {
+    font-family: var(--pc-font-display);
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    font-weight: 750;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    margin: 0 0 1rem;
+    max-width: 12ch;
+    animation: pc-rise 0.9s ease both;
+}
+
+.pc-hero-title {
+    font-family: var(--pc-font-display);
+    font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.85rem;
+    max-width: 28ch;
+    animation: pc-rise 0.9s ease 0.12s both;
+}
+
+.pc-hero-lead {
+    max-width: 38ch;
+    margin: 0 0 1.6rem;
+    opacity: 0.88;
+    animation: pc-rise 0.9s ease 0.22s both;
+}
+
+.pc-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    animation: pc-rise 0.9s ease 0.32s both;
+}
+
+.pc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0.75rem 1.35rem;
+    border: 0;
+    border-radius: 2px;
+    font-family: var(--pc-font-display);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: transform .2s ease, background .2s ease, color .2s ease;
+}
+
+.pc-btn:hover {
+    transform: translateY(-1px);
+}
+
+.pc-btn-primary {
+    background: var(--pc-ember);
+    color: #fff;
+}
+
+.pc-btn-primary:hover {
+    background: var(--pc-ember-deep);
+    color: #fff;
+}
+
+.pc-btn-ghost {
+    background: transparent;
+    color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.55);
+}
+
+.pc-btn-ghost:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+/* Intro + form */
+.pc-intro {
+    padding: 3.5rem 0 1rem;
+}
+
+.pc-intro-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.pc-kicker {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pc-ember-deep);
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+}
+
+.pc-intro h2,
+.pc-goods-head h2,
+.pc-product-layout h1,
+.pc-category-head h1 {
+    font-family: var(--pc-font-display);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin: 0 0 1rem;
+}
+
+.pc-intro h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+.pc-copy {
+    color: var(--pc-ink-soft);
+    max-width: 52ch;
+}
+
+.pc-form-panel {
+    background: rgba(255,255,255,0.72);
+    border: 1px solid var(--pc-line);
+    padding: 1.25rem;
+    box-shadow: 0 18px 40px rgba(20, 24, 28, 0.06);
+}
+
+.pc-form-panel .right-form {
+    margin: 0;
+}
+
+/* Goods */
+.pc-goods {
+    padding: 2rem 0 3.5rem;
+}
+
+.pc-goods-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--pc-line);
+    padding-bottom: 1rem;
+}
+
+.pc-goods-head p {
+    margin: 0;
+    max-width: 36ch;
+    color: var(--pc-ink-soft);
+}
+
+.pc-goods-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.15rem;
+}
+
+.pc-goods-item {
+    display: flex;
+    flex-direction: column;
+    color: var(--pc-ink);
+    background: rgba(255,255,255,0.55);
+    border: 1px solid transparent;
+    transition: border-color .2s ease, transform .25s ease, background .2s ease;
+    animation: pc-rise 0.7s ease both;
+}
+
+.pc-goods-item:hover {
+    border-color: rgba(212, 98, 43, 0.35);
+    transform: translateY(-4px);
+    background: #fff;
+    color: var(--pc-ink);
+}
+
+.pc-goods-media {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--pc-mist);
+}
+
+.pc-goods-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .45s ease;
+}
+
+.pc-goods-item:hover .pc-goods-media img {
+    transform: scale(1.05);
+}
+
+.pc-goods-body {
+    padding: 1rem 1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    flex: 1;
+}
+
+.pc-goods-body .name {
+    font-family: var(--pc-font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+}
+
+.pc-goods-body .desc {
+    font-size: 0.9rem;
+    color: var(--pc-ink-soft);
+}
+
+.pc-goods-cta {
+    margin-top: auto;
+    padding-top: 0.55rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pc-ember-deep);
+}
+
+/* Consult strip */
+.pc-consult {
+    margin: 0 0 3rem;
+    padding: 2.5rem 0;
+    background:
+        linear-gradient(120deg, rgba(20,24,28,0.94), rgba(42,49,56,0.9)),
+        url("/images/parts_category/hero-atmosphere.jpg") center / cover;
+    color: #fff;
+    text-align: center;
+}
+
+.pc-consult h2 {
+    font-family: var(--pc-font-display);
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    margin: 0 0 0.4rem;
+    letter-spacing: -0.03em;
+}
+
+.pc-consult p {
+    margin: 0 0 1.2rem;
+    opacity: 0.85;
+}
+
+/* Category / product pages */
+.pc-page {
+    padding: 2.5rem 0 3rem;
+}
+
+.pc-category-head {
+    margin-bottom: 1.75rem;
+}
+
+.pc-category-head p {
+    max-width: 60ch;
+    color: var(--pc-ink-soft);
+}
+
+.pc-product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.pc-product-media {
+    background: #fff;
+    border: 1px solid var(--pc-line);
+    padding: 1rem;
+}
+
+.pc-product-media img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.pc-product-copy {
+    background: rgba(255,255,255,0.65);
+    border: 1px solid var(--pc-line);
+    padding: 1.5rem;
+}
+
+.pc-product-copy h1 {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+}
+
+.pc-product-copy .label {
+    display: block;
+    margin: 1rem 0 0.4rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    font-weight: 700;
+}
+
+/* Footer */
+.pc-footer {
+    background: var(--pc-ink);
+    color: rgba(255,255,255,0.78);
+    padding: 2.75rem 0 2rem;
+}
+
+.pc-footer a {
+    color: rgba(255,255,255,0.78);
+}
+
+.pc-footer a:hover {
+    color: #fff;
+}
+
+.pc-footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.pc-footer h4 {
+    font-family: var(--pc-font-display);
+    color: #fff;
+    font-size: 0.95rem;
+    margin: 0 0 0.85rem;
+}
+
+.pc-footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pc-footer li + li {
+    margin-top: 0.4rem;
+}
+
+.pc-map {
+    line-height: 0;
+}
+
+.pc-map iframe {
+    filter: grayscale(0.35) contrast(1.05);
+}
+
+/* Motion */
+@keyframes pc-rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pc-hero-drift {
+    from { transform: scale(1.04) translate3d(0, 0, 0); }
+    to { transform: scale(1.08) translate3d(-1.5%, -1%, 0); }
+}
+
+@keyframes pc-glow-pulse {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 0.9; }
+}
+
+.pc-goods-item:nth-child(1) { animation-delay: 0.05s; }
+.pc-goods-item:nth-child(2) { animation-delay: 0.12s; }
+.pc-goods-item:nth-child(3) { animation-delay: 0.19s; }
+.pc-goods-item:nth-child(4) { animation-delay: 0.26s; }
+
+.pc-pagination {
+    margin-top: 1rem;
+}
+
+.pc-product-copy .pc-hero-actions {
+    margin-top: 1.5rem;
+}
+
+.pc-product-copy .pc-btn-ghost {
+    color: var(--pc-ink);
+    box-shadow: inset 0 0 0 1px rgba(20, 24, 28, 0.25);
+}
+
+.pc-product-copy .pc-btn-ghost:hover {
+    background: rgba(20, 24, 28, 0.05);
+    color: var(--pc-ink);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .pc-header-inner {
+        grid-template-columns: 1fr 1fr;
     }
-    footer{
-        background: #333 !important;
+    .pc-phones {
+        display: none;
+    }
+    .pc-intro-grid,
+    .pc-product-layout {
+        grid-template-columns: 1fr;
+    }
+    .pc-goods-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .pc-footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .pc-header-inner {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+    .pc-state {
+        text-align: left;
+    }
+    .pc-goods-grid {
+        grid-template-columns: 1fr;
+    }
+    .pc-footer-grid {
+        grid-template-columns: 1fr;
+    }
+    .pc-hero {
+        min-height: 70vh;
     }
 }

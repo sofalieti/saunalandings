@@ -1,44 +1,29 @@
 @extends('layouts.'.request()->get('layout'))
-@section('content')
 
-<div class="container">
-    <h1>{{ $product->name }}</h1>
-    <div class="row">
-        <div class="col-xl-6">
-            <div class="product-img">
-                @if($product->image)
-                    <div class="product-main-img">
-                        <a href="{{ $product->image_big }}" data-fancybox="gallery"><img src="{{ $product->image_medium }}" alt="{{ $product->name }}"/></a>
-                    </div>
-                @endif
-                @if(is_array($product->image_thumbs))
-                    @foreach($product->image_thumbs as $image)
-                        <div class="product-small-img"><img src="{{ $image }}" alt=""/></div>
-                    @endforeach
-                @endif
-            </div>
+@section('content')
+<div class="pc-page">
+    <div class="pc-shell pc-product-layout">
+        <div class="pc-product-media">
+            @if($product->image)
+                <img src="{{ $product->image_medium ?: ('/uploads/' . ltrim($product->image, '/')) }}" alt="{{ $product->name }}">
+            @endif
         </div>
-        <div class="col-xl-6">
-            <div class="product-description">
-                <span class="produc-description-title">description</span>
-                <div class="produc-description-main">
-                    {!! $product->description !!}
-                </div>
-                <span class="produc-description-title wasauna">{{ request()->get('brand')->name }}</span>
-                <div class="product-description-banner">
-                    <div class="product-description-banner-leftromb">
-                        <span class="leftromb-text">10% <span class="leftromb-text-white">off</span></span>
-                    </div>
-                    <div class="product-description-banner-rightromb">
-                        <a class="rightromb-text" href="#" data-toggle="modal" data-target="#contact_us">contact us</a>
-                    </div>
-                </div>
+        <div class="pc-product-copy">
+            <div class="pc-kicker">{{ $category->name }}</div>
+            <h1>{{ $product->name }}</h1>
+            <span class="label">Description</span>
+            <div>{!! $product->description !!}</div>
+            <span class="label">Brand domain</span>
+            <div>{{ request()->get('brand')->name }}</div>
+            <div class="pc-hero-actions">
+                <a class="pc-btn pc-btn-primary" href="#" data-toggle="modal" data-target="#contact_us">Ask about this part</a>
+                <a class="pc-btn pc-btn-ghost" href="{{ route('category', ['slug' => $category->slug]) }}">Back to category</a>
             </div>
         </div>
     </div>
 </div>
-
 @endsection
+
 @section('footer')
     <div class="modal" id="contact_us">
         <div class="modal-dialog modal-lg">
