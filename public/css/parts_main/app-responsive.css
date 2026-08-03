@@ -436,6 +436,12 @@ and open the template in the editor.
     {
         display:none;
     }
+    .main-container .brand-page-logo img {
+        display: block;
+        max-width: min(300px, 100%);
+        width: auto;
+        height: auto;
+    }
     h1{text-align:left;}
     .main-container  .Blockimg 
     {
