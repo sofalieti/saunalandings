@@ -326,8 +326,74 @@ class Index
             return;
         }
 
+        $row = $this->normalizeRow($table, $row);
+
         // Force insert with explicit id (SQLite)
         DB::connection('flat')->table($table)->insert($row);
+    }
+
+    /**
+     * Coerce empty/null values so SQLite NOT NULL + type constraints pass.
+     *
+     * @param string $table
+     * @param array  $row
+     * @return array
+     */
+    protected function normalizeRow($table, array $row)
+    {
+        $intDefaults = [
+            'position' => 0,
+            'active' => 1,
+            'parent_id' => 0,
+            'brand_id' => 0,
+            'site_id' => 0,
+            'category_id' => 0,
+            'use_all_states' => 0,
+            'default' => 0,
+            'target_blank' => 0,
+            'use_for_states' => 0,
+            'show_articles' => 0,
+            'main_models_category' => 0,
+            'use_captcha' => 0,
+            'required' => 0,
+            'disable_update' => 0,
+        ];
+
+        foreach ($intDefaults as $col => $default) {
+            if (!array_key_exists($col, $row)) {
+                continue;
+            }
+            if ($row[$col] === null || $row[$col] === '') {
+                // nullable FKs stay null; position/flags get defaults
+                if (in_array($col, ['parent_id', 'brand_id', 'site_id', 'category_id'], true)) {
+                    $row[$col] = null;
+                } else {
+                    $row[$col] = $default;
+                }
+            }
+        }
+
+        // Empty strings for optional text fields → null
+        foreach ($row as $col => $val) {
+            if ($val === '' && !in_array($col, ['name', 'slug', 'domain', 'var_name'], true)) {
+                // keep empty string for name-like fields; null for free text if column allows
+                if (in_array($col, ['value', 'description', 'question', 'answer', 'text', 'text_short', 'image', 'images', 'link', 'additional_domains'], true)) {
+                    $row[$col] = null;
+                }
+            }
+        }
+
+        // brand_brand_feature: position must never be null
+        if ($table === 'brand_brand_feature') {
+            if (!isset($row['position']) || $row['position'] === null || $row['position'] === '') {
+                $row['position'] = 0;
+            }
+            if (array_key_exists('value', $row) && $row['value'] === '') {
+                $row['value'] = null;
+            }
+        }
+
+        return $row;
     }
 
     /**

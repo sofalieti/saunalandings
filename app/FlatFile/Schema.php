@@ -266,7 +266,7 @@ class Schema
             $table->increments('id');
             $table->unsignedInteger('brand_id')->nullable();
             $table->unsignedInteger('brand_feature_id')->nullable();
-            $table->integer('position')->default(0);
+            $table->integer('position')->nullable()->default(0);
             $table->text('value')->nullable();
         });
 
