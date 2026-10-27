@@ -13,8 +13,25 @@ class FormController extends Controller {
 
     public function send_form(Request $request) {
         $data = $request->except(['_token']);
-        $host = $this->get_host($_SERVER['HTTP_REFERER']);
-        $brand = Brand::where('domain', $host)->first();
+        $host = strtolower($this->get_host($_SERVER['HTTP_REFERER']));
+        // SQLite compares domain case-sensitively; stored values are uppercase.
+        // Also accept admin aliases (token without TLD), same as Landing middleware.
+        $brand = Brand::where('active', 1)->where(function ($query) use ($host) {
+            $query->whereRaw('LOWER(domain) = ?', [$host]);
+
+            preg_match("/(www\.(.*?)s\.)|((.*?)s\.)|(www\.(.*?)\.)|((.*?)\.)/i", $host, $d_result);
+            $d_result = array_values(array_diff($d_result, array('', null, false)));
+            if (!isset($d_result[2])) {
+                return;
+            }
+            $extra = strtolower($d_result[2]);
+            $query->orWhere(function ($query) use ($extra) {
+                $query->whereRaw('LOWER(additional_domains) = ?', [$extra]);
+                $query->orWhereRaw('LOWER(additional_domains) LIKE ?', [$extra . '|%']);
+                $query->orWhereRaw('LOWER(additional_domains) LIKE ?', ['%|' . $extra . '|%']);
+                $query->orWhereRaw('LOWER(additional_domains) LIKE ?', ['%|' . $extra]);
+            });
+        })->first();
         $response = [];
 
         if ($this->check_black_list($request->get('form')) && $brand && count($data) && empty($request->subject_msg_4)) {
