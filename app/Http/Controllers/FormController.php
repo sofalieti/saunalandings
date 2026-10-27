@@ -12,8 +12,24 @@ use App\Brand;
 class FormController extends Controller {
 
     public function send_form(Request $request) {
+        try {
+            return $this->sendFormUnchecked($request);
+        } catch (\Throwable $e) {
+            \Log::error('send_form failed: ' . $e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+            return response()->json(['error' => 'Could not send the form. Please try again.']);
+        }
+    }
+
+    private function sendFormUnchecked(Request $request) {
         $data = $request->except(['_token']);
-        $host = strtolower($this->get_host($_SERVER['HTTP_REFERER']));
+        $referer = $request->headers->get('referer');
+        if (!$referer && isset($_SERVER['HTTP_REFERER'])) {
+            $referer = $_SERVER['HTTP_REFERER'];
+        }
+        $host = strtolower($this->get_host($referer ?: ''));
         // SQLite compares domain case-sensitively; stored values are uppercase.
         // Also accept admin aliases (token without TLD), same as Landing middleware.
         $brand = Brand::where('active', 1)->where(function ($query) use ($host) {
@@ -74,14 +90,22 @@ class FormController extends Controller {
                                 $rules["form.{$form_id}.{$field->id}"] = 'image';
                             }
 
-                            if (count($data['form'][$form_id][$field->id]) && is_object($data['form'][$form_id][$field->id])) {
-                                $image_name = time() . '.' . $data['form'][$form_id][$field->id]->getClientOriginalExtension();
+                            // Empty file inputs arrive as null or "". count() on those
+                            // throws on PHP 7.2+ and Laravel turns it into a 500.
+                            $upload = $data['form'][$form_id][$field->id];
+                            if ($upload instanceof \Illuminate\Http\UploadedFile && $upload->isValid()) {
+                                $image_name = time() . '.' . $upload->getClientOriginalExtension();
                                 $single_images[] = [
                                     'name' => $image_name,
-                                    'image' => $data['form'][$form_id][$field->id],
+                                    'image' => $upload,
                                     'src_path' => "/storage/forms/{$form_id}/$image_name"
                                 ];
                                 $value = "/storage/forms/{$form_id}/$image_name";
+                            } else {
+                                $value = '';
+                                if (!$field->required) {
+                                    unset($rules["form.{$form_id}.{$field->id}"]);
+                                }
                             }
                         }
                         $values[$field->id] = [
@@ -115,8 +139,12 @@ class FormController extends Controller {
                 if (!$validator->fails()) {
                     //Загрузка картинок                    
                     $curl_attachments = [];
+                    $formDir = public_path("storage/forms/{$form_id}");
+                    if (count($single_images) && !is_dir($formDir)) {
+                        mkdir($formDir, 0755, true);
+                    }
                     foreach ($single_images as $key => $image) {
-                        $image['image']->move(public_path("storage/forms/{$form_id}"), $image['name']);
+                        $image['image']->move($formDir, $image['name']);
                         if($key < 5){
                             $curl_attachments["attachment_".($key+1)] = curl_file_create(public_path("storage/forms/{$form_id}/{$image['name']}"), mime_content_type(public_path("storage/forms/{$form_id}/{$image['name']}")), $image['name']);
                         }
@@ -143,12 +171,7 @@ class FormController extends Controller {
                         }
                     }
                     
-                    Mail::send('emails.form', [
-                        'msg' => $email_msg
-                    ], function ($m) use($form){
-                        //$m->to("info@{$_SERVER['HTTP_HOST']}")->subject('LandingPages(' . $form->name . ') ' . $_SERVER['HTTP_HOST']);
-                        $m->to("info@infraredsaunaparts.com")->subject('LandingPages(' . $form->name . ') ' . $_SERVER['HTTP_HOST']);
-                    });
+                    $this->sendFormMail($email_msg, 'LandingPages(' . $form->name . ') ' . $_SERVER['HTTP_HOST']);
 
                     if (count($zoho_fields) >= 3) {
                         /*$request_url = 'https://support.infraredsaunaparts.com/support/WebToCase';
@@ -190,10 +213,10 @@ class FormController extends Controller {
                             "zf_redirect_url" => "",
                             "zc_gad" => "",
                             "SingleLine1" => 'LandingPages(' . $form->name . ') ' . $_SERVER['HTTP_HOST'],//"Contact us for a price",
-                            "Name_First" => $zoho_fields['name'],
-                            "Email" => $zoho_fields['email'],
-                            "SingleLine8" => $zoho_fields['phone'],
-                            "MultiLine" => $zoho_fields['description'],
+                            "Name_First" => isset($zoho_fields['name']) ? $zoho_fields['name'] : '',
+                            "Email" => isset($zoho_fields['email']) ? $zoho_fields['email'] : '',
+                            "SingleLine8" => isset($zoho_fields['phone']) ? $zoho_fields['phone'] : '',
+                            "MultiLine" => isset($zoho_fields['description']) ? $zoho_fields['description'] : '',
                             'SingleLine14' => 'Infrared Sauna Parts'
                         ];
                         
@@ -205,17 +228,10 @@ class FormController extends Controller {
                             }
                         }
                         
-                        $ch = curl_init();
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-                        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-                        curl_setopt($ch, CURLOPT_POST, TRUE);
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, $zoho_data);
-                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
-                        curl_setopt($ch, CURLOPT_URL, "https://forms.zohopublic.com/zohopeople267/form/InfraredSaunaPartsForm/formperma/vXecmwVeDKV9IWNPI9ZORxSzoGRe4TWgIujPS9rF42g/htmlRecords/submit");
-                        curl_setopt($ch, CURLOPT_HEADER, false); 
-                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                        $zoho_response = curl_exec($ch); 
-                        curl_close($ch);
+                        $this->postMultipart(
+                            "https://forms.zohopublic.com/zohopeople267/form/InfraredSaunaPartsForm/formperma/vXecmwVeDKV9IWNPI9ZORxSzoGRe4TWgIujPS9rF42g/htmlRecords/submit",
+                            $zoho_data
+                        );
                     }
                 } else {
                     $response['errors'] = [];
@@ -272,36 +288,25 @@ class FormController extends Controller {
                 Address: {$request->address}
             ";
             
-            Mail::send('emails.form', [
-                'msg' => $msg
-            ], function ($m){
-                $m->to("info@infraredsaunaparts.com")->subject('Haloone Order ' . $_SERVER['HTTP_HOST']);
-            });
-                
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-            curl_setopt($ch, CURLOPT_POST, TRUE);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, [
-                "zf_referrer_name" => "",
-                "zf_redirect_url" => "",
-                "zc_gad" => "",
-                "SingleLine" => $request->first_name,
-                "SingleLine1" => $request->last_name,
-                "SingleLine2" => $request->email,
-                "SingleLine3" => $request->phone,
-                "SingleLine4" => $request->country,
-                "SingleLine5" => $request->state,
-                "SingleLine6" => $request->city,
-                "SingleLine7" => $request->zip,
-                "SingleLine8" => $request->address,
-            ]);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json', 'Content-Type:multipart/form-data'));
-            curl_setopt($ch, CURLOPT_URL, "https://forms.zohopublic.com/zohopeople267/form/InfraredsaunapartsHaloOne/formperma/D1mC-AKUzriIdVBU9rTj8G7O6qWwvHYcooIq3tKOEjw/htmlRecords/submit");
-            curl_setopt($ch, CURLOPT_HEADER, false); 
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            $zoho_response = curl_exec($ch); 
-            curl_close($ch);
+            $this->sendFormMail($msg, 'Haloone Order ' . $_SERVER['HTTP_HOST']);
+
+            $this->postMultipart(
+                "https://forms.zohopublic.com/zohopeople267/form/InfraredsaunapartsHaloOne/formperma/D1mC-AKUzriIdVBU9rTj8G7O6qWwvHYcooIq3tKOEjw/htmlRecords/submit",
+                [
+                    "zf_referrer_name" => "",
+                    "zf_redirect_url" => "",
+                    "zc_gad" => "",
+                    "SingleLine" => $request->first_name,
+                    "SingleLine1" => $request->last_name,
+                    "SingleLine2" => $request->email,
+                    "SingleLine3" => $request->phone,
+                    "SingleLine4" => $request->country,
+                    "SingleLine5" => $request->state,
+                    "SingleLine6" => $request->city,
+                    "SingleLine7" => $request->zip,
+                    "SingleLine8" => $request->address,
+                ]
+            );
             
             $response['msg'] = '<i class="fas fa-spinner fa-spin"></i> Thank you for being our valued customer. We hope our product will meet your expectations. Let us know if you have any questions.';
         }else{
@@ -319,21 +324,45 @@ class FormController extends Controller {
     }
 
     private function recaptcha_check($captcha) {
+        if (!$captcha) {
+            return false;
+        }
         $privatekey = "6LcgS1gUAAAAAB7o3BROVaLfH9iqjgUXJQQb5ivY";
-        $response = $this->file_get_contents_curl("https://www.google.com/recaptcha/api/siteverify?secret=" . $privatekey . "&response=" . $captcha . "&remoteip=" . $_SERVER['REMOTE_ADDR']);
+        $remote = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+        $response = $this->file_get_contents_curl("https://www.google.com/recaptcha/api/siteverify?secret=" . $privatekey . "&response=" . $captcha . "&remoteip=" . $remote);
         $responseKeys = json_decode($response, true);
-        return json_encode($responseKeys['success']) === 'true';
+        return is_array($responseKeys) && !empty($responseKeys['success']);
     }
 
     private function get_host($url) {
-        $parseUrl = parse_url(trim($url));
-        return trim($parseUrl['host'] ? $parseUrl['host'] : array_shift(explode('/', $parseUrl['path'], 2)));
+        $parseUrl = parse_url(trim((string) $url));
+        if (!is_array($parseUrl)) {
+            return '';
+        }
+        if (!empty($parseUrl['host'])) {
+            return trim($parseUrl['host']);
+        }
+        $path = isset($parseUrl['path']) ? $parseUrl['path'] : '';
+        $parts = explode('/', $path, 2);
+        return trim($parts[0]);
     }
 
     private function check_black_list($form) {
+        if (!is_array($form)) {
+            return false;
+        }
         $black_list = array('freetexthost.com', 'canadian-pharmacyn', 'cialis', 'porn');
         foreach ($form as $fields) {
+            if (!is_array($fields)) {
+                continue;
+            }
             foreach ($fields as $field) {
+                if (is_array($field)) {
+                    $field = join(' ', $field);
+                }
+                if (!is_string($field) || $field === '') {
+                    continue;
+                }
                 foreach ($black_list as $w) {
                     if (preg_match("/$w/iu", $field)) {
                         return false;
@@ -353,6 +382,39 @@ class FormController extends Controller {
         return true;
     }
 
+    private function sendFormMail($html, $subject) {
+        try {
+            $swift = Mail::getSwiftMailer();
+            if ($swift && method_exists($swift->getTransport(), 'setTimeout')) {
+                $swift->getTransport()->setTimeout(5);
+            }
+            Mail::send('emails.form', [
+                'msg' => $html
+            ], function ($m) use ($subject) {
+                $m->to("info@infraredsaunaparts.com")->subject($subject);
+            });
+        } catch (\Exception $e) {
+            \Log::error('Form mail failed: ' . $e->getMessage());
+        }
+    }
+
+    private function postMultipart($url, array $fields) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        return $response;
+    }
+
     private function file_get_contents_curl($url) {
 
         $ch = curl_init();
@@ -362,6 +424,8 @@ class FormController extends Controller {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
 
         $data = curl_exec($ch);
         curl_close($ch);

@@ -19,7 +19,7 @@ $(function() {
     }
 
     $('.custom-form').ajaxForm({
-        timeout: 15000,
+        timeout: 20000,
         beforeSubmit: function(formData, form, options){
             $(form).find('input[type=submit]').attr('disabled', true);
             $(form).find('.error-item').remove();
